@@ -1,0 +1,37 @@
+block B1 {
+   # Block B1 definition
+   bytes 4;
+   register CHIP_ID @'h0000 {
+      # Register CHIP_ID definition
+      field REVISION_ID {
+         # Field REVISION_ID definition
+         bits 8;
+         access ro;
+         reset 'h03;
+      }
+      field CHIP_ID {
+         # Field CHIP_ID definition
+         bits 8;
+         access ro;
+         reset 'h5A;
+      }
+      field PRODUCT_ID {
+         # Field PRODUCT_ID definition
+         bits 10;
+         access ro;
+         reset 'h176;
+      }
+   }
+   memory DMA_RAM (DMA) @'h0800 {
+      # Memory DMA_RAM definition
+      size 1k;
+      bits 32;
+      access rw;
+   }
+}
+
+system slave {
+   # System slave definition
+   bytes 4;
+   block B1;
+}
