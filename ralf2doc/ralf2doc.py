@@ -14,7 +14,7 @@ def func():
 # Field defines an atomic set of consecutive bits.
 # Fields are concatenated into registers.
 class Field:
-    def __init__(self, name, info='', bits=1, access='rw', reset='0', offset='0', path='', level=0):
+    def __init__(self, name, info='', bits=1, access='rw', reset='0', offset=0, path='', level=0):
         self.name = name
         self.info = info
         self.bits = bits
@@ -25,16 +25,16 @@ class Field:
         self.level = level
     def __str__(self):
         s = '''
-{indent}Field: {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bits:   {bits}
-{indent}  Access: {access}
-{indent}  Reset:  {reset}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}Field:    ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bits:   ,{bits}
+{indent}  Access: ,{access}
+{indent}  Reset:  ,{reset}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -62,15 +62,15 @@ class Register:
         self.level = level
     def __str__(self):
         s = '''
-{indent}Register: {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bytes:  {bytes}
-{indent}  LtoR:   {leftright}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}Register: ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bytes:  ,{bytes}
+{indent}  LtoR:   ,{leftright}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -79,8 +79,11 @@ class Register:
             path=self.path,
             level=self.level,
             )
+        os = 0
         for f in self.fields:
             f.level = self.level + 1
+            f.offset = os
+            os += f.bits
             s += str(f)
         return s
 
@@ -96,13 +99,13 @@ class Regfile:
         self.level = level
     def __str__(self):
         s = '''
-{indent}RegFile:  {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}RegFile:  ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -129,16 +132,16 @@ class Memory:
         self.level = level
     def __str__(self):
         s = '''
-{indent}Memory:   {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bits:   {bits}
-{indent}  Size:   {size}
-{indent}  Access: {access}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}Memory:   ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bits:   ,{bits}
+{indent}  Size:   ,{size}
+{indent}  Access: ,{access}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -164,15 +167,15 @@ class Vregister:
         self.level = level
     def __str__(self):
         s = '''
-{indent}V_Reg:    {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bytes:  {bytes}
-{indent}  LtoR:   {leftright}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}V_Reg:    ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bytes:  ,{bytes}
+{indent}  LtoR:   ,{leftright}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -203,15 +206,15 @@ class Block:
         self.level = level
     def __str__(self):
         s = '''
-{indent}Block:    {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bytes:  {bytes}
-{indent}  Endian: {endian}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}Block:    ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bytes:  ,{bytes}
+{indent}  Endian: ,{endian}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -249,15 +252,15 @@ class System:
         self.level = level
     def __str__(self):
         s = '''
-{indent}System:   {name}
-{indent}  Info:   {info}
-{indent}  Offset: {offset}
-{indent}  Bytes:  {bytes}
-{indent}  Endian: {endian}
-{indent}  Path:   {path}
-{indent}  Level:  {level}
+{indent}System:   ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bytes:  ,{bytes}
+{indent}  Endian: ,{endian}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
         '''.format(
-            indent=' '*2*self.level, 
+            indent=' , '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -302,7 +305,7 @@ def main():
                     # bits
                     elif re.search(r"^bits\s+(\d+)\s*;", l):
                         match = re.search(r"^bits\s+(\d+)\s*;", l)
-                        hier[-1].bits = match.group(1)
+                        hier[-1].bits = int(match.group(1))
                     # access
                     elif re.search(r"^access\s+(\w+)\s*;", l):
                         match = re.search(r"^access\s+(\w+)\s*;", l)
@@ -316,12 +319,12 @@ def main():
                         match = re.search(r"^bytes\s+(\d+)\s*;", l)
                         hier[-1].bytes = match.group(1)
                     # endian
-                    elif re.search(r"^endian\s+(\S+)\s*;", l):
-                        match = re.search(r"^endian\s+(\S+)\s*;", l)
+                    elif re.search(r"^endian\s+(\w+)\s*;", l):
+                        match = re.search(r"^endian\s+(\w+)\s*;", l)
                         hier[-1].endian = match.group(1)
                     # size
-                    elif re.search(r"^size\s+(\S+)\s*;", l):
-                        match = re.search(r"^size\s+(\S+)\s*;", l)
+                    elif re.search(r"^size\s+(\w+)\s*;", l):
+                        match = re.search(r"^size\s+(\w+)\s*;", l)
                         hier[-1].size = match.group(1)
                     # leftright
                     elif re.search(r"^left_to_right\s*;", l):
@@ -331,21 +334,21 @@ def main():
                     # field
                     elif re.search(r"^field", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^field\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^field\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^field\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^field\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^field\s+(\S+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^field\s+(\S+)\s+@(\S+)", l)
+                        elif re.search(r"^field\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^field\s+(\w+)\s+@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^field\s+(\S+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^field\s+(\S+)\s+\((.*)\)", l)
+                        elif re.search(r"^field\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^field\s+(\w+)\s+\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^field\s+(\S+)", l): # name
-                            match = re.search(r"^field\s+(\S+)", l)
+                        elif re.search(r"^field\s+(\w+)", l): # name
+                            match = re.search(r"^field\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported field format in line {}: '{}'".format(nu, l))
@@ -368,21 +371,21 @@ def main():
                     # register
                     elif re.search(r"^register", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^register\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^register\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^register\s+(\S+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^register\s+(\S+)\s+@(\S+)", l)
+                        elif re.search(r"^register\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^register\s+(\w+)\s+@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^register\s+(\S+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^register\s+(\S+)\s+\((.*)\)", l)
+                        elif re.search(r"^register\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^register\s+(\w+)\s+\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^register\s+(\S+)", l): # name
-                            match = re.search(r"^register\s+(\S+)", l)
+                        elif re.search(r"^register\s+(\w+)", l): # name
+                            match = re.search(r"^register\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported register format in line {}: '{}'".format(nu, l))
@@ -405,21 +408,21 @@ def main():
                     # memory
                     elif re.search(r"^memory", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^memory\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^memory\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^memory\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^memory\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^memory\s+(\S+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^memory\s+(\S+)\s+@(\S+)", l)
+                        elif re.search(r"^memory\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^memory\s+(\w+)\s+@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^memory\s+(\S+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^memory\s+(\S+)\s+\((.*)\)", l)
+                        elif re.search(r"^memory\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^memory\s+(\w+)\s+\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^memory\s+(\S+)", l): # name
-                            match = re.search(r"^memory\s+(\S+)", l)
+                        elif re.search(r"^memory\s+(\w+)", l): # name
+                            match = re.search(r"^memory\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported memory format in line {}: '{}'".format(nu, l))
@@ -442,21 +445,21 @@ def main():
                     # block
                     elif re.search(r"^block", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^block\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^block\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^block\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^block\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^block\s+(\S+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^block\s+(\S+)\s+@(\S+)", l)
+                        elif re.search(r"^block\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^block\s+(\w+)\s+@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^block\s+(\S+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^block\s+(\S+)\s+\((.*)\)", l)
+                        elif re.search(r"^block\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^block\s+(\w+)\s+\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^block\s+(\S+)", l): # name
-                            match = re.search(r"^block\s+(\S+)", l)
+                        elif re.search(r"^block\s+(\w+)", l): # name
+                            match = re.search(r"^block\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported block format in line {}: '{}'".format(nu, l))
@@ -479,21 +482,21 @@ def main():
                     # system
                     elif re.search(r"^system", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^system\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^system\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^system\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^system\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^system\s+(\S+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^system\s+(\S+)\s+@(\S+)", l)
+                        elif re.search(r"^system\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^system\s+(\w+)\s+@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^system\s+(\S+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^system\s+(\S+)\s+\((.*)\)", l)
+                        elif re.search(r"^system\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^system\s+(\w+)\s+\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^system\s+(\S+)", l): # name
-                            match = re.search(r"^system\s+(\S+)", l)
+                        elif re.search(r"^system\s+(\w+)", l): # name
+                            match = re.search(r"^system\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported system format in line {}: '{}'".format(nu, l))
