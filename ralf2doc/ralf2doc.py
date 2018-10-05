@@ -80,6 +80,7 @@ class Register:
             level=self.level,
             )
         for f in self.fields:
+            f.level = self.level + 1
             s += str(f)
         return s
 
@@ -109,6 +110,7 @@ class Regfile:
             level=self.level,
             )
         for r in self.registers:
+            r.level = self.level + 1
             s += str(r)
         return s
 
@@ -130,6 +132,9 @@ class Memory:
 {indent}Memory:   {name}
 {indent}  Info:   {info}
 {indent}  Offset: {offset}
+{indent}  Bits:   {bits}
+{indent}  Size:   {size}
+{indent}  Access: {access}
 {indent}  Path:   {path}
 {indent}  Level:  {level}
         '''.format(
@@ -137,6 +142,9 @@ class Memory:
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
+            bits=self.bits, 
+            size=self.size, 
+            access=self.access, 
             path=self.path,
             level=self.level,
             )
@@ -174,6 +182,7 @@ class Vregister:
             level=self.level,
             )
         for f in self.fields:
+            f.level = self.level + 1
             s += str(f)
         return s
 
@@ -212,12 +221,16 @@ class Block:
             level=self.level,
             )
         for r in self.registers:
+            r.level = self.level + 1
             s += str(r)
         for v in self.vregisters:
+            v.level = self.level + 1
             s += str(v)
         for f in self.regfiles:
+            f.level = self.level + 1
             s += str(f)
         for m in self.memories:
+            m.level = self.level + 1
             s += str(m)
         return s
 
@@ -254,8 +267,10 @@ class System:
             level=self.level,
             )
         for b in self.blocks:
+            b.level = self.level + 1
             s += str(b)
         for s in self.systems:
+            s.level = self.level + 1
             s += str(s)
         return s
 
@@ -281,40 +296,40 @@ def main():
                         if item.name == target:
                             print(item)
                     # info
-                    if re.search(r"^#\s*(.*)", l):
+                    elif re.search(r"^#\s*(.*)", l):
                         match = re.search(r"^#\s*(.*)", l)
                         hier[-1].info += match.group(1)
                     # bits
-                    if re.search(r"^bits\s+(\d+)\s*;", l):
+                    elif re.search(r"^bits\s+(\d+)\s*;", l):
                         match = re.search(r"^bits\s+(\d+)\s*;", l)
                         hier[-1].bits = match.group(1)
                     # access
-                    if re.search(r"^access\s+(\w+)\s*;", l):
+                    elif re.search(r"^access\s+(\w+)\s*;", l):
                         match = re.search(r"^access\s+(\w+)\s*;", l)
                         hier[-1].access = match.group(1)
                     # reset
-                    if re.search(r"^reset\s+(\S+)\s*;", l):
+                    elif re.search(r"^reset\s+(\S+)\s*;", l):
                         match = re.search(r"^reset\s+(\S+)\s*;", l)
                         hier[-1].reset = match.group(1)
                     # bytes
-                    if re.search(r"^bytes\s+(\d+)\s*;", l):
+                    elif re.search(r"^bytes\s+(\d+)\s*;", l):
                         match = re.search(r"^bytes\s+(\d+)\s*;", l)
                         hier[-1].bytes = match.group(1)
                     # endian
-                    if re.search(r"^endian\s+(\S+)\s*;", l):
+                    elif re.search(r"^endian\s+(\S+)\s*;", l):
                         match = re.search(r"^endian\s+(\S+)\s*;", l)
                         hier[-1].endian = match.group(1)
                     # size
-                    if re.search(r"^size\s+(\S+)\s*;", l):
+                    elif re.search(r"^size\s+(\S+)\s*;", l):
                         match = re.search(r"^size\s+(\S+)\s*;", l)
                         hier[-1].size = match.group(1)
                     # leftright
-                    if re.search(r"^left_to_right\s*;", l):
+                    elif re.search(r"^left_to_right\s*;", l):
                         match = re.search(r"^left_to_right\s*;", l)
                         hier[-1].leftright = True
 
                     # field
-                    if re.search(r"^field", l):
+                    elif re.search(r"^field", l):
                         name, path, offset = '', '', '0'
                         if re.search(r"^field\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
                             match = re.search(r"^field\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
@@ -340,13 +355,18 @@ def main():
                         if not level: # top level
                             defs.append(field)
                         else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Field" in str(type(d)):
+                                    field = d
+                                    field.level, field.offset, field.path = level, offset, path
                             hier[-1].fields.append(field)
 
                         if re.search(r"{\s*$", l): # new description
                             hier.append(field)
-
+                            
                     # register
-                    if re.search(r"^register", l):
+                    elif re.search(r"^register", l):
                         name, path, offset = '', '', '0'
                         if re.search(r"^register\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
                             match = re.search(r"^register\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
@@ -372,13 +392,18 @@ def main():
                         if not level: # top level
                             defs.append(register)
                         else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Register" in str(type(d)):
+                                    register = d
+                                    register.level, register.offset, register.path = level, offset, path
                             hier[-1].registers.append(register)
 
                         if re.search(r"{\s*$", l): # new description
                             hier.append(register) 
 
                     # memory
-                    if re.search(r"^memory", l):
+                    elif re.search(r"^memory", l):
                         name, path, offset = '', '', '0'
                         if re.search(r"^memory\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
                             match = re.search(r"^memory\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
@@ -404,13 +429,18 @@ def main():
                         if not level: # top level
                             defs.append(memory)
                         else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Memory" in str(type(d)):
+                                    memory = d
+                                    memory.level, memory.offset, memory.path = level, offset, path
                             hier[-1].memories.append(memory)
 
                         if re.search(r"{\s*$", l): # new description
                             hier.append(memory) 
 
                     # block
-                    if re.search(r"^block", l):
+                    elif re.search(r"^block", l):
                         name, path, offset = '', '', '0'
                         if re.search(r"^block\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
                             match = re.search(r"^block\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
@@ -436,13 +466,18 @@ def main():
                         if not level: # top level
                             defs.append(block)
                         else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Block" in str(type(d)):
+                                    block = d
+                                    block.level, block.offset, block.path = level, offset, path
                             hier[-1].blocks.append(block)
 
                         if re.search(r"{\s*$", l): # new description
                             hier.append(block) 
 
                     # system
-                    if re.search(r"^system", l):
+                    elif re.search(r"^system", l):
                         name, path, offset = '', '', '0'
                         if re.search(r"^system\s+(\S+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
                             match = re.search(r"^system\s+(\S+)\s+\((.*)\)\s+@(\S+)", l)
@@ -468,6 +503,11 @@ def main():
                         if not level: # top level
                             defs.append(system)
                         else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "System" in str(type(d)):
+                                    system = d
+                                    system.level, system.offset, system.path = level, offset, path
                             hier[-1].systems.append(system)
 
                         if re.search(r"{\s*$", l): # new description
