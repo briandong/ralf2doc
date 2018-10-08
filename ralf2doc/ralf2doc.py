@@ -25,6 +25,28 @@ class Field:
         self.level = level
     def __str__(self):
         s = '''
+{indent}Field:    {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bits:   {bits}
+{indent}  Access: {access}
+{indent}  Reset:  {reset}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bits=self.bits, 
+            access=self.access, 
+            reset=self.reset, 
+            path=self.path,
+            level=self.level,
+            )
+        return s
+    def csv(self):
+        s = '''
 {indent}Field:    ,{name}
 {indent}  Info:   ,{info}
 {indent}  Offset: ,{offset}
@@ -62,6 +84,32 @@ class Register:
         self.level = level
     def __str__(self):
         s = '''
+{indent}Register: {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bytes:  {bytes}
+{indent}  LtoR:   {leftright}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bytes=self.bytes, 
+            leftright=self.leftright,
+            path=self.path,
+            level=self.level,
+            )
+        os = 0
+        for f in self.fields:
+            f.level = self.level + 1
+            f.offset = os
+            os += f.bits
+            s += str(f)
+        return s
+    def csv(self):
+        s = '''
 {indent}Register: ,{name}
 {indent}  Info:   ,{info}
 {indent}  Offset: ,{offset}
@@ -80,11 +128,28 @@ class Register:
             level=self.level,
             )
         os = 0
+        f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level = ['Field:'], \
+            ['Info:'], ['Offset:'], ['Bits:'], ['Access:'], ['Reset:'], ['Path:'], ['Level:']
+        f_list = [f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level]
         for f in self.fields:
             f.level = self.level + 1
             f.offset = os
             os += f.bits
-            s += str(f)
+            #s += f.csv()
+            f_name.insert(1, f.name)
+            f_info.insert(1, f.info)
+            f_offset.insert(1, str(f.offset))
+            f_bits.insert(1, str(f.bits))
+            f_access.insert(1, f.access)
+            f_reset.insert(1, f.reset)
+            f_path.insert(1, f.path)
+            f_level.insert(1, str(f.level))
+
+        for l in f_list:
+            s += ' , '*(self.level+1)
+            s += (' , ').join(l)
+            s += '\n'
+
         return s
 
 # Register files defines a collection of consecutive registers.
@@ -98,6 +163,25 @@ class Regfile:
         self.registers = registers
         self.level = level
     def __str__(self):
+        s = '''
+{indent}RegFile:  {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            path=self.path,
+            level=self.level,
+            )
+        for r in self.registers:
+            r.level = self.level + 1
+            s += str(r)
+        return s
+    def csv(self):
         s = '''
 {indent}RegFile:  ,{name}
 {indent}  Info:   ,{info}
@@ -114,7 +198,7 @@ class Regfile:
             )
         for r in self.registers:
             r.level = self.level + 1
-            s += str(r)
+            s += r.csv()
         return s
 
 # Memory defines a region of consecutive addressable locations.
@@ -131,6 +215,28 @@ class Memory:
         self.path = path
         self.level = level
     def __str__(self):
+        s = '''
+{indent}Memory:   {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bits:   {bits}
+{indent}  Size:   {size}
+{indent}  Access: {access}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bits=self.bits, 
+            size=self.size, 
+            access=self.access, 
+            path=self.path,
+            level=self.level,
+            )
+        return s
+    def csv(self):
         s = '''
 {indent}Memory:   ,{name}
 {indent}  Info:   ,{info}
@@ -167,6 +273,32 @@ class Vregister:
         self.level = level
     def __str__(self):
         s = '''
+{indent}V_Reg:    {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bytes:  {bytes}
+{indent}  LtoR:   {leftright}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bytes=self.bytes, 
+            leftright=self.leftright,
+            path=self.path,
+            level=self.level,
+            )
+        os = 0
+        for f in self.fields:
+            f.level = self.level + 1
+            f.offset = os
+            os += f.bits
+            s += str(f)
+        return s
+    def csv(self):
+        s = '''
 {indent}V_Reg:    ,{name}
 {indent}  Info:   ,{info}
 {indent}  Offset: ,{offset}
@@ -184,9 +316,29 @@ class Vregister:
             path=self.path,
             level=self.level,
             )
+        os = 0
+        f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level = ['Field:'], \
+            ['Info:'], ['Offset:'], ['Bits:'], ['Access:'], ['Reset:'], ['Path:'], ['Level:']
+        f_list = [f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level]
         for f in self.fields:
             f.level = self.level + 1
-            s += str(f)
+            f.offset = os
+            os += f.bits
+            #s += f.csv()
+            f_name.insert(1, f.name)
+            f_info.insert(1, f.info)
+            f_offset.insert(1, str(f.offset))
+            f_bits.insert(1, str(f.bits))
+            f_access.insert(1, f.access)
+            f_reset.insert(1, f.reset)
+            f_path.insert(1, f.path)
+            f_level.insert(1, str(f.level))
+
+        for l in f_list:
+            s += ' , '*(self.level+1)
+            s += (' , ').join(l)
+            s += '\n'
+
         return s
 
 # Block defines a set of registers and memories.
@@ -206,15 +358,15 @@ class Block:
         self.level = level
     def __str__(self):
         s = '''
-{indent}Block:    ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bytes:  ,{bytes}
-{indent}  Endian: ,{endian}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}Block:    {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bytes:  {bytes}
+{indent}  Endian: {endian}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
         '''.format(
-            indent=' , '*self.level, 
+            indent='  '*self.level, 
             name=self.name, 
             info=self.info, 
             offset=self.offset, 
@@ -236,6 +388,38 @@ class Block:
             m.level = self.level + 1
             s += str(m)
         return s
+    def csv(self):
+        s = '''
+{indent}Block:    ,{name}
+{indent}  Info:   ,{info}
+{indent}  Offset: ,{offset}
+{indent}  Bytes:  ,{bytes}
+{indent}  Endian: ,{endian}
+{indent}  Path:   ,{path}
+{indent}  Level:  ,{level}
+        '''.format(
+            indent=' , '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bytes=self.bytes, 
+            endian=self.endian,
+            path=self.path,
+            level=self.level,
+            )
+        for r in self.registers:
+            r.level = self.level + 1
+            s += r.csv()
+        for v in self.vregisters:
+            v.level = self.level + 1
+            s += v.csv()
+        for f in self.regfiles:
+            f.level = self.level + 1
+            s += f.csv()
+        for m in self.memories:
+            m.level = self.level + 1
+            s += m.csv()
+        return s
 
 # System defines a design composed of blocks or subsystems.
 class System:
@@ -251,6 +435,32 @@ class System:
         self.systems = systems
         self.level = level
     def __str__(self):
+        s = '''
+{indent}System:   {name}
+{indent}  Info:   {info}
+{indent}  Offset: {offset}
+{indent}  Bytes:  {bytes}
+{indent}  Endian: {endian}
+{indent}  Path:   {path}
+{indent}  Level:  {level}
+        '''.format(
+            indent='  '*self.level, 
+            name=self.name, 
+            info=self.info, 
+            offset=self.offset, 
+            bytes=self.bytes, 
+            endian=self.endian,
+            path=self.path,
+            level=self.level,
+            )
+        for b in self.blocks:
+            b.level = self.level + 1
+            s += str(b)
+        for s in self.systems:
+            s.level = self.level + 1
+            s += str(s)
+        return s
+    def csv(self):
         s = '''
 {indent}System:   ,{name}
 {indent}  Info:   ,{info}
@@ -271,18 +481,21 @@ class System:
             )
         for b in self.blocks:
             b.level = self.level + 1
-            s += str(b)
+            s += b.csv()
         for s in self.systems:
             s.level = self.level + 1
-            s += str(s)
+            s += s.csv()
         return s
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: {} <RALF_FILE> <TARGET>".format(os.path.basename(__file__)))
+    if len(sys.argv) != 3 and len(sys.argv) != 4:
+        print("Usage: {} RALF_FILE TARGET <CSV_FILE>".format(os.path.basename(__file__)))
     else:
         ralf = sys.argv[1]
         target = sys.argv[2]
+        csv = None
+        if len(sys.argv) == 4:
+            csv = sys.argv[3]
 
         if not os.path.isfile(ralf):
             print("{} is not a valid file".format(ralf))
@@ -298,6 +511,10 @@ def main():
                         item = hier.pop(-1)
                         if item.name == target:
                             print(item)
+                        # generate csv file
+                        if csv:
+                            with open(csv, 'w') as c:
+                                c.write(item.csv())
                     # info
                     elif re.search(r"^#\s*(.*)", l):
                         match = re.search(r"^#\s*(.*)", l)
