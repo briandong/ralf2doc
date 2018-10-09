@@ -7,7 +7,6 @@ __author__ = "Bo DONG"
 
 import sys, os
 import re
-import ralf_class
 
 # Field defines an atomic set of consecutive bits.
 # Fields are concatenated into registers.

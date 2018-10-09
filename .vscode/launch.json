@@ -10,9 +10,9 @@
             "request": "launch",
             "program": "${file}",
             "args": [
-                "docs/simple.ralf",
-                "slave",
-                "docs/simple.csv",
+                "docs/medium.ralf",
+                "dut_regmodel",
+                "docs/medium.csv",
             ],
             "console": "integratedTerminal"
         },

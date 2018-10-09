@@ -149,6 +149,80 @@ def main():
                         if re.search(r"{\s*$", l): # new description
                             hier.append(register) 
 
+                    # regfile
+                    elif re.search(r"^regfile", l):
+                        name, path, offset = '', '', '0'
+                        if re.search(r"^regfile\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^regfile\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                            name = match.group(1)
+                            path = match.group(2)
+                            offset = match.group(3)
+                        elif re.search(r"^regfile\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^regfile\s+(\w+)\s+@(\S+)", l)
+                            name = match.group(1)
+                            offset = match.group(2)
+                        elif re.search(r"^regfile\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^regfile\s+(\w+)\s+\((.*)\)", l)
+                            name = match.group(1)
+                            offset = match.group(2)
+                        elif re.search(r"^regfile\s+(\w+)", l): # name
+                            match = re.search(r"^regfile\s+(\w+)", l)
+                            name = match.group(1)
+                        else:
+                            print("Error - unsupported regfile format in line {}: '{}'".format(nu, l))
+
+                        regfile = Regfile(level=level, name=name, offset=offset, path=path)
+
+                        if not level: # top level
+                            defs.append(regfile)
+                        else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Regfile" in str(type(d)):
+                                    regfile = d
+                                    regfile.level, regfile.offset, regfile.path = level, offset, path
+                            hier[-1].regfiles.append(regfile)
+
+                        if re.search(r"{\s*$", l): # new description
+                            hier.append(regfile) 
+
+                    # virtual register
+                    elif re.search(r"^virtual register", l):
+                        name, path, offset = '', '', '0'
+                        if re.search(r"^virtual register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
+                            match = re.search(r"^virtual register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                            name = match.group(1)
+                            path = match.group(2)
+                            offset = match.group(3)
+                        elif re.search(r"^virtual register\s+(\w+)\s+@(\S+)", l): # name/offset
+                            match = re.search(r"^virtual register\s+(\w+)\s+@(\S+)", l)
+                            name = match.group(1)
+                            offset = match.group(2)
+                        elif re.search(r"^virtual register\s+(\w+)\s+\((.*)\)", l): # name/path
+                            match = re.search(r"^virtual register\s+(\w+)\s+\((.*)\)", l)
+                            name = match.group(1)
+                            offset = match.group(2)
+                        elif re.search(r"^virtual register\s+(\w+)", l): # name
+                            match = re.search(r"^virtual register\s+(\w+)", l)
+                            name = match.group(1)
+                        else:
+                            print("Error - unsupported virtual register format in line {}: '{}'".format(nu, l))
+
+                        vregister = Vregister(level=level, name=name, offset=offset, path=path)
+
+                        if not level: # top level
+                            defs.append(vregister)
+                        else: # sub level
+                            # find from define list
+                            for d in defs:
+                                if d.name == name and "Vregister" in str(type(d)):
+                                    vregister = d
+                                    vregister.level, vregister.offset, vregister.path = level, offset, path
+                            hier[-1].vregisters.append(vregister)
+
+                        if re.search(r"{\s*$", l): # new description
+                            hier.append(vregister) 
+
                     # memory
                     elif re.search(r"^memory", l):
                         name, path, offset = '', '', '0'
