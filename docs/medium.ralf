@@ -1,0 +1,73 @@
+register HOST_ID {
+	field REV_ID {
+		bits   8;
+		access ro;
+		reset  'h03;
+	}
+	field CHIP_ID {
+		bits   8;
+		access ro;
+		reset  'h5A;
+	}
+}
+
+register LOCK {
+	field LOCK {
+		bits   16;
+		access w1c;
+		reset  'hffff;
+	}
+}
+
+register R_ARRAY {
+	field H_REG {
+		bits   16;
+		access rw;
+		reset  'h0000;
+	}
+}
+
+regfile REG_FILE {
+	register XXX(xxx) @'h0 {
+		field XXX {
+			bits   16;
+			access rw;
+			reset  'h0000;
+		}
+	}
+	register YYY(yyy) @'h1 {
+		field YYY {
+			bits   16;
+			access rw;
+			reset  'hF000;
+		}
+	}
+}
+
+memory RAM {
+	size   4k;
+	bits   16;
+	access rw;
+}
+
+block host_regmodel {
+	bytes 2;
+	register HOST_ID (chip_id) @'h0000;
+	register LOCK (lock) @'h0100;
+	register R_ARRAY (host_reg[%d]) @'h1000;
+	regfile  REG_FILE @'h3000;
+	memory   RAM(ram) @'h4000;
+	virtual register VREG RAM @'h0FF0 {
+		field VREG {
+			bits   16;
+			access rw;
+		}
+	}
+}
+
+system dut_regmodel {
+# system is used in soc, not ip
+	bytes 2;
+	block host_regmodel(host) @'h0000;
+    #block other_regmodel(0host) @'h8000;
+}

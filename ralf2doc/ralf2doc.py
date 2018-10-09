@@ -36,12 +36,16 @@ def main():
                     # end of definition
                     if re.search(r"^}", l):
                         item = hier.pop(-1)
+                        # add to defs if top level
+                        if level == 1:
+                            defs.append(item)
+                        # print 
                         if item.name == target:
                             print(item)
-                        # generate csv file
-                        if csv:
-                            with open(csv, 'w') as c:
-                                c.write(item.csv())
+                            # generate csv file
+                            if csv:
+                                with open(csv, 'w') as c:
+                                    c.write(item.csv())
                     # info
                     elif re.search(r"^#\s*(.*)", l):
                         match = re.search(r"^#\s*(.*)", l)
@@ -78,17 +82,17 @@ def main():
                     # field
                     elif re.search(r"^field", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^field\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^field\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^field\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^field\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^field\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^field\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^field\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^field\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^field\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^field\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^field\s+(\w+)", l): # name
@@ -99,9 +103,7 @@ def main():
 
                         field = Field(level=level, name=name, offset=offset, path=path)
 
-                        if not level: # top level
-                            defs.append(field)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Field" in str(type(d)):
@@ -115,17 +117,17 @@ def main():
                     # register
                     elif re.search(r"^register", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^register\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^register\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^register\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^register\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^register\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^register\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^register\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^register\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^register\s+(\w+)", l): # name
@@ -134,11 +136,9 @@ def main():
                         else:
                             print("Error - unsupported register format in line {}: '{}'".format(nu, l))
 
-                        register = Register(level=level, name=name, offset=offset, path=path)
+                        register = Register(level=level, name=name, offset=offset, path=path, fields=[])
 
-                        if not level: # top level
-                            defs.append(register)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Register" in str(type(d)):
@@ -152,17 +152,17 @@ def main():
                     # regfile
                     elif re.search(r"^regfile", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^regfile\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^regfile\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^regfile\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^regfile\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^regfile\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^regfile\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^regfile\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^regfile\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^regfile\s+(\w+)", l): # name
@@ -171,11 +171,9 @@ def main():
                         else:
                             print("Error - unsupported regfile format in line {}: '{}'".format(nu, l))
 
-                        regfile = Regfile(level=level, name=name, offset=offset, path=path)
+                        regfile = Regfile(level=level, name=name, offset=offset, path=path, registers=[])
 
-                        if not level: # top level
-                            defs.append(regfile)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Regfile" in str(type(d)):
@@ -189,30 +187,20 @@ def main():
                     # virtual register
                     elif re.search(r"^virtual register", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^virtual register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^virtual register\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^virtual register\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^virtual register\s+(\w+)\s+@(\S+)", l)
-                            name = match.group(1)
-                            offset = match.group(2)
-                        elif re.search(r"^virtual register\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^virtual register\s+(\w+)\s+\((.*)\)", l)
-                            name = match.group(1)
-                            offset = match.group(2)
                         elif re.search(r"^virtual register\s+(\w+)", l): # name
                             match = re.search(r"^virtual register\s+(\w+)", l)
                             name = match.group(1)
                         else:
                             print("Error - unsupported virtual register format in line {}: '{}'".format(nu, l))
 
-                        vregister = Vregister(level=level, name=name, offset=offset, path=path)
+                        vregister = Vregister(level=level, name=name, offset=offset, path=path, fields=[])
 
-                        if not level: # top level
-                            defs.append(vregister)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Vregister" in str(type(d)):
@@ -226,17 +214,17 @@ def main():
                     # memory
                     elif re.search(r"^memory", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^memory\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^memory\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^memory\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^memory\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^memory\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^memory\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^memory\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^memory\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^memory\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^memory\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^memory\s+(\w+)", l): # name
@@ -247,9 +235,7 @@ def main():
 
                         memory = Memory(level=level, name=name, offset=offset, path=path)
 
-                        if not level: # top level
-                            defs.append(memory)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Memory" in str(type(d)):
@@ -263,17 +249,17 @@ def main():
                     # block
                     elif re.search(r"^block", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^block\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^block\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^block\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^block\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^block\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^block\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^block\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^block\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^block\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^block\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^block\s+(\w+)", l): # name
@@ -282,11 +268,10 @@ def main():
                         else:
                             print("Error - unsupported block format in line {}: '{}'".format(nu, l))
 
-                        block = Block(level=level, name=name, offset=offset, path=path)
+                        block = Block(level=level, name=name, offset=offset, path=path, 
+                            registers=[], vregisters=[], regfiles=[], memories=[])
 
-                        if not level: # top level
-                            defs.append(block)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "Block" in str(type(d)):
@@ -300,17 +285,17 @@ def main():
                     # system
                     elif re.search(r"^system", l):
                         name, path, offset = '', '', '0'
-                        if re.search(r"^system\s+(\w+)\s+\((.*)\)\s+@(\S+)", l): # name/path/offset
-                            match = re.search(r"^system\s+(\w+)\s+\((.*)\)\s+@(\S+)", l)
+                        if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
+                            match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
                             name = match.group(1)
                             path = match.group(2)
                             offset = match.group(3)
-                        elif re.search(r"^system\s+(\w+)\s+@(\S+)", l): # name/offset
-                            match = re.search(r"^system\s+(\w+)\s+@(\S+)", l)
+                        elif re.search(r"^system\s+(\w+)\s*@(\S+)", l): # name/offset
+                            match = re.search(r"^system\s+(\w+)\s*@(\S+)", l)
                             name = match.group(1)
                             offset = match.group(2)
-                        elif re.search(r"^system\s+(\w+)\s+\((.*)\)", l): # name/path
-                            match = re.search(r"^system\s+(\w+)\s+\((.*)\)", l)
+                        elif re.search(r"^system\s+(\w+)\s*\((.*)\)", l): # name/path
+                            match = re.search(r"^system\s+(\w+)\s*\((.*)\)", l)
                             name = match.group(1)
                             offset = match.group(2)
                         elif re.search(r"^system\s+(\w+)", l): # name
@@ -319,11 +304,10 @@ def main():
                         else:
                             print("Error - unsupported system format in line {}: '{}'".format(nu, l))
 
-                        system = System(level=level, name=name, offset=offset, path=path)
+                        system = System(level=level, name=name, offset=offset, path=path, 
+                            blocks=[], systems=[])
 
-                        if not level: # top level
-                            defs.append(system)
-                        else: # sub level
+                        if level: # sub level
                             # find from define list
                             for d in defs:
                                 if d.name == name and "System" in str(type(d)):
