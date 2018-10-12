@@ -44,14 +44,8 @@ class Field:
         return s
     def csv(self):
         s = '''
-{indent}Field:    ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bits:   ,{bits}
-{indent}  Access: ,{access}
-{indent}  Reset:  ,{reset}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}Field, Info, Offset,  Bits, Access, Reset, Path, Level
+{indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -107,13 +101,8 @@ class Register:
         return s
     def csv(self):
         s = '''
-{indent}Register: ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bytes:  ,{bytes}
-{indent}  LtoR:   ,{leftright}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}Register, Info, Offset,  Bytes, LtoR, Path, Level
+{indent}  {name}, {info}, {offset}, {bytes}, {leftright}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -124,28 +113,33 @@ class Register:
             path=self.path,
             level=self.level,
             )
+
+        s += '''
+{indent}Field, Info, Offset, Bits, Access, Reset, Path, Level '''.format(
+            indent=' , '*(self.level+1), 
+            )
+
         os = 0
-        f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level = ['Field:'], \
-            ['Info:'], ['Offset:'], ['Bits:'], ['Access:'], ['Reset:'], ['Path:'], ['Level:']
-        f_list = [f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level]
         for f in self.fields:
             f.level = self.level + 1
             f.offset = os
             os += f.bits
-            #s += f.csv()
-            f_name.insert(1, f.name)
-            f_info.insert(1, f.info)
-            f_offset.insert(1, str(f.offset))
-            f_bits.insert(1, str(f.bits))
-            f_access.insert(1, f.access)
-            f_reset.insert(1, f.reset)
-            f_path.insert(1, f.path)
-            f_level.insert(1, str(f.level))
+        
+        for f in reversed(self.fields):
+            s += '''
+{indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level} '''.format(
+                indent=' , '*f.level, 
+                name=f.name,
+                info=f.info,
+                offset=str(f.offset),
+                bits=str(f.bits),
+                access=f.access,
+                reset=f.reset,
+                path=f.path,
+                level=str(f.level),
+                )
 
-        for l in f_list:
-            s += ' , '*(self.level+1)
-            s += (' , ').join(l)
-            s += '\n'
+        s += '\n'
 
         return s
 
@@ -180,11 +174,8 @@ class Regfile:
         return s
     def csv(self):
         s = '''
-{indent}RegFile:  ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}RegFile, Info, Offset, Path, Level
+{indent}  {name}, {info}, {offset}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -235,14 +226,8 @@ class Memory:
         return s
     def csv(self):
         s = '''
-{indent}Memory:   ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bits:   ,{bits}
-{indent}  Size:   ,{size}
-{indent}  Access: ,{access}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}Memory, Info, Offset,  Bits, Size, Access, Path, Level
+{indent}  {name}, {info}, {offset}, {bits}, {size}, {access}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -296,13 +281,8 @@ class Vregister:
         return s
     def csv(self):
         s = '''
-{indent}V_Reg:    ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bytes:  ,{bytes}
-{indent}  LtoR:   ,{leftright}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}V_Reg, Info, Offset,  Bytes, LtoR, Path, Level
+{indent}  {name}, {info}, {offset}, {bytes}, {leftright}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -313,28 +293,33 @@ class Vregister:
             path=self.path,
             level=self.level,
             )
+
+        s += '''
+{indent}Field, Info, Offset, Bits, Access, Reset, Path, Level '''.format(
+            indent=' , '*(self.level+1), 
+            )
+
         os = 0
-        f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level = ['Field:'], \
-            ['Info:'], ['Offset:'], ['Bits:'], ['Access:'], ['Reset:'], ['Path:'], ['Level:']
-        f_list = [f_name, f_info, f_offset, f_bits, f_access, f_reset, f_path, f_level]
         for f in self.fields:
             f.level = self.level + 1
             f.offset = os
             os += f.bits
-            #s += f.csv()
-            f_name.insert(1, f.name)
-            f_info.insert(1, f.info)
-            f_offset.insert(1, str(f.offset))
-            f_bits.insert(1, str(f.bits))
-            f_access.insert(1, f.access)
-            f_reset.insert(1, f.reset)
-            f_path.insert(1, f.path)
-            f_level.insert(1, str(f.level))
 
-        for l in f_list:
-            s += ' , '*(self.level+1)
-            s += (' , ').join(l)
-            s += '\n'
+        for f in reversed(self.fields):
+            s += '''
+{indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level} '''.format(
+                indent=' , '*f.level, 
+                name=f.name,
+                info=f.info,
+                offset=str(f.offset),
+                bits=str(f.bits),
+                access=f.access,
+                reset=f.reset,
+                path=f.path,
+                level=str(f.level),
+                )
+
+        s += '\n'
 
         return s
 
@@ -387,13 +372,8 @@ class Block:
         return s
     def csv(self):
         s = '''
-{indent}Block:    ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bytes:  ,{bytes}
-{indent}  Endian: ,{endian}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}Block, Info, Offset,  Bytes, Endian, Path, Level
+{indent}  {name}, {info}, {offset}, {bytes}, {endian}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
@@ -459,13 +439,8 @@ class System:
         return s
     def csv(self):
         s = '''
-{indent}System:   ,{name}
-{indent}  Info:   ,{info}
-{indent}  Offset: ,{offset}
-{indent}  Bytes:  ,{bytes}
-{indent}  Endian: ,{endian}
-{indent}  Path:   ,{path}
-{indent}  Level:  ,{level}
+{indent}System, Info, Offset,  Bytes, Endian, Path, Level
+{indent}  {name}, {info}, {offset}, {bytes}, {endian}, {path}, {level}
         '''.format(
             indent=' , '*self.level, 
             name=self.name, 
