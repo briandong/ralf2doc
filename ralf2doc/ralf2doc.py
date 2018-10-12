@@ -16,10 +16,10 @@ def func():
 
 def main():
     if len(sys.argv) != 3 and len(sys.argv) != 4:
-        print("Usage: {} RALF_FILE TARGET <CSV_FILE>".format(os.path.basename(__file__)))
+        print("Usage: {} TARGET RALF_FILE <CSV_FILE>".format(os.path.basename(__file__)))
     else:
-        ralf = sys.argv[1]
-        target = sys.argv[2]
+        target = sys.argv[1]
+        ralf = sys.argv[2]
         csv = None
         if len(sys.argv) == 4:
             csv = sys.argv[3]
