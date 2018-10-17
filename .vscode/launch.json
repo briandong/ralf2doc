@@ -5,14 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: simple (integrated)",
+            "name": "Python: real (integrated)",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "args": [
-                "slave",
-                "docs/simple.ralf",
-                "docs/simple.csv",
+                "soc_regmodel",
+                "out",
+                "docs/soc.ralf",
             ],
             "console": "integratedTerminal"
         },

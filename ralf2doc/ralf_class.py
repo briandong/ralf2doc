@@ -433,9 +433,9 @@ class System:
         for b in self.blocks:
             b.level = self.level + 1
             s += str(b)
-        for s in self.systems:
-            s.level = self.level + 1
-            s += str(s)
+        for y in self.systems:
+            y.level = self.level + 1
+            s += str(y)
         return s
     def csv(self):
         s = '''
@@ -454,7 +454,7 @@ class System:
         for b in self.blocks:
             b.level = self.level + 1
             s += b.csv()
-        for s in self.systems:
-            s.level = self.level + 1
-            s += s.csv()
+        for y in self.systems:
+            y.level = self.level + 1
+            s += y.csv()
         return s
