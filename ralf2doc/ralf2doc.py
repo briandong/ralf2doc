@@ -7,12 +7,21 @@ __author__ = "Bo DONG"
 
 import sys, os
 import re
+import copy
 
 from ralf_class import *
 
 def func():
     return "Hello World!"
 
+# hex processing
+# returns a string prefix and an integer value
+def hex_proc(hex_str):
+    hex_str = hex_str.replace('_', '') # remove '_'
+    match = re.search(r"(.*('h|0x|0X))(\w+)", hex_str)
+    prefix = match.group(1)
+    value = int(match.group(3), 16)
+    return (prefix, value)
 
 def main():
     if sys.argv[1] == '-h' or sys.argv[1] == '--help':
@@ -88,145 +97,295 @@ def main():
                         # field
                         elif re.search(r"^field", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^field\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^field\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^field\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^field\s+(\w+)\s*@(\S+)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^field\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^field\s+(\w+)\s*\((.*)\)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^field\s+(\w+)", l): # name
-                                match = re.search(r"^field\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported field format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                incr = 0
+                                if re.search(r"^field\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l): # path/offset
+                                    match = re.search(r"^field\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                    incr = match.group(5)
+                                elif re.search(r"^field\s+(\w+)\s*\[(\d+)\]\s*@(\S+)\s*\+\s*(\S+);", l): # offset
+                                    match = re.search(r"^field\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)", l)
+                                    offset = match.group(3)
+                                    incr = match.group(4)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                _incr_prefix, incr_value = hex_proc(incr)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            field = Field(level=level, name=name, offset=offset, path=path)
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    field = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Field" in str(type(d)):
+                                            field = copy.deepcopy(d)
+                                            break
+                                    if not field:
+                                        print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "Field" in str(type(d)):
-                                        field = d
-                                        field.level, field.offset, field.path = level, offset, path
-                                hier[-1].fields.append(field)
+                                    field.level, field.name, field.offset, field.path = level, name_i, oset, path_i
+                                    hier[-1].fields.append(field)
+                                    oset_value += incr_value
+                                    oset = oset_prefix + str(hex(oset_value))
+                            else: # non array
+                                if re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^field\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                    match = re.search(r"^field\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^field\s+(\w+)\s*\((.*)\)", l): # name/path
+                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^field\s+(\w+)", l): # name
+                                    match = re.search(r"^field\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(field)
+                                field = Field(level=level, name=name, offset=offset, path=path)
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Field" in str(type(d)):
+                                            field = copy.deepcopy(d)
+                                            field.level, field.offset, field.path = level, offset, path
+                                            break
+                                    hier[-1].fields.append(field)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(field)
 
                         # register
                         elif re.search(r"^register", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^register\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^register\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^register\s+(\w+)\s*@(\S+)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^register\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^register\s+(\w+)\s*\((.*)\)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^register\s+(\w+)", l): # name
-                                match = re.search(r"^register\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported register format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                if re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l): # path/offset
+                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                elif re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*@(\S+)[{;]", l): # offset
+                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    offset = match.group(3)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            register = Register(level=level, name=name, offset=offset, path=path, fields=[])
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    register = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Register" in str(type(d)):
+                                            register = copy.deepcopy(d)
+                                            break
+                                    register.level, register.name, register.offset, register.path = level, name_i, oset, path_i
+                                    hier[-1].registers.append(register)
+                                    oset_value += register.bytes
+                                    oset = oset_prefix + str(hex(oset_value))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "Register" in str(type(d)):
-                                        register = d
-                                        register.level, register.offset, register.path = level, offset, path
-                                hier[-1].registers.append(register)
+                            else: # non array
+                                if re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^register\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                    match = re.search(r"^register\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^register\s+(\w+)\s*\((.*)\)", l): # name/path
+                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^register\s+(\w+)", l): # name
+                                    match = re.search(r"^register\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(register) 
+                                register = Register(level=level, name=name, offset=offset, path=path, fields=[])
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Register" in str(type(d)):
+                                            register = copy.deepcopy(d)
+                                            register.level, register.offset, register.path = level, offset, path
+                                            break
+                                    hier[-1].registers.append(register)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(register) 
 
                         # regfile
                         elif re.search(r"^regfile", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^regfile\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^regfile\s+(\w+)\s*@(\S+)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^regfile\s+(\w+)", l): # name
-                                match = re.search(r"^regfile\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported regfile format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                incr = 0
+                                if re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l): # path/offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                    incr = match.group(5)
+                                elif re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]\s*@(\S+)\s*\+\s*(\S+);", l): # offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)", l)
+                                    offset = match.group(3)
+                                    incr = match.group(4)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                _incr_prefix, incr_value = hex_proc(incr)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            regfile = Regfile(level=level, name=name, offset=offset, path=path, registers=[])
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    regfile = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Regfile" in str(type(d)):
+                                            regfile = copy.deepcopy(d)
+                                            break
+                                    if not regfile:
+                                        print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "Regfile" in str(type(d)):
-                                        regfile = d
-                                        regfile.level, regfile.offset, regfile.path = level, offset, path
-                                hier[-1].regfiles.append(regfile)
+                                    regfile.level, regfile.name, regfile.offset, regfile.path = level, name_i, oset, path_i
+                                    hier[-1].regfiles.append(regfile)
+                                    oset_value += incr_value
+                                    oset = oset_prefix + str(hex(oset_value))
+                            else: # non array
+                                if re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^regfile\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l): # name/path
+                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^regfile\s+(\w+)", l): # name
+                                    match = re.search(r"^regfile\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(regfile) 
+                                regfile = Regfile(level=level, name=name, offset=offset, path=path, registers=[])
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Regfile" in str(type(d)):
+                                            regfile = copy.deepcopy(d)
+                                            regfile.level, regfile.offset, regfile.path = level, offset, path
+                                            break
+                                    hier[-1].regfiles.append(regfile)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(regfile) 
 
                         # virtual register
                         elif re.search(r"^virtual register", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)", l)
+                            if re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^virtual register\s+(\w+)", l): # name
-                                match = re.search(r"^virtual register\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported virtual register format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                incr = 0
+                                if re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l): # path/offset
+                                    match = re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                    incr = match.group(5)
+                                elif re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]\s*@(\S+)\s*\+\s*(\S+);", l): # offset
+                                    match = re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)", l)
+                                    offset = match.group(3)
+                                    incr = match.group(4)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                _incr_prefix, incr_value = hex_proc(incr)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            vregister = Vregister(level=level, name=name, offset=offset, path=path, fields=[])
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    v_reg = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Vregister" in str(type(d)):
+                                            v_reg = copy.deepcopy(d)
+                                            break
+                                    if not v_reg:
+                                        print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "Vregister" in str(type(d)):
-                                        vregister = d
-                                        vregister.level, vregister.offset, vregister.path = level, offset, path
-                                hier[-1].vregisters.append(vregister)
+                                    v_reg.level, v_reg.name, v_reg.offset, v_reg.path = level, name_i, oset, path_i
+                                    hier[-1].vregisters.append(v_reg)
+                                    oset_value += incr_value
+                                    oset = oset_prefix + str(hex(oset_value))
+                            else: # non array
+                                if re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^virtual register\s+(\w+)", l): # name
+                                    match = re.search(r"^virtual register\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(vregister) 
+                                vregister = Vregister(level=level, name=name, offset=offset, path=path, fields=[])
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Vregister" in str(type(d)):
+                                            vregister = copy.deepcopy(d)
+                                            vregister.level, vregister.offset, vregister.path = level, offset, path
+                                            break
+                                    hier[-1].vregisters.append(vregister)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(vregister) 
 
                         # memory
                         elif re.search(r"^memory", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
                                 name = match.group(1)
                                 path = match.group(2)
                                 offset = match.group(3)
-                            elif re.search(r"^memory\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^memory\s+(\w+)\s*@(\S+)", l)
+                            elif re.search(r"^memory\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                match = re.search(r"^memory\s+(\w+)\s*@(\S+)[{;]", l)
                                 name = match.group(1)
                                 offset = match.group(2)
                             elif re.search(r"^memory\s+(\w+)\s*\((.*)\)", l): # name/path
@@ -237,7 +396,7 @@ def main():
                                 match = re.search(r"^memory\s+(\w+)", l)
                                 name = match.group(1)
                             else:
-                                print("Error - unsupported memory format in line {}: '{}'".format(nu, l))
+                                print("Error {}:'{}' - Unsupported format".format(nu, l))
 
                             memory = Memory(level=level, name=name, offset=offset, path=path)
 
@@ -245,8 +404,9 @@ def main():
                                 # find from define list
                                 for d in defs:
                                     if d.name == name and "Memory" in str(type(d)):
-                                        memory = d
+                                        memory = copy.deepcopy(d)
                                         memory.level, memory.offset, memory.path = level, offset, path
+                                        break
                                 hier[-1].memories.append(memory)
 
                             if re.search(r"{\s*$", l): # new description
@@ -255,74 +415,154 @@ def main():
                         # block
                         elif re.search(r"^block", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^block\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^block\s+(\w+)\s*@(\S+)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^block\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^block\s+(\w+)\s*\((.*)\)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^block\s+(\w+)", l): # name
-                                match = re.search(r"^block\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported block format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                incr = 0
+                                if re.search(r"^block\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l): # path/offset
+                                    match = re.search(r"^block\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                    incr = match.group(5)
+                                elif re.search(r"^block\s+(\w+)\s*\[(\d+)\]\s*@(\S+)\s*\+\s*(\S+);", l): # offset
+                                    match = re.search(r"^block\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)", l)
+                                    offset = match.group(3)
+                                    incr = match.group(4)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                _incr_prefix, incr_value = hex_proc(incr)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            block = Block(level=level, name=name, offset=offset, path=path, 
-                                registers=[], vregisters=[], regfiles=[], memories=[])
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    block = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "System" in str(type(d)):
+                                            block = copy.deepcopy(d)
+                                            break
+                                    if not block:
+                                        print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "Block" in str(type(d)):
-                                        block = d
-                                        block.level, block.offset, block.path = level, offset, path
-                                hier[-1].blocks.append(block)
+                                    block.level, block.name, block.offset, block.path = level, name_i, oset, path_i
+                                    hier[-1].blocks.append(block)
+                                    oset_value += incr_value
+                                    oset = oset_prefix + str(hex(oset_value))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(block) 
+                            else: # non array
+                                if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^block\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                    match = re.search(r"^block\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^block\s+(\w+)\s*\((.*)\)", l): # name/path
+                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^block\s+(\w+)", l): # name
+                                    match = re.search(r"^block\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+
+                                block = Block(level=level, name=name, offset=offset, path=path, 
+                                    registers=[], vregisters=[], regfiles=[], memories=[])
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "Block" in str(type(d)):
+                                            block = copy.deepcopy(d)
+                                            block.level, block.offset, block.path = level, offset, path
+                                            break
+                                    hier[-1].blocks.append(block)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(block) 
 
                         # system
                         elif re.search(r"^system", l):
                             name, path, offset = '', '', '0'
-                            if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)", l): # name/path/offset
-                                match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)", l)
+                            if re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l): # array
+                                match = re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
-                                path = match.group(2)
-                                offset = match.group(3)
-                            elif re.search(r"^system\s+(\w+)\s*@(\S+)", l): # name/offset
-                                match = re.search(r"^system\s+(\w+)\s*@(\S+)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^system\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^system\s+(\w+)\s*\((.*)\)", l)
-                                name = match.group(1)
-                                offset = match.group(2)
-                            elif re.search(r"^system\s+(\w+)", l): # name
-                                match = re.search(r"^system\s+(\w+)", l)
-                                name = match.group(1)
-                            else:
-                                print("Error - unsupported system format in line {}: '{}'".format(nu, l))
+                                size = match.group(2)
+                                incr = 0
+                                if re.search(r"^system\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l): # path/offset
+                                    match = re.search(r"^system\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)\s*\+\s*(\S+);", l)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                    incr = match.group(5)
+                                elif re.search(r"^system\s+(\w+)\s*\[(\d+)\]\s*@(\S+)\s*\+\s*(\S+);", l): # offset
+                                    match = re.search(r"^system\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)", l)
+                                    offset = match.group(3)
+                                    incr = match.group(4)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+                                
+                                oset_prefix, oset_value = hex_proc(offset)
+                                _incr_prefix, incr_value = hex_proc(incr)
+                                oset = oset_prefix + str(hex(oset_value))
 
-                            system = System(level=level, name=name, offset=offset, path=path, 
-                                blocks=[], systems=[])
+                                for i in range(int(size)):
+                                    name_i = "{}_{}".format(name, i)
+                                    path_i = path.replace("%d", str(i))
+                                    system = None
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "System" in str(type(d)):
+                                            system = copy.deepcopy(d)
+                                            break
+                                    if not system:
+                                        print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
-                            if level: # sub level
-                                # find from define list
-                                for d in defs:
-                                    if d.name == name and "System" in str(type(d)):
-                                        system = d
-                                        system.level, system.offset, system.path = level, offset, path
-                                hier[-1].systems.append(system)
+                                    system.level, system.name, system.offset, system.path = level, name_i, oset, path_i
+                                    hier[-1].systems.append(system)
+                                    oset_value += incr_value
+                                    oset = oset_prefix + str(hex(oset_value))
 
-                            if re.search(r"{\s*$", l): # new description
-                                hier.append(system) 
+                            else: # non array
+                                if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
+                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^system\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
+                                    match = re.search(r"^system\s+(\w+)\s*@(\S+)[{;]", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^system\s+(\w+)\s*\((.*)\)", l): # name/path
+                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)", l)
+                                    name = match.group(1)
+                                    offset = match.group(2)
+                                elif re.search(r"^system\s+(\w+)", l): # name
+                                    match = re.search(r"^system\s+(\w+)", l)
+                                    name = match.group(1)
+                                else:
+                                    print("Error {}:'{}' - Unsupported format".format(nu, l))
+
+                                system = System(level=level, name=name, offset=offset, path=path, 
+                                    blocks=[], systems=[])
+
+                                if level: # sub level
+                                    # find from define list
+                                    for d in defs:
+                                        if d.name == name and "System" in str(type(d)):
+                                            system = copy.deepcopy(d)
+                                            system.level, system.offset, system.path = level, offset, path
+                                            break
+                                    hier[-1].systems.append(system)
+
+                                if re.search(r"{\s*$", l): # new description
+                                    hier.append(system) 
 
 
 # Only run the following code when this file is the main file being run

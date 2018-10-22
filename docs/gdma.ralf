@@ -1,0 +1,27 @@
+regfile gdma_regs {
+        register DMA_SPARE0 @'h0 {
+		field DMA_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+        register DMA_SPARE1 @'h4 {
+		field DMA_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+
+}
+
+block gdma_block {
+      bytes 4;
+      regfile gdma_regs @'h0000;
+}
+
+system gdma_regmodel {
+  bytes 4;
+  block gdma_block @'h0000;
+}

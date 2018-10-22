@@ -1,0 +1,31 @@
+source "/projects/jin.li/leo/hw/soc/src/meta/register/sip.ralf"
+regfile cluster_regs {
+	register CLUSTER_SPARE0 @'h0 {
+		field CLUSTER_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+        register CLUSTER_SPARE1 @'h4 {
+		field CLUSTER_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+
+}
+
+block cluster_block {
+    bytes 4;
+    regfile cluster_regs @'h0;
+}
+
+system cluster_regmodel {
+	bytes 4;
+        system sip_regmodel[8] (sip_%d) @'h0 + 'h1_0000;
+        block gdma_block[2] (cdma_%d) @'h8_0000 + 'h1_0000;
+        block cluster_block @'hA_0000;
+}
+

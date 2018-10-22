@@ -1,0 +1,52 @@
+#################################################################
+#               SOC Register Mapping
+#################################################################
+
+#   Start Addr	    End Addr	    Space Size	Usage
+#   0x0000_0000	    0x000F_FFFF	    1MB	        for cluster_0's internal sip
+#   0x0010_0000	    0x001F_FFFF	    1MB	        for cluster_1's internal sip
+#   0x0020_0000	    0x002F_FFFF	    1MB	        for cluster_2's internal sip
+#   0x0030_0000	    0x003F_FFFF	    1MB	        for cluster_3's internal sip
+#   0x0040_0000	    0x0040_FFFF	    512KB	for pcie4's ecf space
+#   0x0048_0000	    0x0048_FFFF	    512KB	for ccix_0's ecf space
+#   0x0050_0000	    0x0050_FFFF	    512KB	for ccix_1's ecf space
+#   0x0058_0000	    0x0058_FFFF	    512KB	for ccix_2's ecf space
+#   0x0060_0000	    0x0060_FFFF	    512KB	for ccix_3's ecf space
+#   0x0068_0000	    0x0068_FFFF	    512KB	for memory controller_0's ecf space
+#   0x0070_0000	    0x0070_FFFF	    512KB	for memory controller_1's ecf space
+#   0x0078_0000	    0x0078_FFFF	    512KB	for memory controller_2's ecf space
+#   0x0080_0000	    0x0080_FFFF	    512KB	for memory controller_3's ecf space
+#   0x0088_0000	    0x0088_FFFF	    512KB	for memory controller_4's ecf space
+#   0x0090_0000	    0x0090_FFFF	    512KB	for memory controller_5's ecf space
+#   0x0098_0000	    0x0098_FFFF	    512KB	for memory controller_6's ecf space
+#   0x00A0_0000	    0x00A0_FFFF	    512KB	for memory controller_7's ecf space
+#   0x00A8_0000	    0x00A8_FFFF	    512KB	for odma_0's ecf space
+#   0x00B0_0000	    0x00B0_FFFF	    512KB	for odma_1's ecf space
+#   0x00B8_0000	    0x00B8_FFFF	    512KB	for mcu_0's ecf space
+#   0x00C0_0000	    0x00C0_FFFF	    512KB	for mcu_1's ecf space
+#   0x00C8_0000	    0x00C8_FFFF	    512KB	for mcu_2's ecf space
+#   0x00D0_0000	    0x00D0_FFFF	    512KB	for mcu_3's ecf space
+#   0x00D8_0000	    0x00D8_FFFF	    512KB	for pcrm's ecf space
+#   0x00E0_0000	    0x00E0_FFFF	    512KB	for edf's internal register space
+#   0x00E8_0000	    0x00E8_FFFF	    512KB	for ecf's internal register space
+#   0x00F0_0000	    0x00F0_FFFF	    512KB	dfdio's ecf space
+#   0x00F8_0000	    0x00F8_FFFF	    512KB	dft's ecf space
+#   0x0100_0000	    0x3FFF_FFFF	    1008MB	reserved space
+
+
+#source "/projects/jin.li/leo/hw/soc/src/meta/register/gdma.ralf"
+#source "/projects/jin.li/leo/hw/soc/src/meta/register/sip.ralf"
+source "pcrm.ralf"
+source "cluster.ralf"
+source "sdram_csr_ipxact.ralf"
+source "ssm.ralf"
+
+system soc_regmodel {
+    bytes 4;
+    endian little;
+
+    system cluster_regmodel[4]  (cluster_%d)    @'h0 + 'h10_0000;
+    system gdma_regmodel[2]     (odma_%d)       @'hA8_0000 + 'h8_0000;
+    system pcrm_regmodel        (pcrm)          @'hD8_0000; 
+    system CPU0[8]              (mc_%d)         @'h600_0000 + 'h7_0000; 
+}
