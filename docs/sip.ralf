@@ -1,0 +1,31 @@
+source "/projects/jin.li/leo/hw/soc/src/meta/register/gdma.ralf"
+
+regfile sip_regs {
+	register SIP_SPARE0 @'h0 {
+		field SIP_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+        register SIP_SPARE1 @'h0 {
+		field SIP_SPARE {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+
+}
+
+block sip_block {
+	bytes 4;
+	regfile  sip_regs @'h0;
+}
+
+system sip_regmodel {
+	bytes 4;
+        block sip_block @'h0;
+        block gdma_block (sip_dma) @'h8000;
+}
+

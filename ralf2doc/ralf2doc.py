@@ -44,27 +44,39 @@ def main():
                 print("{} is not a valid file".format(ralf))
             else:
                 with open(ralf) as f:
+                    in_doc = False
                     for nu, l in enumerate(f):
                         l = l.strip()
                         level = len(hier)
                         # end of definition
                         if re.search(r"^}", l):
-                            item = hier.pop(-1)
-                            # add to defs if top level
-                            if level == 1:
-                                defs.append(item)
-                            # print 
-                            if item.name == target:
-                                print(item)
-                                # generate csv file
-                                if csv:
-                                    with open(csv, 'w') as c:
-                                        c.write(item.csv())
+                            if in_doc: # in doc
+                                in_doc = False
+                            else:
+                                item = hier.pop(-1)
+                                # add to defs if top level
+                                if level == 1:
+                                    defs.append(item)
+                                # print 
+                                if item.name == target:
+                                    print(item)
+                                    # generate csv file
+                                    if csv:
+                                        with open(csv, 'w') as c:
+                                            c.write(item.csv())
+                        elif in_doc:
+                            hier[-1].info += l.replace(',', ';')
                         # info
                         elif re.search(r"^#\s*(.*)", l):
                             if len(hier):
                                 match = re.search(r"^#\s*(.*)", l)
-                                hier[-1].info += match.group(1)
+                                hier[-1].info += match.group(1).replace(',', ';')
+                        # doc
+                        elif re.search(r"^doc\s*{", l):
+                            if len(hier):
+                                match = re.search(r"^doc\s*{(.*)", l)
+                                hier[-1].info += match.group(1).replace(',', ';')
+                                in_doc = True
                         # bits
                         elif re.search(r"^bits\s+(\d+)\s*;", l):
                             match = re.search(r"^bits\s+(\d+)\s*;", l)
@@ -76,6 +88,10 @@ def main():
                         # reset
                         elif re.search(r"^reset\s+(\S+)\s*;", l):
                             match = re.search(r"^reset\s+(\S+)\s*;", l)
+                            hier[-1].reset = match.group(1)
+                        # hard reset
+                        elif re.search(r"^hard_reset\s+(\S+)\s*;", l):
+                            match = re.search(r"^hard_reset\s+(\S+)\s*;", l)
                             hier[-1].reset = match.group(1)
                         # bytes
                         elif re.search(r"^bytes\s+(\d+)\s*;", l):
@@ -442,7 +458,7 @@ def main():
                                     block = None
                                     # find from define list
                                     for d in defs:
-                                        if d.name == name and "System" in str(type(d)):
+                                        if d.name == name and "Block" in str(type(d)):
                                             block = copy.deepcopy(d)
                                             break
                                     if not block:

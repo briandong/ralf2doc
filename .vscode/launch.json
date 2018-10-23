@@ -5,26 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: real (integrated)",
+            "name": "Python: real_soc (integrated)",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "args": [
                 "soc_regmodel",
                 "out",
+                "docs/gdma.ralf",
+                "docs/sip.ralf",
+                "docs/pcrm.ralf",
+                "docs/cluster.ralf",
+                "docs/sdram_csr_ipxact.ralf",
                 "docs/soc.ralf",
             ],
             "console": "integratedTerminal"
         },
         {
-            "name": "Python: medium (integrated)",
+            "name": "Python: sdram (integrated)",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "args": [
-                "dut_regmodel",
+                "CPU0",
                 "out",
-                "docs/medium.ralf",
+                "docs/sdram_csr_ipxact.ralf",
             ],
             "console": "integratedTerminal"
         },
