@@ -64,14 +64,14 @@ class Field:
 # Register defines a concatenation of fields.
 # Registers are used in register files and blocks.
 class Register:
-    def __init__(self, name, info='', bytes=4, leftright=False, offset='0', path='', fields=[], level=0):
+    def __init__(self, name, info='', bytes=4, leftright=False, offset='0', path='', subs=[], level=0):
         self.name = name
         self.info = info
         self.bytes = bytes
         self.leftright = leftright
         self.offset = offset
         self.path = path
-        self.fields = fields
+        self.subs = subs
         self.level = level
     def __str__(self):
         s = '''
@@ -93,11 +93,11 @@ class Register:
             level=self.level,
             )
         os = 0
-        for f in self.fields:
-            f.level = self.level + 1
-            f.offset = os
-            os += f.bits
-            s += str(f)
+        for i in self.subs:
+            i.level = self.level + 1
+            i.offset = os
+            os += i.bits
+            s += str(i)
         return s
     def csv(self):
         s = '''
@@ -120,23 +120,23 @@ class Register:
             )
 
         os = 0
-        for f in self.fields:
-            f.level = self.level + 1
-            f.offset = os
-            os += f.bits
+        for i in self.subs:
+            i.level = self.level + 1
+            i.offset = os
+            os += i.bits
         
-        for f in reversed(self.fields):
+        for i in reversed(self.subs):
             s += '''
 {indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level} '''.format(
-                indent=' , '*f.level, 
-                name=f.name,
-                info=f.info,
-                offset=str(f.offset),
-                bits=str(f.bits),
-                access=f.access,
-                reset=f.reset,
-                path=f.path,
-                level=str(f.level),
+                indent=' , '*i.level, 
+                name=i.name,
+                info=i.info,
+                offset=str(i.offset),
+                bits=str(i.bits),
+                access=i.access,
+                reset=i.reset,
+                path=i.path,
+                level=str(i.level),
                 )
 
         s += '\n'
@@ -146,12 +146,12 @@ class Register:
 # Register files defines a collection of consecutive registers.
 # Register files are used in blocks.
 class Regfile:
-    def __init__(self, name, info='', offset='0', path='', registers=[], level=0):
+    def __init__(self, name, info='', offset='0', path='', subs=[], level=0):
         self.name = name
         self.info = info
         self.offset = offset
         self.path = path
-        self.registers = registers
+        self.subs = subs
         self.level = level
     def __str__(self):
         s = '''
@@ -168,9 +168,9 @@ class Regfile:
             path=self.path,
             level=self.level,
             )
-        for r in self.registers:
-            r.level = self.level + 1
-            s += str(r)
+        for i in self.subs:
+            i.level = self.level + 1
+            s += str(i)
         return s
     def csv(self):
         s = '''
@@ -184,9 +184,9 @@ class Regfile:
             path=self.path,
             level=self.level,
             )
-        for r in self.registers:
-            r.level = self.level + 1
-            s += r.csv()
+        for i in self.subs:
+            i.level = self.level + 1
+            s += i.csv()
         return s
 
 # Memory defines a region of consecutive addressable locations.
@@ -241,17 +241,17 @@ class Memory:
             )
         return s
 
-# Virtual register defines a concatenation of virfields fields.
+# Virtual register defines a concatenation of fields.
 # Virtual registers are used in blocks.
 class Vregister:
-    def __init__(self, name, info='', bytes=4, leftright=False, offset='0', path='', fields=[], level=0):
+    def __init__(self, name, info='', bytes=4, leftright=False, offset='0', path='', subs=[], level=0):
         self.name = name
         self.info = info
         self.bytes = bytes
         self.leftright = leftright
         self.offset = offset
         self.path = path
-        self.fields = fields
+        self.subs = subs
         self.level = level
     def __str__(self):
         s = '''
@@ -273,11 +273,11 @@ class Vregister:
             level=self.level,
             )
         os = 0
-        for f in self.fields:
-            f.level = self.level + 1
-            f.offset = os
-            os += f.bits
-            s += str(f)
+        for i in self.subs:
+            i.level = self.level + 1
+            i.offset = os
+            os += i.bits
+            s += str(i)
         return s
     def csv(self):
         s = '''
@@ -300,23 +300,23 @@ class Vregister:
             )
 
         os = 0
-        for f in self.fields:
-            f.level = self.level + 1
-            f.offset = os
-            os += f.bits
+        for i in self.subs:
+            i.level = self.level + 1
+            i.offset = os
+            os += i.bits
 
-        for f in reversed(self.fields):
+        for i in reversed(self.subs):
             s += '''
 {indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level} '''.format(
                 indent=' , '*f.level, 
-                name=f.name,
-                info=f.info,
-                offset=str(f.offset),
-                bits=str(f.bits),
-                access=f.access,
-                reset=f.reset,
-                path=f.path,
-                level=str(f.level),
+                name=i.name,
+                info=i.info,
+                offset=str(i.offset),
+                bits=str(i.bits),
+                access=i.access,
+                reset=i.reset,
+                path=i.path,
+                level=str(i.level),
                 )
 
         s += '\n'
@@ -326,17 +326,14 @@ class Vregister:
 # Block defines a set of registers and memories.
 class Block:
     def __init__(self, name, info='', bytes=0, endian='little', offset='0', path='', 
-        registers=[], vregisters=[], regfiles=[], memories=[], level=0):
+        subs=[], level=0):
         self.name = name
         self.info = info
         self.bytes = bytes
         self.endian = endian
         self.offset = offset
         self.path = path
-        self.registers = registers
-        self.vregisters = vregisters
-        self.regfiles = regfiles
-        self.memories = memories
+        self.subs = subs
         self.level = level
     def __str__(self):
         s = '''
@@ -357,18 +354,9 @@ class Block:
             path=self.path,
             level=self.level,
             )
-        for r in self.registers:
-            r.level = self.level + 1
-            s += str(r)
-        for v in self.vregisters:
-            v.level = self.level + 1
-            s += str(v)
-        for f in self.regfiles:
-            f.level = self.level + 1
-            s += str(f)
-        for m in self.memories:
-            m.level = self.level + 1
-            s += str(m)
+        for i in self.subs:
+            i.level = self.level + 1
+            s += str(i)
         return s
     def csv(self):
         s = '''
@@ -384,32 +372,22 @@ class Block:
             path=self.path,
             level=self.level,
             )
-        for r in self.registers:
-            r.level = self.level + 1
-            s += r.csv()
-        for v in self.vregisters:
-            v.level = self.level + 1
-            s += v.csv()
-        for f in self.regfiles:
-            f.level = self.level + 1
-            s += f.csv()
-        for m in self.memories:
-            m.level = self.level + 1
-            s += m.csv()
+        for i in self.subs:
+            i.level = self.level + 1
+            s += i.csv()
         return s
 
 # System defines a design composed of blocks or subsystems.
 class System:
     def __init__(self, name, info='', bytes=0, endian='little', offset='0', path='', 
-        blocks=[], systems=[], level=0):
+        subs=[], level=0):
         self.name = name
         self.info = info
         self.bytes = bytes
         self.endian = endian
         self.offset = offset
         self.path = path
-        self.blocks = blocks
-        self.systems = systems
+        self.subs = subs
         self.level = level
     def __str__(self):
         s = '''
@@ -430,12 +408,9 @@ class System:
             path=self.path,
             level=self.level,
             )
-        for b in self.blocks:
-            b.level = self.level + 1
-            s += str(b)
-        for y in self.systems:
-            y.level = self.level + 1
-            s += str(y)
+        for i in self.subs:
+            i.level = self.level + 1
+            s += str(i)
         return s
     def csv(self):
         s = '''
@@ -451,10 +426,7 @@ class System:
             path=self.path,
             level=self.level,
             )
-        for b in self.blocks:
-            b.level = self.level + 1
-            s += b.csv()
-        for y in self.systems:
-            y.level = self.level + 1
-            s += y.csv()
+        for i in self.subs:
+            i.level = self.level + 1
+            s += i.csv()
         return s

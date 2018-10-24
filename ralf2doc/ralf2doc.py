@@ -147,7 +147,7 @@ def main():
                                         print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
                                     field.level, field.name, field.offset, field.path = level, name_i, oset, path_i
-                                    hier[-1].fields.append(field)
+                                    hier[-1].subs.append(field)
                                     oset_value += incr_value
                                     oset = oset_prefix + str(hex(oset_value))
                             else: # non array
@@ -179,7 +179,7 @@ def main():
                                             field = copy.deepcopy(d)
                                             field.level, field.offset, field.path = level, offset, path
                                             break
-                                    hier[-1].fields.append(field)
+                                    hier[-1].subs.append(field)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(field)
@@ -214,7 +214,7 @@ def main():
                                             register = copy.deepcopy(d)
                                             break
                                     register.level, register.name, register.offset, register.path = level, name_i, oset, path_i
-                                    hier[-1].registers.append(register)
+                                    hier[-1].subs.append(register)
                                     oset_value += register.bytes
                                     oset = oset_prefix + str(hex(oset_value))
 
@@ -238,7 +238,7 @@ def main():
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                                register = Register(level=level, name=name, offset=offset, path=path, fields=[])
+                                register = Register(level=level, name=name, offset=offset, path=path, subs=[])
 
                                 if level: # sub level
                                     # find from define list
@@ -247,7 +247,7 @@ def main():
                                             register = copy.deepcopy(d)
                                             register.level, register.offset, register.path = level, offset, path
                                             break
-                                    hier[-1].registers.append(register)
+                                    hier[-1].subs.append(register)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(register) 
@@ -289,7 +289,7 @@ def main():
                                         print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
                                     regfile.level, regfile.name, regfile.offset, regfile.path = level, name_i, oset, path_i
-                                    hier[-1].regfiles.append(regfile)
+                                    hier[-1].subs.append(regfile)
                                     oset_value += incr_value
                                     oset = oset_prefix + str(hex(oset_value))
                             else: # non array
@@ -312,7 +312,7 @@ def main():
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                                regfile = Regfile(level=level, name=name, offset=offset, path=path, registers=[])
+                                regfile = Regfile(level=level, name=name, offset=offset, path=path, subs=[])
 
                                 if level: # sub level
                                     # find from define list
@@ -321,7 +321,7 @@ def main():
                                             regfile = copy.deepcopy(d)
                                             regfile.level, regfile.offset, regfile.path = level, offset, path
                                             break
-                                    hier[-1].regfiles.append(regfile)
+                                    hier[-1].subs.append(regfile)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(regfile) 
@@ -363,7 +363,7 @@ def main():
                                         print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
                                     v_reg.level, v_reg.name, v_reg.offset, v_reg.path = level, name_i, oset, path_i
-                                    hier[-1].vregisters.append(v_reg)
+                                    hier[-1].subs.append(v_reg)
                                     oset_value += incr_value
                                     oset = oset_prefix + str(hex(oset_value))
                             else: # non array
@@ -378,7 +378,7 @@ def main():
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
 
-                                vregister = Vregister(level=level, name=name, offset=offset, path=path, fields=[])
+                                vregister = Vregister(level=level, name=name, offset=offset, path=path, subs=[])
 
                                 if level: # sub level
                                     # find from define list
@@ -387,7 +387,7 @@ def main():
                                             vregister = copy.deepcopy(d)
                                             vregister.level, vregister.offset, vregister.path = level, offset, path
                                             break
-                                    hier[-1].vregisters.append(vregister)
+                                    hier[-1].subs.append(vregister)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(vregister) 
@@ -465,7 +465,7 @@ def main():
                                         print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
                                     block.level, block.name, block.offset, block.path = level, name_i, oset, path_i
-                                    hier[-1].blocks.append(block)
+                                    hier[-1].subs.append(block)
                                     oset_value += incr_value
                                     oset = oset_prefix + str(hex(oset_value))
 
@@ -490,7 +490,7 @@ def main():
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
 
                                 block = Block(level=level, name=name, offset=offset, path=path, 
-                                    registers=[], vregisters=[], regfiles=[], memories=[])
+                                    subs=[])
 
                                 if level: # sub level
                                     # find from define list
@@ -499,7 +499,7 @@ def main():
                                             block = copy.deepcopy(d)
                                             block.level, block.offset, block.path = level, offset, path
                                             break
-                                    hier[-1].blocks.append(block)
+                                    hier[-1].subs.append(block)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(block) 
@@ -541,7 +541,7 @@ def main():
                                         print("Error {}:'{}' - Cannot find definition".format(nu, l))
 
                                     system.level, system.name, system.offset, system.path = level, name_i, oset, path_i
-                                    hier[-1].systems.append(system)
+                                    hier[-1].subs.append(system)
                                     oset_value += incr_value
                                     oset = oset_prefix + str(hex(oset_value))
 
@@ -566,7 +566,7 @@ def main():
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
 
                                 system = System(level=level, name=name, offset=offset, path=path, 
-                                    blocks=[], systems=[])
+                                    subs=[])
 
                                 if level: # sub level
                                     # find from define list
@@ -575,7 +575,7 @@ def main():
                                             system = copy.deepcopy(d)
                                             system.level, system.offset, system.path = level, offset, path
                                             break
-                                    hier[-1].systems.append(system)
+                                    hier[-1].subs.append(system)
 
                                 if re.search(r"{\s*$", l): # new description
                                     hier.append(system) 
