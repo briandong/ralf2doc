@@ -3,10 +3,10 @@
 
 # Introduction
 
-This script generates register docs based on ralf file.
+This script generates target register docs based on ralf file(s).
 
 # Usage
 ```
 $ ./ralf2doc/ralf2doc.py -h
-Usage: ralf2doc.py TARGET RALF_FILE <CSV_FILE>
+Usage: ralf2doc.py TARGET OUT_DIR RALF_FILE <RALF_FILE...>
 ```
