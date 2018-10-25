@@ -308,7 +308,7 @@ class Vregister:
         for i in reversed(self.subs):
             s += '''
 {indent}  {name}, {info}, {offset}, {bits}, {access}, {reset}, {path}, {level} '''.format(
-                indent=' , '*f.level, 
+                indent=' , '*i.level, 
                 name=i.name,
                 info=i.info,
                 offset=str(i.offset),
