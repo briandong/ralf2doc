@@ -68,6 +68,6 @@ block host_regmodel {
 system dut_regmodel {
 # system is used in soc, not ip
 	bytes 2;
-	block host_regmodel(host) @'h0000;
+	block host_regmodel(host) @'h1000;
     #block other_regmodel(0host) @'h8000;
 }

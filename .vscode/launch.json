@@ -34,6 +34,18 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Python: medium (integrated)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "dut_regmodel",
+                "out",
+                "docs/medium.ralf",
+            ],
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python: Attach",
             "type": "python",
             "request": "attach",

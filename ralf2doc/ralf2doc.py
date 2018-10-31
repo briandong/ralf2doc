@@ -14,15 +14,6 @@ from ralf_class import *
 def func():
     return "Hello World!"
 
-# hex processing
-# returns a string prefix and an integer value
-def hex_proc(hex_str):
-    hex_str = hex_str.replace('_', '') # remove '_'
-    match = re.search(r"(.*('h|0x|0X))(\w+)", hex_str)
-    prefix = match.group(1)
-    value = int(match.group(3), 16)
-    return (prefix, value)
-
 def main():
     if sys.argv[1] == '-h' or sys.argv[1] == '--help':
         print("Usage: {} TARGET OUT_DIR RALF_FILE <RALF_FILE...>".format(os.path.basename(__file__)))
@@ -36,6 +27,8 @@ def main():
 
         # csv file
         csv = "{}/{}.csv".format(out_dir, target)
+        # vhdr file
+        vhdr = "{}/{}_defs.v".format(out_dir, target)
 
         hier = [] # hierachy list
         defs = [] # define list
@@ -59,11 +52,18 @@ def main():
                                     defs.append(item)
                                 # print 
                                 if item.name == target:
+                                    # output screen
                                     print(item)
                                     # generate csv file
                                     if csv:
                                         with open(csv, 'w') as c:
                                             c.write(item.csv())
+                                    # generate vhdr file
+                                    if vhdr:
+                                        item.fname = item.name.upper()
+                                        item.addr = item.offset
+                                        with open(vhdr, 'w') as v:
+                                            v.write(item.vhdr())
                         elif in_doc:
                             hier[-1].info += l.replace(',', ';')
                         # info
@@ -112,7 +112,7 @@ def main():
 
                         # field
                         elif re.search(r"^field", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^field\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^field\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -132,7 +132,7 @@ def main():
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
                                 _incr_prefix, incr_value = hex_proc(incr)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -149,21 +149,21 @@ def main():
                                     field.level, field.name, field.offset, field.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(field)
                                     oset_value += incr_value
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
                             else: # non array
-                                if re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^field\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                    match = re.search(r"^field\s+(\w+)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^field\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                    match = re.search(r"^field\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
                                 elif re.search(r"^field\s+(\w+)\s*\((.*)\)", l): # name/path
                                     match = re.search(r"^field\s+(\w+)\s*\((.*)\)", l)
                                     name = match.group(1)
-                                    offset = match.group(2)
+                                    path = match.group(2)
                                 elif re.search(r"^field\s+(\w+)", l): # name
                                     match = re.search(r"^field\s+(\w+)", l)
                                     name = match.group(1)
@@ -186,23 +186,23 @@ def main():
 
                         # register
                         elif re.search(r"^register", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^register\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
                                 size = match.group(2)
-                                if re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l): # path/offset
-                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # path/offset
+                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     path = match.group(3)
                                     offset = match.group(4)
-                                elif re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*@(\S+)[{;]", l): # offset
-                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*@\s*(\S+)\s*[{;]", l): # offset
+                                    match = re.search(r"^register\s+(\w+)\s*\[(\d+)\]\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     offset = match.group(3)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -216,22 +216,22 @@ def main():
                                     register.level, register.name, register.offset, register.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(register)
                                     oset_value += register.bytes
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
 
                             else: # non array
-                                if re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^register\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                    match = re.search(r"^register\s+(\w+)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^register\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                    match = re.search(r"^register\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
                                 elif re.search(r"^register\s+(\w+)\s*\((.*)\)", l): # name/path
                                     match = re.search(r"^register\s+(\w+)\s*\((.*)\)", l)
                                     name = match.group(1)
-                                    offset = match.group(2)
+                                    path = match.group(2)
                                 elif re.search(r"^register\s+(\w+)", l): # name
                                     match = re.search(r"^register\s+(\w+)", l)
                                     name = match.group(1)
@@ -254,7 +254,7 @@ def main():
 
                         # regfile
                         elif re.search(r"^regfile", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^regfile\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -274,7 +274,7 @@ def main():
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
                                 _incr_prefix, incr_value = hex_proc(incr)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -291,21 +291,21 @@ def main():
                                     regfile.level, regfile.name, regfile.offset, regfile.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(regfile)
                                     oset_value += incr_value
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
                             else: # non array
-                                if re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^regfile\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                    match = re.search(r"^regfile\s+(\w+)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^regfile\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                    match = re.search(r"^regfile\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
                                 elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l): # name/path
                                     match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l)
                                     name = match.group(1)
-                                    offset = match.group(2)
+                                    path = match.group(2)
                                 elif re.search(r"^regfile\s+(\w+)", l): # name
                                     match = re.search(r"^regfile\s+(\w+)", l)
                                     name = match.group(1)
@@ -328,7 +328,7 @@ def main():
 
                         # virtual register
                         elif re.search(r"^virtual register", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^virtual register\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -348,7 +348,7 @@ def main():
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
                                 _incr_prefix, incr_value = hex_proc(incr)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -365,10 +365,10 @@ def main():
                                     v_reg.level, v_reg.name, v_reg.offset, v_reg.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(v_reg)
                                     oset_value += incr_value
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
                             else: # non array
-                                if re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@(\S+)[{;]", l)
+                                if re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^virtual register\s+(\w+)\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
@@ -394,20 +394,20 @@ def main():
 
                         # memory
                         elif re.search(r"^memory", l):
-                            name, path, offset = '', '', '0'
-                            if re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                            name, path, offset = '', '', "'h0"
+                            if re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                 name = match.group(1)
                                 path = match.group(2)
                                 offset = match.group(3)
-                            elif re.search(r"^memory\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                match = re.search(r"^memory\s+(\w+)\s*@(\S+)[{;]", l)
+                            elif re.search(r"^memory\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                match = re.search(r"^memory\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                 name = match.group(1)
                                 offset = match.group(2)
                             elif re.search(r"^memory\s+(\w+)\s*\((.*)\)", l): # name/path
                                 match = re.search(r"^memory\s+(\w+)\s*\((.*)\)", l)
                                 name = match.group(1)
-                                offset = match.group(2)
+                                path = match.group(2)
                             elif re.search(r"^memory\s+(\w+)", l): # name
                                 match = re.search(r"^memory\s+(\w+)", l)
                                 name = match.group(1)
@@ -423,14 +423,14 @@ def main():
                                         memory = copy.deepcopy(d)
                                         memory.level, memory.offset, memory.path = level, offset, path
                                         break
-                                hier[-1].memories.append(memory)
+                                hier[-1].subs.append(memory)
 
                             if re.search(r"{\s*$", l): # new description
                                 hier.append(memory) 
 
                         # block
                         elif re.search(r"^block", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -450,7 +450,7 @@ def main():
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
                                 _incr_prefix, incr_value = hex_proc(incr)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -467,22 +467,22 @@ def main():
                                     block.level, block.name, block.offset, block.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(block)
                                     oset_value += incr_value
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
 
                             else: # non array
-                                if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^block\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                    match = re.search(r"^block\s+(\w+)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^block\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                    match = re.search(r"^block\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
                                 elif re.search(r"^block\s+(\w+)\s*\((.*)\)", l): # name/path
                                     match = re.search(r"^block\s+(\w+)\s*\((.*)\)", l)
                                     name = match.group(1)
-                                    offset = match.group(2)
+                                    path = match.group(2)
                                 elif re.search(r"^block\s+(\w+)", l): # name
                                     match = re.search(r"^block\s+(\w+)", l)
                                     name = match.group(1)
@@ -506,7 +506,7 @@ def main():
 
                         # system
                         elif re.search(r"^system", l):
-                            name, path, offset = '', '', '0'
+                            name, path, offset = '', '', "'h0"
                             if re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -526,7 +526,7 @@ def main():
                                 
                                 oset_prefix, oset_value = hex_proc(offset)
                                 _incr_prefix, incr_value = hex_proc(incr)
-                                oset = oset_prefix + str(hex(oset_value))
+                                oset = oset_prefix + format(oset_value, 'x')
 
                                 for i in range(int(size)):
                                     name_i = "{}_{}".format(name, i)
@@ -543,22 +543,22 @@ def main():
                                     system.level, system.name, system.offset, system.path = level, name_i, oset, path_i
                                     hier[-1].subs.append(system)
                                     oset_value += incr_value
-                                    oset = oset_prefix + str(hex(oset_value))
+                                    oset = oset_prefix + format(oset_value, 'x')
 
                             else: # non array
-                                if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l): # name/path/offset
-                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@(\S+)[{;]", l)
+                                if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^system\s+(\w+)\s*@(\S+)[{;]", l): # name/offset
-                                    match = re.search(r"^system\s+(\w+)\s*@(\S+)[{;]", l)
+                                elif re.search(r"^system\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
+                                    match = re.search(r"^system\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
                                 elif re.search(r"^system\s+(\w+)\s*\((.*)\)", l): # name/path
                                     match = re.search(r"^system\s+(\w+)\s*\((.*)\)", l)
                                     name = match.group(1)
-                                    offset = match.group(2)
+                                    path = match.group(2)
                                 elif re.search(r"^system\s+(\w+)", l): # name
                                     match = re.search(r"^system\s+(\w+)", l)
                                     name = match.group(1)
