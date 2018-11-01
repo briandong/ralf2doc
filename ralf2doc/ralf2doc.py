@@ -27,8 +27,9 @@ def main():
 
         # csv file
         csv = "{}/{}.csv".format(out_dir, target)
-        # vhdr file
-        vhdr = "{}/{}_defs.v".format(out_dir, target)
+        # vhdr files
+        vhdr = "{}/{}_defs.v".format(out_dir, target) # full edition
+        vhdr_s = "{}/{}_defs_slim.v".format(out_dir, target) # slim edition
 
         hier = [] # hierachy list
         defs = [] # define list
@@ -58,12 +59,21 @@ def main():
                                     if csv:
                                         with open(csv, 'w') as c:
                                             c.write(item.csv())
-                                    # generate vhdr file
+                                    # generate vhdr files
                                     if vhdr:
                                         item.fname = item.name.upper()
                                         item.addr = item.offset
+                                        # full edition
                                         with open(vhdr, 'w') as v:
                                             v.write(item.vhdr())
+                                        # slim edition
+                                        with open(vhdr_s, 'w') as vs:
+                                            with open(vhdr) as v:
+                                                for l in v:
+                                                    l = l.replace('_REGMODEL', '')
+                                                    l = l.replace('ADDR_MAP', 'AMAP')
+                                                    l = l.replace('CPU0', 'MC')
+                                                    vs.write(l)
                         elif in_doc:
                             hier[-1].info += l.replace(',', ';')
                         # info
