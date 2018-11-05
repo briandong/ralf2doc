@@ -70,6 +70,7 @@ def main():
                                         with open(vhdr_s, 'w') as vs:
                                             with open(vhdr) as v:
                                                 for l in v:
+                                                    l = l.replace('SOC_REGMODEL_', '')
                                                     l = l.replace('_REGMODEL', '')
                                                     l = l.replace('ADDR_MAP', 'AMAP')
                                                     l = l.replace('CPU0', 'MC')
