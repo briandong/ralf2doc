@@ -199,8 +199,7 @@ class Regfile:
             s += i.csv()
         return s
     def vhdr(self):
-        s = '''
-//--------------------
+        s = '''//--------------------
 // RegFile Hearders: {}, Offset: {}
 //--------------------
 '''.format(self.fname, self.addr)
@@ -410,8 +409,7 @@ class Block:
             s += i.csv()
         return s
     def vhdr(self):
-        s = '''
-//--------------------
+        s = '''//--------------------
 // Block Hearders: {}, Offset: {}
 //--------------------
 '''.format(self.fname, self.addr)
@@ -480,8 +478,7 @@ class System:
             s += i.csv()
         return s
     def vhdr(self):
-        s = '''
-//--------------------
+        s = '''//--------------------
 // System Hearders: {}, Offset: {}
 //--------------------
 '''.format(self.fname, self.addr)
