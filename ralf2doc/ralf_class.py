@@ -147,8 +147,7 @@ class Register:
         s += '\n'
         return s
     def vhdr(self):
-        s = '''
-`define {} {}
+        s = '''`define {} {}
 '''.format(self.fname, self.addr)
         return s
 
@@ -351,8 +350,7 @@ class Vregister:
         s += '\n'
         return s
     def vhdr(self):
-        s = '''
-`define {} {}
+        s = '''`define {} {}
 '''.format(self.fname, self.addr)
         return s
 
