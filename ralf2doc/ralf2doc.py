@@ -74,6 +74,7 @@ def main():
                                                     l = l.replace('_REGMODEL', '')
                                                     l = l.replace('ADDR_MAP', 'AMAP')
                                                     l = l.replace('CPU0', 'MC')
+                                                    l = l.replace("'h", "`BASE_ADDR+'h")
                                                     vs.write(l)
                         elif in_doc:
                             hier[-1].info += l.replace(',', ';')
