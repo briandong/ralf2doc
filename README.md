@@ -18,3 +18,5 @@ The generated docs include:
 $ ./ralf2doc/ralf2doc.py -h
 Usage: ralf2doc.py TARGET OUT_DIR RALF_FILE <RALF_FILE...>
 ```
+
+Note: TARGET is the top level name you want in RALF_FILE
