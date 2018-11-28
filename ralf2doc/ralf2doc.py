@@ -172,12 +172,12 @@ def main():
                                     match = re.search(r"^field\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
-                                elif re.search(r"^field\s+(\w+)\s*\((.*)\)", l): # name/path
-                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)", l)
+                                elif re.search(r"^field\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                    match = re.search(r"^field\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
-                                elif re.search(r"^field\s+(\w+)", l): # name
-                                    match = re.search(r"^field\s+(\w+)", l)
+                                elif re.search(r"^field\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^field\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -240,12 +240,12 @@ def main():
                                     match = re.search(r"^register\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
-                                elif re.search(r"^register\s+(\w+)\s*\((.*)\)", l): # name/path
-                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)", l)
+                                elif re.search(r"^register\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                    match = re.search(r"^register\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
-                                elif re.search(r"^register\s+(\w+)", l): # name
-                                    match = re.search(r"^register\s+(\w+)", l)
+                                elif re.search(r"^register\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^register\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -314,12 +314,12 @@ def main():
                                     match = re.search(r"^regfile\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
-                                elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l): # name/path
-                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)", l)
+                                elif re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                    match = re.search(r"^regfile\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
-                                elif re.search(r"^regfile\s+(\w+)", l): # name
-                                    match = re.search(r"^regfile\s+(\w+)", l)
+                                elif re.search(r"^regfile\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^regfile\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -384,8 +384,8 @@ def main():
                                     name = match.group(1)
                                     path = match.group(2)
                                     offset = match.group(3)
-                                elif re.search(r"^virtual register\s+(\w+)", l): # name
-                                    match = re.search(r"^virtual register\s+(\w+)", l)
+                                elif re.search(r"^virtual register\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^virtual register\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -416,12 +416,12 @@ def main():
                                 match = re.search(r"^memory\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                 name = match.group(1)
                                 offset = match.group(2)
-                            elif re.search(r"^memory\s+(\w+)\s*\((.*)\)", l): # name/path
-                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)", l)
+                            elif re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                match = re.search(r"^memory\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                 name = match.group(1)
                                 path = match.group(2)
-                            elif re.search(r"^memory\s+(\w+)", l): # name
-                                match = re.search(r"^memory\s+(\w+)", l)
+                            elif re.search(r"^memory\s+(\w+)\s*[{;]", l): # name
+                                match = re.search(r"^memory\s+(\w+)\s*[{;]", l)
                                 name = match.group(1)
                             else:
                                 print("Error {}:'{}' - Unsupported format".format(nu, l))
