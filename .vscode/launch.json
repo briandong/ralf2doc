@@ -12,39 +12,17 @@
             "args": [
                 "soc_regmodel",
                 "out",
-                "docs/gdma.ralf",
-                "docs/sip.ralf",
-                "docs/pcrm.ralf",
-                "docs/cluster.ralf",
-                "docs/sdram_csr_ipxact.ralf",
+                "docs/gdma_blk.ralf",
+                "docs/odma_reg_gdma.ralf",
+                //"docs/sip.ralf",
+                //"docs/pcrm.ralf",
+                //"docs/cluster.ralf",
+                //"docs/sdram_csr_ipxact.ralf",
                 "docs/soc.ralf",
             ],
             "console": "integratedTerminal"
         },
-        {
-            "name": "Python: sdram (integrated)",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "args": [
-                "CPU0",
-                "out",
-                "docs/sdram_csr_ipxact.ralf",
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Python: medium (integrated)",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "args": [
-                "dut_regmodel",
-                "out",
-                "docs/medium.ralf",
-            ],
-            "console": "integratedTerminal"
-        },
+
         {
             "name": "Python: Attach",
             "type": "python",

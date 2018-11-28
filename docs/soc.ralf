@@ -36,26 +36,26 @@
 #   0x0118_0000	    0x3FFF_FFFF	    	        reserved space
 
 
-source "mc_regmodel.ralf"
+#source "mc_regmodel.ralf"
 source "gdma_blk.ralf"
 source "odma_reg_gdma.ralf"
-source "sic.ralf"
-source "cqm_regs.ralf"
-source "ssm.ralf"
-#source "edf_top.ralf"
-#source "ecf_top.ralf"
-source "pcie_subsystem.ralf"
+#source "sic.ralf"
+#source "cqm_regs.ralf"
+#source "ssm.ralf"
+##source "edf_top.ralf"
+##source "ecf_top.ralf"
+#source "pcie_subsystem.ralf"
 
 system soc_regmodel {
     bytes 4;
     endian little;
 
-     system cluster_regmodel[4]  (cluster_%d)    @'h0010_0000 + 'h0010_0000;
-     system mc_regmodel[8]       (mc_%d)         @'h0050_0000 + 'h0008_0000;
+#     system cluster_regmodel[4]  (cluster_%d)    @'h0010_0000 + 'h0010_0000;
+#     system mc_regmodel[8]       (mc_%d)         @'h0050_0000 + 'h0008_0000;
      system odma_regs[2]         (odma_%d)       @'h0090_0000 + 'h0008_0000; 
-     system cqm_regmodel[4]      (cqm_%d)        @'h00A0_0000 + 'h0008_0000; 
-     system ssm_regmodel         (ssm)           @'h00C0_0000; 
-#     system edf_top              (edf)           @'h00C8_0000; 
-#     system ecf_top              (ecf)           @'h00D0_0000; 
-     system pcie_subsystem       (pcie)          @'h00E8_0000; 
+#     system cqm_regmodel[4]      (cqm_%d)        @'h00A0_0000 + 'h0008_0000; 
+#     system ssm_regmodel         (ssm)           @'h00C0_0000; 
+##     system edf_top              (edf)           @'h00C8_0000; 
+##     system ecf_top              (ecf)           @'h00D0_0000; 
+#     system pcie_subsystem       (pcie)          @'h00E8_0000; 
 }

@@ -442,7 +442,7 @@ def main():
 
                         # block
                         elif re.search(r"^block", l):
-                            name, path, offset = '', '', "'h0"
+                            name, rename, path, offset = '', '','', "'h0"
                             if re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^block\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -482,21 +482,41 @@ def main():
                                     oset = oset_prefix + format(oset_value, 'x')
 
                             else: # non array
-                                if re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                if re.search(r"^block\s+(\w+)=(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/rename/path/offset
+                                    match = re.search(r"^block\s+(\w+)=(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                elif re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
                                     match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^block\s+(\w+)=(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/rename/offset
+                                    match = re.search(r"^block\s+(\w+)=(\w+)\s*@\s*(\S+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
                                     offset = match.group(3)
                                 elif re.search(r"^block\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
                                     match = re.search(r"^block\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
-                                elif re.search(r"^block\s+(\w+)\s*\((.*)\)", l): # name/path
-                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)", l)
+                                elif re.search(r"^block\s+(\w+)=(\w+)\s*\((.*)\)\s*[{;]", l): # name/rename/path
+                                    match = re.search(r"^block\s+(\w+)=(\w+)\s*\((.*)\)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                    path = match.group(3)
+                                elif re.search(r"^block\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                    match = re.search(r"^block\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
-                                elif re.search(r"^block\s+(\w+)", l): # name
-                                    match = re.search(r"^block\s+(\w+)", l)
+                                elif re.search(r"^block\s+(\w+)=(\w+)\s*[{;]", l): # name/rename
+                                    match = re.search(r"^block\s+(\w+)=(\w+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                elif re.search(r"^block\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^block\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -510,6 +530,8 @@ def main():
                                         if d.name == name and "Block" in str(type(d)):
                                             block = copy.deepcopy(d)
                                             block.level, block.offset, block.path = level, offset, path
+                                            if rename: # has rename
+                                                block.name = rename
                                             break
                                     hier[-1].subs.append(block)
 
@@ -518,7 +540,7 @@ def main():
 
                         # system
                         elif re.search(r"^system", l):
-                            name, path, offset = '', '', "'h0"
+                            name, rename, path, offset = '', '', '', "'h0"
                             if re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l): # array
                                 match = re.search(r"^system\s+(\w+)\s*\[(\d+)\]", l)
                                 name = match.group(1)
@@ -558,21 +580,41 @@ def main():
                                     oset = oset_prefix + format(oset_value, 'x')
 
                             else: # non array
-                                if re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
+                                if re.search(r"^system\s+(\w+)=(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/rename/path/offset
+                                    match = re.search(r"^system\s+(\w+)=(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                    path = match.group(3)
+                                    offset = match.group(4)
+                                elif re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l): # name/path/offset
                                     match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
+                                    offset = match.group(3)
+                                elif re.search(r"^system\s+(\w+)=(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/rename/offset
+                                    match = re.search(r"^system\s+(\w+)=(\w+)\s*@\s*(\S+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
                                     offset = match.group(3)
                                 elif re.search(r"^system\s+(\w+)\s*@\s*(\S+)\s*[{;]", l): # name/offset
                                     match = re.search(r"^system\s+(\w+)\s*@\s*(\S+)\s*[{;]", l)
                                     name = match.group(1)
                                     offset = match.group(2)
-                                elif re.search(r"^system\s+(\w+)\s*\((.*)\)", l): # name/path
-                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)", l)
+                                elif re.search(r"^system\s+(\w+)=(\w+)\s*\((.*)\)\s*[{;]", l): # name/rename/path
+                                    match = re.search(r"^system\s+(\w+)=(\w+)\s*\((.*)\)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                    path = match.group(3)
+                                elif re.search(r"^system\s+(\w+)\s*\((.*)\)\s*[{;]", l): # name/path
+                                    match = re.search(r"^system\s+(\w+)\s*\((.*)\)\s*[{;]", l)
                                     name = match.group(1)
                                     path = match.group(2)
-                                elif re.search(r"^system\s+(\w+)", l): # name
-                                    match = re.search(r"^system\s+(\w+)", l)
+                                elif re.search(r"^system\s+(\w+)=(\w+)\s*[{;]", l): # name/rename
+                                    match = re.search(r"^system\s+(\w+)=(\w+)\s*[{;]", l)
+                                    name = match.group(1)
+                                    rename = match.group(2)
+                                elif re.search(r"^system\s+(\w+)\s*[{;]", l): # name
+                                    match = re.search(r"^system\s+(\w+)\s*[{;]", l)
                                     name = match.group(1)
                                 else:
                                     print("Error {}:'{}' - Unsupported format".format(nu, l))
@@ -586,6 +628,8 @@ def main():
                                         if d.name == name and "System" in str(type(d)):
                                             system = copy.deepcopy(d)
                                             system.level, system.offset, system.path = level, offset, path
+                                            if rename: # has rename
+                                                system.name = rename
                                             break
                                     hier[-1].subs.append(system)
 
