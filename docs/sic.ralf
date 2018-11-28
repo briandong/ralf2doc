@@ -1,0 +1,109 @@
+#################################################################
+#               SIC Register Mapping
+#################################################################
+#mode sel (for harvest feature)	Start Addr	End Addr	Space Size	Usage
+#                        	0x0000_0000	0x0007_FFFF	512KB	for local allocation
+#STRAP_ccf_addrmap_sel[2:0]=3'b000	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b001	
+#                               0x000B_8000	0x000B_FFFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x0008_0000	0x0008_7FFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b010	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b011	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b100	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b101	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b110	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip5's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip6's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip7's space
+#STRAP_ccf_addrmap_sel[2:0]=3'b111	
+#                               0x0008_0000	0x0008_7FFF	32KB	for sip0's space
+#                          	0x0008_8000	0x0008_FFFF	32KB	for sip1's space
+#                          	0x0009_0000	0x0009_7FFF	32KB	for sip2's space
+#                          	0x0009_8000	0x0009_FFFF	32KB	for sip3's space
+#                          	0x000A_0000	0x000A_7FFF	32KB	for sip4's space
+#                          	0x000A_8000	0x000A_FFFF	32KB	for sip5's space
+#                          	0x000B_8000	0x000B_FFFF	32KB	for sip6's space
+#                          	0x000B_0000	0x000B_7FFF	32KB	for sip7's space
+#                          	0x000C_0000	0x000C_7FFF	32KB	for cdma0's space
+#                          	0x000C_8000	0x000C_FFFF	32KB	for cdma1's space
+#                          	0x000D_0000	0x000D_7FFF	32KB	for cluster's communication register space
+#                          	0x000D_8000	0x000D_FFFF	32KB	for ccf's internal resgiter space
+#                          	0x000E_0000	0x000E_7FFF	32KB	for corresponding cdf's internal register space
+#                          	0x000E_8000	0x000F_FFFF	96KB	ccf's reserved space
+#                          	0x0010_0000	0x001F_FFFF	1MB	"for cluster0, it is reserved; for other clusters, it is valid.
+#                                                                          cluster0's internal masters should not issue an address within this space range (driver&sip program should guarantee this)."
+#                          	0x0020_0000	0x002F_FFFF	1MB	"for cluster1, it is reserved; for other clusters, it is valid.
+#                                                                          cluster1's internal masters should not issue an address within this space range (driver&sip program should guarantee this)."
+#                          	0x0030_0000	0x003F_FFFF	1MB	"for cluster2, it is reserved; for other clusters, it is valid.
+#                                                                          cluster2's internal masters should not issue an address within this space range (driver&sip program should guarantee this)."
+#                          	0x0040_0000	0x004F_FFFF	1MB	"for cluster3, it is reserved; for other clusters, it is valid.
+#                                                                          cluster3's internal masters should not issue an address within this space range (driver&sip program should guarantee this)."
+#                          	0x0050_0000	0x3FFF_FFFF	1019MB	for other external ecf's space
+
+source "sip.ralf"
+source "cluster.ralf"
+#source "cdma_reg_gdma.ralf"
+source "ccf_top.ralf"
+source "cdf_top.ralf"
+
+system sic_regmodel {
+    bytes 4;
+    endian little;
+
+    system sip_core[8]          (sip_%d)        @'h0008_0000 + 'h0000_8000;
+#    system cdma_regs[2]         (cdma_%d)       @'h000C_0000 + 'h0000_8000;
+    system cluster_regmodel     (cluster)    @'h000D_0000; 
+    system ccf_top              (ccf)        @'h000D_8000; 
+    system cdf_top              (cdf)        @'h000E_0000; 
+}

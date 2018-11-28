@@ -1,0 +1,732 @@
+block sip_sec {
+        bytes 4;
+        register SEC_SLV_CTL @'h000 {
+                bytes 4;
+                field RSP_STA @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field BYPASS @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION0 @'h004 {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION0 @'h008 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION1 @'h00C {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION1 @'h010 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION2 @'h014 {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION2 @'h018 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION3 @'h01C {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION3 @'h020 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION4 @'h024 {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION4 @'h028 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION5 @'h02C {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION5 @'h030 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION6 @'h034 {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION6 @'h038 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_ADDR_REGION7 @'h03C {
+                bytes 4;
+                field START_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_START_END_REGION7 @'h040 {
+                bytes 4;
+                field END_ADDR @0 {
+                        bits 30;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN0 @'h044 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN1 @'h048 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN2 @'h04C {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN3 @'h050 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN4 @'h054 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN5 @'h058 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN6 @'h05C {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_EN7 @'h060 {
+                bytes 4;
+                field INITIA_EN @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW0 @'h064 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW1 @'h068 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW2 @'h06C {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW3 @'h070 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW4 @'h074 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW5 @'h078 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW6 @'h07C {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_RW7 @'h080 {
+                bytes 4;
+                field ACCESS_TYPE @0 {
+                        bits 2;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT0 @'h084 {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT1 @'h088 {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT2 @'h08C {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT3 @'h090 {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT4 @'h094 {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT5 @'h098 {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_INITIATOR_PROT6 @'h09C {
+                bytes 4;
+                field DATA_MODE @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field DATA_CHK @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_MODE @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SEC_CHK @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_MODE @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PRIV_CHK @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG0 @'h0A0 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG1 @'h0A4 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG2 @'h0A8 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG3 @'h0AC {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG4 @'h0B0 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG5 @'h0B4 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG6 @'h0B8 {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SEC_ERROR_LOG7 @'h0BC {
+                bytes 4;
+                field ERR_CLR @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field ERR_FLAG @8 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INITID_ERR @3 {
+                        bits 5;
+                        access ro;
+                        reset 'h0;
+                }
+                field AXPROT_ERR @1 {
+                        bits 2;
+                        access ro;
+                        reset 'h0;
+                }
+                field ACCESS_ERR @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+}
+
+system sip_firewall {
+  bytes 4;
+  block sip_sec @'h0000;
+}

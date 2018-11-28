@@ -1,0 +1,1916 @@
+source "vm_client.ralf"
+block cqm_regs {
+        bytes 4;
+        register CQM_INFO @'h0000 {
+                bytes 4;
+                field CQM_ID_7_0 @0 {
+                        bits   8;
+                        access ro;
+                        reset  'h00;
+                }
+                field CQM_BRIDGE_PARITY_ERROR_8_8 @8 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_IRAM_PARITY_ERROR_9_9 @9 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_DRAM_PARITY_ERROR_10_10 @10 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_DCACHE_PARITY_ERROR_11_11 @11 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_ECF_MST_WR_PARITY_ERROR_12_12 @12 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_ECF_MST_RD_PARITY_ERROR_13_13 @13 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_EDF_MST_WR_PARITY_ERROR_14_14 @14 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_EDF_MST_RD_PARITY_ERROR_15_15 @15 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_INFO_29_16_RESERVED @16 {
+                        bits   14;
+                        access ro;
+                        reset  'h0000;
+                }
+                field CQM_DOG_DEAD_30_30 @30 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field CQM_IDLE_31_31 @31 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                } 
+        }
+
+        register CQM_CTRL @'h0004 {
+                bytes 4;
+                field CQM_RESET_0_0 @0 {
+                        bits   1;
+                        access wo;
+                        reset  'h1;
+                }
+                field CQM_GLOBAL_DEBUG_1_1 @1 {
+                        bits   1;
+                        access wo;
+                        reset  'h0;
+                }
+                field CQM_CTRL_31_2_RESERVED @2 {
+                        bits   30;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_ERR_COUNTER @'h0008 {
+                bytes 4;
+                field  CQM_ERROR_COUNTER @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_ERR_CODE @'h000c {
+                bytes 4;
+                field  CQM_ERROR_CODE @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_ARUSER @'h0010 {
+                bytes 4;
+                field CQM_AXI_ARUSER_15_0 @0 {
+                        bits   16;
+                        access ru;
+                        reset  'h0000;
+                }
+                field CQM_AXI_ARUSER_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_AWUSER @'h0014 {
+                bytes 4;
+                field CQM_AXI_AWUSER_15_0 @0 {
+                        bits   16;
+                        access ru;
+                        reset  'h0000;
+                }
+                field CQM_AXI_AWUSER_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_ARQOS @'h0018 {
+                bytes 4;
+                field CQM_AXI_ARQOS_3_0 @0 {
+                        bits   4;
+                        access ru;
+                        reset  'h0;
+                }
+                field CQM_AXI_ARQOS_31_4_RESERVED @4 {
+                        bits   28;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+        
+        register CQM_AWQOS @'h001c {
+                bytes 4;
+                field CQM_AXI_AWQOS_3_0 @0 {
+                        bits   4;
+                        access ru;
+                        reset  'h0;
+                }
+                field CQM_AXI_AWQOS_31_4_RESERVED @4 {
+                        bits   28;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+        
+        register CQM_ADDR_HI9 @'h0020 {
+                bytes 4;
+                field CQM_AXI_ADDR_HI9_8_0 @0 {
+                        bits   9;
+                        access ru;
+                        reset  'h000;
+                }
+                field CQM_AXI_ADDR_HI9_31_9_RESERVED @9 {
+                        bits   23;
+                        access ro;
+                        reset  'h000000;
+                }
+        }
+
+        register CQM_SRAMMISC @'h0024 {
+                bytes 4;
+                field CQM_SRAMMISC_31_0 @0 {
+                        bits   32;
+                        access wo;
+                        reset  'h80114522;
+                }
+        }
+
+        register CQM_SRAM_LP @'h0028 {
+                bytes 4;
+                field CQM_SRAM_FUNC_RET1N_0_0 @0 {
+                        bits   1;
+                        access wo;
+                        reset  'h1;
+                }
+
+                field CQM_SRAM_31_1_RESERVED @1 {
+                        bits   31;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_CLK_GATE_DIS @'h002c {
+                bytes 4;
+                field CQM_REG_BRIDGE_CLK_GATE_DISABLE_0_0 @0 {
+                        bits   1;
+                        access wo;
+                        reset  'h1;
+                }
+
+                field CQM_CLK_GATE_DIS_31_1_RESERVED @1 {
+                        bits   31;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_CCOUNT_LO @'h0030 {
+                bytes 4;
+                field CQM_CYCLE_COUNT_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h0;
+                }
+        }
+
+        register CQM_CCOUNT_HI @'h0034 {
+                bytes 4;
+                field CQM_CYCLE_COUNT_HI @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h0;
+                }
+        }
+
+        register CQM_WATCHDOG @'h0038 {
+                bytes 4;
+                field CQM_WATCH_DOG @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h0;
+                }
+        }
+
+        register CQM_BUFFER_BASE_LOW @'h0040 {
+                bytes 4;
+                field BUFFER_BASE_LO_7_0_RESERVED @0 {
+                        bits   8;
+                        access ro;
+                        reset  'h00;
+                }
+                field BUFFER_BASE_LO_31_8 @8 {
+                        bits   24;
+                        access wo;
+                        reset  'h000000;
+                }
+        }
+        
+        register CQM_BUFFER_BASE_HIGH @'h0044 {
+                bytes 4;
+                field BUFFER_BASE_HI_6_0 @0 {
+                        bits   7;
+                        access wo;
+                        reset  'h00;
+                }
+                field BUFFER_BASE_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+        
+        register CQM_BUFFER_BASE_SIZE @'h0048 {
+                bytes 4;
+                field BUFFER_SIZE @0 {
+                        bits   32;
+                        access wo;
+                        reset  'h00000000;
+                }
+        }
+        
+        
+        register CQM_WPTR @'h004c {
+                bytes 4;
+                field BUFFER_WPTR @0 {
+                        bits   32;
+                        access wo;
+                        reset  'h00000000;
+                }
+        }
+        
+        
+        register CQM_RPTR @'h0050 {
+                bytes 4;
+                field BUFFER_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_RB_PCOUNT @'h0054 {
+                bytes 4;
+                field BUFFER_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_NUMBER_CFG @'h0058 {
+                bytes 4;
+                field STREAM_NUMBER_CFG_3_0 @0 {
+                        bits   4;
+                        access wo;
+                        reset  'h0;
+                }
+                field STREAM_NUMBER_CFG_31_4_RESERVED @4 {
+                        bits   28;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_TIMEOUT_CFG @'h005c {
+                bytes 4;
+                field PACKET_TIMEOUT_CFG @0 {
+                        bits   32;
+                        access wo;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_PACKET_COUNT_CFG @'h0060 {
+                bytes 4;
+                field PACKET_COUNT_CFG @0 {
+                        bits   32;
+                        access wo;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_PACKET_FAIL_COUNT @'h64 {
+                bytes 4;
+                field PACKET_FAIL_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_VALID_STREAM_NUMBER @'h68 {
+                bytes 4;
+                field VALID_STREAM_NUMBER @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_RAM_WRITE_DATA0 @'h0080 {
+                bytes 4;
+                field RAM_DATA0 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_DATA1 @'h0084 {
+                bytes 4;
+                field RAM_DATA1 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_DATA2 @'h0088 {
+                bytes 4;
+                field RAM_DATA2 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_DATA3 @'h008c {
+                bytes 4;
+                field RAM_DATA3 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_ADDR @'h0090 {
+                bytes 4;
+                field RAM_ADDR_3_0_RESERVED @0 {
+                        bits   4;
+                        access ro;
+                        reset  'h0;
+                }
+                field RAM_ADDR_13_4 @4 {
+                        bits   10;
+                        access wo;
+                        reset  'h000;
+                }
+                field RAM_ADDR_31_14_RESERVED @14 {
+                        bits   18;
+                        access ro;
+                        reset  'h00000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_WSTRB @'h0094 {
+                bytes 4;
+                field RAM_WSTRB_3_0 @0 {
+                        bits   4;
+                        access wo;
+                        reset  'h0;
+                }
+                field RAM_WSTRB_31_4_RESERVED @4 {
+                        bits   28;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+        
+        register CQM_RAM_WRITE_INIT @'h0098 {
+                bytes 4;
+                field RAM_INIT_0_0 @0 {
+                        bits   1;
+                        access wo;
+                        reset  'h0;
+                }
+		        field RAM_SEL_1_1 @1 {
+                        bits   1;
+                        access wo;
+                        reset  'h0;
+                }
+                field RAM_WRITE_2_2 @2 {
+                        bits   1;
+                        access wo;
+                        reset  'h0;
+                }
+                field RAM_INIT_31_3_RESERVED @3 {
+                        bits   29;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+       
+        register CQM_BRIDGE_PARTIY_CTRL @'h00a0 {
+                bytes 4;
+                field BRIDGE_PARITY_CHECK_EN @0 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field BRIDGE_PARITY_ERROR_STATUS @1 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field BRIDGE_PARITY_ERROR_INJECT_EN @2 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field BRIDGE_PARITY_ERROR_INT_EN @3 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field BRIDGE_PARITY_RESERVED_11_4 @4 {
+                        bits   8;
+                        access ro;
+                        reset  'h00;
+                }
+                field BRIDGE_PARITY_ERROR_AWID @12 {
+                        bits   4;
+                        access ro;
+                        reset  'h00;
+                }
+                field BRIDGE_PARITY_ERROR_AWUSER @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+
+        register CQM_BRIDGE_PARTIY_WADDR @'h00a4 {
+                bytes 4;
+                field BRIDGE_PARITY_WADDR_29_0 @0 {
+                        bits   30;
+                        access ro;
+                        reset  'h00000000;
+                }
+                field BRIDGE_PARITY_WADDR_RESERVED_31_30 @30 {
+                        bits   2;
+                        access ro;
+                        reset  'h0;
+                }
+        }
+
+        register CQM_SRAM_PARITY @'h00a8 {
+                bytes 4;
+                field IRAM_PARITY_ERROR_STATUS @0 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field IRAM_PARITY_ERROR_INT_EN @1 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field DRAM_PARITY_ERROR_STATUS @2 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field DRAM_PARITY_ERROR_INT_EN @3 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field DCACHE_PARITY_ERROR_STATUS @4 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field DCACHE_PARITY_ERROR_INT_EN @5 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field SRAM_PARITY_ERROR_RESERVED_31_6 @6 {
+                        bits   26;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_ECF_EDF_MST_PARITY @'h00ac {
+                bytes 4;
+                field ECF_MST_WR_PARITY_ERROR_STATUS @0 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field ECF_MST_WR_PARITY_ERROR_INJECT_EN @1 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field ECF_MST_WR_PARITY_ERROR_INT_EN @2 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field ECF_MST_WR_PARITY_ERROR_RESERVED_3_3 @3 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field ECF_MST_WR_PARITY_ERROR_BID @4 {
+                        bits   4;
+                        access ro;
+                        reset  'h0;
+                }
+                field ECF_MST_RD_PARITY_ERROR_STATUS @8 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field ECF_MST_RD_PARITY_ERROR_CHECK_EN @9 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field ECF_MST_RD_PARITY_ERROR_INT_EN @10 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field ECF_MST_RD_PARITY_ERROR_RESERVED_11_11 @11 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field ECF_MST_RD_PARITY_ERROR_RID @12 {
+                        bits   4;
+                        access ro;
+                        reset  'h0;
+                }
+                field EDF_MST_WR_PARITY_ERROR_STATUS @16 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field EDF_MST_WR_PARITY_ERROR_INJECT_EN @17 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field EDF_MST_WR_PARITY_ERROR_INT_EN @18 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field EDF_MST_WR_PARITY_ERROR_RESERVED_19_19 @19 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field EDF_MST_WR_PARITY_ERROR_BID @20 {
+                        bits   4;
+                        access ro;
+                        reset  'h0;
+                }
+                field EDF_MST_RD_PARITY_ERROR_STATUS @24 {
+                        bits   1;
+                        access w1c;
+                        reset  'h0;
+                }
+                field EDF_MST_RD_PARITY_ERROR_CHECK_EN @25 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field EDF_MST_RD_PARITY_ERROR_INT_EN @26 {
+                        bits   1;
+                        access rw;
+                        reset  'h0;
+                }
+                field EDF_MST_RD_PARITY_ERROR_RESERVED_27_27 @27 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field EDF_MST_RD_PARITY_ERROR_RID @28 {
+                        bits   4;
+                        access ro;
+                        reset  'h0;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_ID @'h0100 {
+                bytes 4;
+                field STREAM_SLOT_0_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_STATUS @'h0104 {
+                bytes 4;
+                field STREAM_SLOT_0_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_0_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_0_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_0_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_ADDR_HI @'h0108 {
+                bytes 4;
+                field STREAM_SLOT_0_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_0_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_ADDR_LO @'h010c {
+                bytes 4;
+                field STREAM_SLOT_0_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_0_LENGTH @'h0110 {
+                bytes 4;
+                field STREAM_SLOT_0_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_RPTR @'h0114 {
+                bytes 4;
+                field STREAM_SLOT_0_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_0_PACKET_COUNT @'h0118 {
+                bytes 4;
+                field STREAM_SLOT_0_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_ID @'h0120 {
+                bytes 4;
+                field STREAM_SLOT_1_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_STATUS @'h0124 {
+                bytes 4;
+                field STREAM_SLOT_1_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_1_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_1_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_1_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_ADDR_HI @'h0128 {
+                bytes 4;
+                field STREAM_SLOT_1_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_1_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_ADDR_LO @'h012c {
+                bytes 4;
+                field STREAM_SLOT_1_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_1_LENGTH @'h0130 {
+                bytes 4;
+                field STREAM_SLOT_1_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_RPTR @'h0134 {
+                bytes 4;
+                field STREAM_SLOT_1_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_1_PACKET_COUNT @'h0138 {
+                bytes 4;
+                field STREAM_SLOT_1_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_ID @'h0140 {
+                bytes 4;
+                field STREAM_SLOT_2_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_STATUS @'h0144 {
+                bytes 4;
+                field STREAM_SLOT_2_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_2_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_2_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_2_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_ADDR_HI @'h0148 {
+                bytes 4;
+                field STREAM_SLOT_2_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_2_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_ADDR_LO @'h014c {
+                bytes 4;
+                field STREAM_SLOT_2_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_2_LENGTH @'h0150 {
+                bytes 4;
+                field STREAM_SLOT_2_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_RPTR @'h0154 {
+                bytes 4;
+                field STREAM_SLOT_2_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_2_PACKET_COUNT @'h0158 {
+                bytes 4;
+                field STREAM_SLOT_2_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_ID @'h0160 {
+                bytes 4;
+                field STREAM_SLOT_3_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_STATUS @'h0164 {
+                bytes 4;
+                field STREAM_SLOT_3_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_3_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_3_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_3_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_ADDR_HI @'h0168 {
+                bytes 4;
+                field STREAM_SLOT_3_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_3_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_ADDR_LO @'h016c {
+                bytes 4;
+                field STREAM_SLOT_3_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_3_LENGTH @'h0170 {
+                bytes 4;
+                field STREAM_SLOT_3_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_RPTR @'h0174 {
+                bytes 4;
+                field STREAM_SLOT_3_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_3_PACKET_COUNT @'h0178 {
+                bytes 4;
+                field STREAM_SLOT_3_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_ID @'h0180 {
+                bytes 4;
+                field STREAM_SLOT_4_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_STATUS @'h0184 {
+                bytes 4;
+                field STREAM_SLOT_4_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_4_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_4_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_4_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_ADDR_HI @'h0188 {
+                bytes 4;
+                field STREAM_SLOT_4_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_4_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_ADDR_LO @'h018c {
+                bytes 4;
+                field STREAM_SLOT_4_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_4_LENGTH @'h0190 {
+                bytes 4;
+                field STREAM_SLOT_4_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_RPTR @'h0194 {
+                bytes 4;
+                field STREAM_SLOT_4_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_4_PACKET_COUNT @'h0198 {
+                bytes 4;
+                field STREAM_SLOT_4_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_ID @'h01a0 {
+                bytes 4;
+                field STREAM_SLOT_5_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_STATUS @'h01a4 {
+                bytes 4;
+                field STREAM_SLOT_5_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_5_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_5_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_5_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_ADDR_HI @'h01a8 {
+                bytes 4;
+                field STREAM_SLOT_5_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_5_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_ADDR_LO @'h01ac {
+                bytes 4;
+                field STREAM_SLOT_5_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_5_LENGTH @'h01b0 {
+                bytes 4;
+                field STREAM_SLOT_5_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_RPTR @'h01b4 {
+                bytes 4;
+                field STREAM_SLOT_5_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_5_PACKET_COUNT @'h01b8 {
+                bytes 4;
+                field STREAM_SLOT_5_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_ID @'h01c0 {
+                bytes 4;
+                field STREAM_SLOT_6_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_STATUS @'h01c4 {
+                bytes 4;
+                field STREAM_SLOT_6_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_6_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_6_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_6_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_ADDR_HI @'h01c8 {
+                bytes 4;
+                field STREAM_SLOT_6_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_6_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_ADDR_LO @'h01cc {
+                bytes 4;
+                field STREAM_SLOT_6_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_6_LENGTH @'h01d0 {
+                bytes 4;
+                field STREAM_SLOT_6_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_RPTR @'h01d4 {
+                bytes 4;
+                field STREAM_SLOT_6_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_6_PACKET_COUNT @'h01d8 {
+                bytes 4;
+                field STREAM_SLOT_6_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_ID @'h01e0 {
+                bytes 4;
+                field STREAM_SLOT_7_ID @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_STATUS @'h01e4 {
+                bytes 4;
+                field STREAM_SLOT_7_STATUS_BUSY_0_0 @0 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_7_STATUS_DEBUG_1_1 @1 {
+                        bits   1;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_7_STATUS_PRIORITY_4_2 @2 {
+                        bits   3;
+                        access ro;
+                        reset  'h0;
+                }
+                field STREAM_SLOT_7_STATUS_RESERVED_31_5 @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_ADDR_HI @'h01e8 {
+                bytes 4;
+                field STREAM_SLOT_7_ADDR_HI_6_0 @0 {
+                        bits   7;
+                        access ro;
+                        reset  'h00;
+                }
+                field STREAM_SLOT_7_ADDR_HI_31_7_RESERVED @7 {
+                        bits   25;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_ADDR_LO @'h01ec {
+                bytes 4;
+                field STREAM_SLOT_7_ADDR_LO @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+ 
+        register CQM_STREAM_SLOT_7_LENGTH @'h01f0 {
+                bytes 4;
+                field STREAM_SLOT_7_LENGTH @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_RPTR @'h01f4 {
+                bytes 4;
+                field STREAM_SLOT_7_RPTR @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_STREAM_SLOT_7_PACKET_COUNT @'h01f8 {
+                bytes 4;
+                field STREAM_SLOT_7_PACKET_COUNT @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+
+        register CQM_MAILBOX_SPECIAL_ID @'h0200 {
+                bytes 4;
+                field MBX_SP_ID_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_SP_ID_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        
+        register CQM_MAILBOX_SPECIAL_CONFIG_ID_REF @'h0204 {
+                bytes 4;
+                field MBX_SP_CONFIG_ID_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_SP_CONFIG_REF_15_0 @16 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_SPECIAL_STATUS_SELECT @'h0208 {
+                bytes 4;
+                field MBX_SP_STATUS_SEL_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_SP_STATUS_SEL_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_SPECIAL_STATUS @'h020c {
+                bytes 4;
+                field MBX_SP_STATUS @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_MAILBOX_SPECIAL_CLEAN_COUNTER @'h0210 {
+                bytes 4;
+                field MBX_SP_CLEAN_COUNTER_15_0 @0 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+                field MBX_SP_CLEAN_COUNTER_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_SPECIAL_CLEAN_REF @'h0214 {
+                bytes 4;
+                field MBX_SP_CLEAN_REF_15_0 @0 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+                field MBX_SP_CLEAN_REF_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_SPECIAL_IP_TRIGGER @'h0218 {
+                bytes 4;
+                field MBX_SP_IP_TRIGGER_15_0 @0 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+                field MBX_SP_IP_TRIGGER_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+
+        register CQM_MAILBOX_SPECIAL_IP_AWUSER_INDEX @'h0220 {
+                bytes 4;
+                field MBX_SP_IP_AWUSER_INDEX_4_0 @0 {
+                        bits   5;
+                        access ru;
+                        reset  'h00;
+                }
+                field MBX_SP_IP_AWUSER_INDEX_31_5_RESERVED @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_MAILBOX_SPECIAL_IP_AWUSER_DATA @'h0224 {
+                bytes 4;
+                field MBX_SP_IP_AWUSER_DATA_15_0 @0 {
+                        bits   16;
+                        access ru;
+                        reset  'h0000;
+                }
+                field MBX_SP_IP_AWUSER_DATA_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+      
+        register CQM_MAILBOX_SPECIAL_IP_STATUS_INDEX @'h0228 {
+                bytes 4;
+                field MBX_SP_IP_STATUS_INDEX_4_0 @0 {
+                        bits   5;
+                        access ru;
+                        reset  'h00;
+                }
+                field MBX_SP_IP_STATUS_INDEX_31_5_RESERVED @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+  
+        register CQM_MAILBOX_SPECIAL_IP_STATUS_SELECT @'h022c {
+                bytes 4;
+                field MBX_SP_IP_STATUS_SELECT_4_0 @0 {
+                        bits   5;
+                        access rw;
+                        reset  'h00;
+                }
+                field MBX_SP_IP_STATUS_SELECT_31_5_RESERVED @5 {
+                        bits   27;
+                        access ro;
+                        reset  'h0000000;
+                }
+        }
+
+        register CQM_MAILBOX_SPECIAL_IP_STATUS_OUT @'h0230 {
+                bytes 4;
+                field MBX_SP_IP_STATUS_OUT_1_0 @0 {
+                        bits   2;
+                        access ro;
+                        reset  'h0;
+                }
+                field MBX_SP_IP_STATUS_OUT_31_2_RESERVED @2 {
+                        bits   30;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+        register CQM_MAILBOX_COMMON_ID @'h0240 {
+                bytes 4;
+                field MBX_COM_ID_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_COM_ID_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        
+        register CQM_MAILBOX_COMMON_CONFIG_ID_REF @'h0244 {
+                bytes 4;
+                field MBX_COM_CONFIG_ID_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_COM_CONFIG_REF_15_0 @16 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_COMMON_STATUS_SELECT @'h0248 {
+                bytes 4;
+                field MBX_COM_STATUS_SEL_15_0 @0 {
+                        bits   16;
+                        access rw;
+                        reset  'h0000;
+                }
+                field MBX_COM_STATUS_SEL_31_16_RESERVED @16 {
+                        bits   16;
+                        access ro;
+                        reset  'h0000;
+                }
+        }
+        
+        register CQM_MAILBOX_COMMON_STATUS @'h024c {
+                bytes 4;
+                field MBX_COM_STATUS @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_MAILBOX_COMMON_CLEAN_COUNTER @'h0250 {
+                bytes 4;
+                field MBX_COM_CLEAN_COUNTER @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_MAILBOX_COMMON_CLEAN_REF @'h0254 {
+                bytes 4;
+                field MBX_COM_CLEAN_REF @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_MAILBOX_COMMON_IP_TRIGGER @'h0258 {
+                bytes 4;
+                field MBX_COM_IP_TRIGGER @0 {
+                        bits   32;
+                        access ro;
+                        reset  'h00000000;
+                }
+        }
+
+#        register CQM_MAILBOX_COMMON_IP_AWUSER_INDEX @'h0260 {
+#                bytes 4;
+#                field MBX_COM_IP_AWUSER_INDEX_4_0 @0 {
+#                        bits   5;
+#                        access ru;
+#                        reset  'h00;
+#                }
+#                field MBX_COM_IP_AWUSER_INDEX_31_5_RESERVED @5 {
+#                        bits   27;
+#                        access ro;
+#                        reset  'h0000000;
+#                }
+#        }
+#
+#        register CQM_MAILBOX_COMMON_IP_AWUSER_DATA @'h0264 {
+#                bytes 4;
+#                field MBX_COM_IP_AWUSER_DATA_15_0 @0 {
+#                        bits   16;
+#                        access ru;
+#                        reset  'h0000;
+#                }
+#                field MBX_COM_IP_AWUSER_DATA_31_16_RESERVED @16 {
+#                        bits   16;
+#                        access ro;
+#                        reset  'h0000;
+#                }
+#        }
+#      
+#        register CQM_MAILBOX_COMMON_IP_STATUS_INDEX @'h0268 {
+#                bytes 4;
+#                field MBX_COM_IP_STATUS_INDEX_4_0 @0 {
+#                        bits   5;
+#                        access ru;
+#                        reset  'h00;
+#                }
+#                field MBX_COM_IP_STATUS_INDEX_31_5_RESERVED @5 {
+#                        bits   27;
+#                        access ro;
+#                        reset  'h0000000;
+#                }
+#        }
+#  
+#        register CQM_MAILBOX_COMMON_IP_STATUS_SELECT @'h026c {
+#                bytes 4;
+#                field MBX_COM_IP_STATUS_SELECT_4_0 @0 {
+#                        bits   5;
+#                        access rw;
+#                        reset  'h00;
+#                }
+#                field MBX_COM_IP_STATUS_SELECT_31_5_RESERVED @5 {
+#                        bits   27;
+#                        access ro;
+#                        reset  'h0000000;
+#                }
+#        }
+#
+#        register CQM_MAILBOX_COMMON_IP_STATUS_OUT @'h0270 {
+#                bytes 4;
+#                field MBX_COM_IP_STATUS_OUT_1_0 @0 {
+#                        bits   2;
+#                        access ro;
+#                        reset  'h0;
+#                }
+#                field MBX_COM_IP_STATUS_OUT_31_2_RESERVED @2 {
+#                        bits   30;
+#                        access ro;
+#                        reset  'h00000000;
+#                }
+#        }
+
+        register CQM_BLANK_REG00 @'h0280 {
+                bytes 4;
+                field BLANK_REGISTER00 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG01 @'h0284 {
+                bytes 4;
+                field BLANK_REGISTER01 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG02 @'h0288 {
+                bytes 4;
+                field BLANK_REGISTER02 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG03 @'h028c {
+                bytes 4;
+                field BLANK_REGISTER03 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG04 @'h0290 {
+                bytes 4;
+                field BLANK_REGISTER04 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG05 @'h0294 {
+                bytes 4;
+                field BLANK_REGISTER05 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG06 @'h0298 {
+                bytes 4;
+                field BLANK_REGISTER06 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG07 @'h029c {
+                bytes 4;
+                field BLANK_REGISTER07 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG08 @'h02a0 {
+                bytes 4;
+                field BLANK_REGISTER08 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG09 @'h02a4 {
+                bytes 4;
+                field BLANK_REGISTER09 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG10 @'h02a8 {
+                bytes 4;
+                field BLANK_REGISTER10 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG11 @'h02ac {
+                bytes 4;
+                field BLANK_REGISTER11 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG12 @'h02b0 {
+                bytes 4;
+                field BLANK_REGISTER12 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG13 @'h02b4 {
+                bytes 4;
+                field BLANK_REGISTER13 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG14 @'h02b8 {
+                bytes 4;
+                field BLANK_REGISTER14 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG15 @'h02bc {
+                bytes 4;
+                field BLANK_REGISTER15 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG16 @'h02c0 {
+                bytes 4;
+                field BLANK_REGISTER16 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG17 @'h02c4 {
+                bytes 4;
+                field BLANK_REGISTER17 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG18 @'h02c8 {
+                bytes 4;
+                field BLANK_REGISTER18 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG19 @'h02cc {
+                bytes 4;
+                field BLANK_REGISTER19 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG20 @'h02d0 {
+                bytes 4;
+                field BLANK_REGISTER20 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG21 @'h02d4 {
+                bytes 4;
+                field BLANK_REGISTER21 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG22 @'h02d8 {
+                bytes 4;
+                field BLANK_REGISTER22 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG23 @'h02dc {
+                bytes 4;
+                field BLANK_REGISTER23 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG24 @'h02e0 {
+                bytes 4;
+                field BLANK_REGISTER24 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG25 @'h02e4 {
+                bytes 4;
+                field BLANK_REGISTER25 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG26 @'h02e8 {
+                bytes 4;
+                field BLANK_REGISTER26 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG27 @'h02ec {
+                bytes 4;
+                field BLANK_REGISTER27 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG28 @'h02f0 {
+                bytes 4;
+                field BLANK_REGISTER28 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG29 @'h02f4 {
+                bytes 4;
+                field BLANK_REGISTER29 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG30 @'h02f8 {
+                bytes 4;
+                field BLANK_REGISTER30 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+        
+        register CQM_BLANK_REG31 @'h02fc {
+                bytes 4;
+                field BLANK_REGISTER31 @0 {
+                        bits   32;
+                        access rw;
+                        reset  'h00000000;
+                }
+        }
+}
+system cqm_regmodel  {
+    bytes 4;
+    block cqm_regs @'h0;
+    block vm_client_regs @'h400;
+}

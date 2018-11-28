@@ -1,0 +1,793 @@
+block sip_csr {
+        bytes 4;
+        register SIP_EN @'h000 {
+                bytes 4;
+                field SIP_ENB @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_CPMC @'h004 {
+                bytes 4;
+                field OP @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CMDRW @30 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field INDEXMODE @29 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field GROUP @16 {
+                        bits 3;
+                        access rw;
+                        reset 'h0;
+                }
+                field INDEX @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_WPMC @'h008 {
+                bytes 4;
+                field WDATA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_RPMC @'h00C {
+                bytes 4;
+                field RDATA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SRAMMISC @'h010 {
+                bytes 4;
+                field CFG_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h80114522;
+                }
+        }
+        register PC @'h200 {
+                bytes 4;
+                field PC @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register BRKP0 @'h204 {
+                bytes 4;
+                field EN @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field VAL @0 {
+                        bits 13;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register BRKP1 @'h208 {
+                bytes 4;
+                field EN @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field VAL @0 {
+                        bits 13;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register BRKP2 @'h20C {
+                bytes 4;
+                field EN @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field VAL @0 {
+                        bits 13;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register BRKP3 @'h210 {
+                bytes 4;
+                field EN @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field VAL @0 {
+                        bits 13;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_CMD @'h214 {
+                bytes 4;
+                field OP @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CMDRW @30 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field INDEXMODE @29 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field GROUP @16 {
+                        bits 3;
+                        access rw;
+                        reset 'h0;
+                }
+                field INDEX @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_WDATA @'h218 {
+                bytes 4;
+                field WDATA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INDEX_RDATA @'h21C {
+                bytes 4;
+                field RDATA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register PARITY_CFG @'h220 {
+                bytes 4;
+                field ERR_INJ @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PAR_EN @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register PARITY_STS @'h224 {
+                bytes 4;
+                field ERR_STS @0 {
+                        bits 1;
+                        access w1c;
+                        reset 'h0;
+                }
+        }
+        register PARITY_WADDR @'h228 {
+                bytes 4;
+                field ERR_ADDR @0 {
+                        bits 30;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register PARITY_AWINFO @'h22C {
+                bytes 4;
+                field ERR_AWUSER @16 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+                field ERR_AWID @0 {
+                        bits 6;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register EXCP_PC @'h230 {
+                bytes 4;
+                field EXCP_PC @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register DBG_BUF0 @'h234 {
+                bytes 4;
+                field INS_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register DBG_BUF1 @'h238 {
+                bytes 4;
+                field INS_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register DBG_CMD @'h23C {
+                bytes 4;
+                field CMD_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register DBG_RDATA0 @'h240 {
+                bytes 4;
+                field DATA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MODE_CFG @'h400 {
+                bytes 4;
+                field PERF_EN @28 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field STEP_DBG @27 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CLK_GATE_DIS @26 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field BANK_SEL_H @21 {
+                        bits 5;
+                        access rw;
+                        reset 'h8;
+                }
+                field BANK_SEL_L @16 {
+                        bits 5;
+                        access rw;
+                        reset 'h7;
+                }
+                field BF16_OVCLP @14 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field INT_OVCLP @13 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field FP16_OVCLP @12 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field FP_DENORM @6 {
+                        bits 6;
+                        access rw;
+                        reset 'h3f;
+                }
+                field FP_ROUND @0 {
+                        bits 6;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register EXCP_MASK @'h404 {
+                bytes 4;
+                field VAL @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register EXCP_TRAP @'h408 {
+                bytes 4;
+                field VAL @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register TRPBA_CFG @'h40C {
+                bytes 4;
+                field TRPBA @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INTBA_CFG @'h410 {
+                bytes 4;
+                field INTBA @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register INTTRIG @'h414 {
+                bytes 4;
+                field INTTRIG @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD0_CFG @'h418 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD1_CFG @'h41C {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD2_CFG @'h420 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD3_CFG @'h424 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD4_CFG @'h428 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD5_CFG @'h42C {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD6_CFG @'h430 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MD7_CFG @'h434 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register FP32_NAN @'h438 {
+                bytes 4;
+                field FP32_VAL @0 {
+                        bits 31;
+                        access rw;
+                        reset 'h7fffffff;
+                }
+        }
+        register FP16_NAN @'h43C {
+                bytes 4;
+                field BF16_VAL @16 {
+                        bits 15;
+                        access rw;
+                        reset 'h7fff;
+                }
+                field FP16_VAL @0 {
+                        bits 15;
+                        access rw;
+                        reset 'h7fff;
+                }
+        }
+        register ROM_BASE @'h440 {
+                bytes 4;
+                field BASE_VAL @0 {
+                        bits 16;
+                        access rw;
+                        reset 'hffc0;
+                }
+        }
+        register ROM_INFO0 @'h444 {
+                bytes 4;
+                field ADDR_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register ROM_INFO1 @'h448 {
+                bytes 4;
+                field DATA_VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SCRATCH0 @'h460 {
+                bytes 4;
+                field VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h5a5a5a5a;
+                }
+        }
+        register SCRATCH1 @'h464 {
+                bytes 4;
+                field VAL @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h12345678;
+                }
+        }
+        register MBOX_ID @'h600 {
+                bytes 4;
+                field MB_ID @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MBOX_CONFIG @'h604 {
+                bytes 4;
+                field REF @16 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+                field MB_ID @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MBOX_STATUS_SEL @'h608 {
+                bytes 4;
+                field MB_ID @0 {
+                        bits 16;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MBOX_STATUS @'h60C {
+                bytes 4;
+                field REF @16 {
+                        bits 16;
+                        access ro;
+                        reset 'h1;
+                }
+                field MAIL_COUNTER @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SIP_INFO @'h800 {
+                bytes 4;
+                field CID @4 {
+                        bits 4;
+                        access ro;
+                        reset 'h0;
+                }
+                field SID @0 {
+                        bits 4;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MODE_WRK @'h804 {
+                bytes 4;
+                field PERF_EN @28 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field STEP_DBG @27 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field CLK_GATE_DIS @26 {
+                        bits 1;
+                        access ro;
+                        reset 'h1;
+                }
+                field BANK_SEL_H @21 {
+                        bits 5;
+                        access ro;
+                        reset 'h8;
+                }
+                field BANK_SEL_L @16 {
+                        bits 5;
+                        access ro;
+                        reset 'h7;
+                }
+                field BF16_OVCLP @14 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field INT_OVCLP @13 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field FP16_OVCLP @12 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field FP_DENORM @6 {
+                        bits 6;
+                        access ro;
+                        reset 'h3f;
+                }
+                field FP_ROUND @0 {
+                        bits 6;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register TRPBA_WRK @'h808 {
+                bytes 4;
+                field TRPBA @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register INTBA_WRK @'h80C {
+                bytes 4;
+                field INTBA @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD0_WRK @'h810 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD1_WRK @'h814 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD2_WRK @'h818 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD3_WRK @'h81C {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD4_WRK @'h820 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD5_WRK @'h824 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD6_WRK @'h828 {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register MD7_WRK @'h82C {
+                bytes 4;
+                field BA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register HW_STS @'hA00 {
+                bytes 4;
+                field BRKP_HIT @8 {
+                        bits 4;
+                        access rc;
+                        reset 'h0;
+                }
+                field WAIT @1 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field HALT @0 {
+                        bits 1;
+                        access ro;
+                        reset 'h1;
+                }
+        }
+        register EXCP_STS @'hA04 {
+                bytes 4;
+                field VAL @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register EXCP_STS_TH @'hA08 {
+                bytes 4;
+                field VAL @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_STS @'hA0C {
+                bytes 4;
+                field VAL @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG0 @'hA10 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG1 @'hA14 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG2 @'hA18 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG3 @'hA1C {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG4 @'hA20 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG5 @'hA24 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register WARN_DBG6 @'hA28 {
+                bytes 4;
+                field CNT @16 {
+                        bits 8;
+                        access rc;
+                        reset 'h0;
+                }
+                field PC @0 {
+                        bits 16;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+}
+
+system sip_xpu {
+  bytes 4;
+  block sip_csr @'h0000;
+}

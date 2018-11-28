@@ -1,31 +1,12 @@
-source "/projects/jin.li/leo/hw/soc/src/meta/register/gdma.ralf"
+source "sip_csr.ralf"
+source "sip_sec.ralf"
+source "sip_dma_reg_gdma.ralf"
 
-regfile sip_regs {
-	register SIP_SPARE0 @'h0 {
-		field SIP_SPARE {
-			bits   32;
-			access rw;
-			reset  'h0;
-		}
-	}
-        register SIP_SPARE1 @'h0 {
-		field SIP_SPARE {
-			bits   32;
-			access rw;
-			reset  'h0;
-		}
-	}
+system sip_core {
+    bytes 4;
+    endian little;
 
+    system sip_xpu=sip_xpu_blk      (sip_xpu_hdl_path)   @'h0
+    system sip_dma_regs=sip_dma_blk (sip_dma_hdl_path)   @'h1000;
+    system sip_firewall=sip_sec_blk (sip_sec_hdl_path)   @'h1400;
 }
-
-block sip_block {
-	bytes 4;
-	regfile  sip_regs @'h0;
-}
-
-system sip_regmodel {
-	bytes 4;
-        block sip_block @'h0;
-        block gdma_block (sip_dma) @'h8000;
-}
-

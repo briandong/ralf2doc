@@ -1,31 +1,610 @@
-source "/projects/jin.li/leo/hw/soc/src/meta/register/sip.ralf"
-regfile cluster_regs {
-	register CLUSTER_SPARE0 @'h0 {
-		field CLUSTER_SPARE {
-			bits   32;
-			access rw;
-			reset  'h0;
-		}
-	}
-        register CLUSTER_SPARE1 @'h4 {
-		field CLUSTER_SPARE {
-			bits   32;
-			access rw;
-			reset  'h0;
-		}
-	}
-
-}
-
 block cluster_block {
-    bytes 4;
-    regfile cluster_regs @'h0;
+        bytes 4;
+        register SIC_INFO @'h0 {
+                bytes 4;
+                field VER_NUM @24 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field MAJ_NUM @20 {
+                        bits 4;
+                        access ro;
+                        reset 'h0;
+                }
+                field MIN_NUM @16 {
+                        bits 4;
+                        access ro;
+                        reset 'h0;
+                }
+                field SIP_DEF_IDX @12 {
+                        bits 4;
+                        access ro;
+                        reset 'hf;
+                }
+                field SIP_AVA_NUM @8 {
+                        bits 4;
+                        access ro;
+                        reset 'h8;
+                }
+                field CID @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register SIC_CG @'h4 {
+                bytes 4;
+                field CSB7_CG_EN @15 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB6_CG_EN @14 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB5_CG_EN @13 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB4_CG_EN @12 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB3_CG_EN @11 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB2_CG_EN @10 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB1_CG_EN @9 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CSB0_CG_EN @8 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP7_CG_EN @7 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP6_CG_EN @6 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP5_CG_EN @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP4_CG_EN @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP3_CG_EN @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP2_CG_EN @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP1_CG_EN @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field SIP0_CG_EN @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register SIC_SR @'h8 {
+                bytes 4;
+                field CSB7_RST_N @15 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB6_RST_N @14 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB5_RST_N @13 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB4_RST_N @12 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB3_RST_N @11 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB2_RST_N @10 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB1_RST_N @9 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field CSB0_RST_N @8 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP7_RST_N @7 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP6_RST_N @6 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP5_RST_N @5 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP4_RST_N @4 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP3_RST_N @3 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP2_RST_N @2 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP1_RST_N @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+                field SIP0_RST_N @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h1;
+                }
+        }
+        register CSB_CTRL @'h10 {
+                bytes 4;
+                field ACCESS_EN @24 {
+                        bits 8;
+                        access rw;
+                        reset 'h0;
+                }
+                field ACCESS_RW @16 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field IDLE @4 {
+                        bits 1;
+                        access ro;
+                        reset 'h1;
+                }
+                field RW_PRIOR @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register CSB_IDX @'h14 {
+                bytes 4;
+                field CSB_IDX @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register CSB_DATA @'h18 {
+                bytes 4;
+                field CSB_DAT @0 {
+                        bits 32;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register PARITY_CFG @'h1C {
+                bytes 4;
+                field ERR_INJ @1 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field PAR_EN @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register PARITY_STS @'h20 {
+                bytes 4;
+                field ERR_STS @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register PARITY_WADDR @'h24 {
+                bytes 4;
+                field ERR_ADDR @0 {
+                        bits 30;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register PARITY_AWINFO @'h28 {
+                bytes 4;
+                field ERR_AWUSER @16 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+                field ERR_AWID @0 {
+                        bits 6;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register CSB_SRAM @'h2C {
+                bytes 4;
+                field MISC @0 {
+                        bits 32;
+                        access rw;
+                        reset 'hBFFFFFFF;
+                }
+        }
+        register CSB_SFR @'h30 {
+                bytes 4;
+                field FRET1N @0 {
+                        bits 32;
+                        access rw;
+                        reset 'hFFFFFFFF;
+                }
+        }
+        register DBG_CTRL @'h34 {
+                bytes 4;
+                field AXI_STA_CLR @0 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+        }
+        register MS_CNT @'h38 {
+                bytes 4;
+                field MS_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST0 @'h3C {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST1 @'h40 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST2 @'h44 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST3 @'h48 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST4 @'h4C {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST5 @'h50 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST6 @'h54 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST7 @'h58 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST8 @'h5C {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_OST9 @'h60 {
+                bytes 4;
+                field W_OST_CNT @8 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+                field R_OST_CNT @0 {
+                        bits 8;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT0 @'h64 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT1 @'h68 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT2 @'h6C {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT3 @'h70 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT4 @'h74 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT5 @'h78 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT6 @'h7C {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT7 @'h80 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT8 @'h84 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_W_CCNT9 @'h88 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT0 @'h8C {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT1 @'h90 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT2 @'h94 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT3 @'h98 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT4 @'h9C {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT5 @'hA0 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT6 @'hA4 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT7 @'hA8 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT8 @'hAC {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register AXI_R_CCNT9 @'hB0 {
+                bytes 4;
+                field CMD_CNT @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
 }
 
 system cluster_regmodel {
-	bytes 4;
-        system sip_regmodel[8] (sip_%d) @'h0 + 'h1_0000;
-        block gdma_block[2] (cdma_%d) @'h8_0000 + 'h1_0000;
-        block cluster_block @'hA_0000;
+  bytes 4;
+  block cluster_block @'h0000;
 }
-

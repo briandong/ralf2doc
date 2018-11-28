@@ -1,0 +1,19 @@
+
+
+
+
+system sip_dma_regs {
+
+  bytes 4;
+  block gdma_common_regs @'h0000;
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt0_regs @'h0100;
+
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt1_regs @'h0200;
+
+
+
+
+
+}

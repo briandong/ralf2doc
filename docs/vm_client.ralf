@@ -1,0 +1,197 @@
+
+block vm_client_regs {
+	bytes 4;
+	register VM_CLIENT_CTRL @'h0000 {
+		bytes 4;
+		field ENABLE @0 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field PEER_WIN_EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED_0 @2 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+		field PEER_APERTURE_EN @8 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED_1 @12 {
+			bits   20;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_WIN_ADDR @'h0004 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_WIN_MASK @'h0008 {
+		bytes 4;
+		field MASK @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_A @'h000c {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_B @'h0010 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_C @'h0014 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_D @'h0018 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_MASK @'h001c {
+		bytes 4;
+		field MASK @0 {
+			bits   31;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_A @'h0020 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_B @'h0024 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_C @'h0028 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_D @'h002c {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_FAULT_ADDR_LO @'h0030 {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_FAULT_ADDR_HI @'h0034 {
+		bytes 4;
+		field ADDR @0 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @6 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+	}
+}
+

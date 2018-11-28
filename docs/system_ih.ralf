@@ -1,0 +1,494 @@
+block system_ih_block {
+        bytes 4;
+        register IH_RING_CFG @'h0 {
+                bytes 4;
+                field RINGEN @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_RING_BASE_LOW @'h4 {
+                bytes 4;
+                field ADDR @3 {
+                        bits 29;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_RING_BASE_HIGH @'h8 {
+                bytes 4;
+                field TSUNIT @16 {
+                        bits 8;
+                        access wo;
+                        reset 'h0;
+                }
+                field LOG2SIZE @6 {
+                        bits 5;
+                        access wo;
+                        reset 'h0;
+                }
+                field ADDR @0 {
+                        bits 6;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_RING_CONS @'h30 {
+                bytes 4;
+                field OVACKFLG @31 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field RD_WRAP @19 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field RPTR @0 {
+                        bits 19;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_RING_PROD @'h34 {
+                bytes 4;
+                field OVFLG @31 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field WR_WRAP @19 {
+                        bits 1;
+                        access ro;
+                        reset 'h0;
+                }
+                field WPTR @0 {
+                        bits 19;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register IH_MSI_MSIX_CFG @'h38 {
+                bytes 4;
+                field SEL @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_MSI_CFG @'h3c {
+                bytes 4;
+                field ADDR @2 {
+                        bits 28;
+                        access wo;
+                        reset 'h0;
+                }
+                field MSIEN @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_MSIX0_CFG @'h40 {
+                bytes 4;
+                field ADDR @0 {
+                        bits 6;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_MSIX1_CFG @'h44 {
+                bytes 4;
+                field ADDR @2 {
+                        bits 30;
+                        access wo;
+                        reset 'h0;
+                }
+                field MSIEN @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_MSI_DATA_CFG @'h48 {
+                bytes 4;
+                field DATA @11 {
+                        bits 21;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_ERRMSG_CFG @'h4c {
+                bytes 4;
+                field ADDR @2 {
+                        bits 28;
+                        access wo;
+                        reset 'h0;
+                }
+                field MSGEN @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_INT_CAUSE @'h54 {
+                bytes 4;
+                field CAUSEID @24 {
+                        bits 8;
+                        access wo;
+                        reset 'h0;
+                }
+                field USERDATA @0 {
+                        bits 24;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_DROP_COUNTER @'h58 {
+                bytes 4;
+                field COUNTER @0 {
+                        bits 32;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register IH_EXCP_STS @'h5c {
+                bytes 4;
+                field SSMEXCP @2 {
+                        bits 1;
+                        access rc;
+                        reset 'h0;
+                }
+                field RINGWATERMARK @1 {
+                        bits 1;
+                        access rc;
+                        reset 'h0;
+                }
+                field FIFOFULL @0 {
+                        bits 1;
+                        access rc;
+                        reset 'h0;
+                }
+        }
+        register IH_EXCP_MASK @'h60 {
+                bytes 4;
+                field IH_EXCP_MASK @0 {
+                        bits 3;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_SRAMCTRL @'h70 {
+                bytes 4;
+                field SRAMCTRL @0 {
+                        bits 32;
+                        access wo;
+                        reset 'h80114522;
+                }
+        }
+        register IH_CF_PARITY_CRTL @'h80 {
+                bytes 4;
+                field CHECK_EN @1 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field INJECTION_EN @0 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register IH_CF_PARITY_LOGONE @'h84 {
+                bytes 4;
+                field ERR_WADDR @0 {
+                        bits 30;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register IH_CF_PARITY_LOGTWO @'h88 {
+                bytes 4;
+                field ERR_AWID @16 {
+                        bits 6;
+                        access ro;
+                        reset 'h0;
+                }
+                field ERR_AWUSER @0 {
+                        bits 16;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+        register IH_CF_PARITY_STATUS @'h8c {
+                bytes 4;
+                field ERR_STATUS @0 {
+                        bits 1;
+                        access w1c;
+                        reset 'h0;
+                }
+        }
+        register IH_INT_MASK_ARRAY0 @'h100 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY1 @'h104 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY2 @'h108 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY3 @'h10c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY4 @'h110 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY5 @'h114 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY6 @'h118 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY7 @'h11c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY8 @'h120 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY9 @'h124 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY10 @'h128 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY11 @'h12c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY12 @'h130 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY13 @'h134 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY14 @'h138 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY15 @'h13c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY16 @'h140 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY17 @'h144 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY18 @'h148 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY19 @'h14c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY20 @'h150 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY21 @'h154 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY22 @'h158 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY23 @'h15c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY24 @'h160 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY25 @'h164 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY26 @'h168 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY27 @'h16c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY28 @'h170 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY29 @'h174 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY30 @'h178 {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+        register IH_INT_MASK_ARRAY31 @'h17c {
+                bytes 4;
+                field MASK @0 {
+                        bits 32;
+                        access wo;
+                        reset 'hffffffff;
+                }
+        }
+}
+
+system system_ih_regmodel {
+  bytes 4;
+  block system_ih_block @'h0000;
+}

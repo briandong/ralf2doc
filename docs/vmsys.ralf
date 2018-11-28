@@ -1,0 +1,690 @@
+
+block vm_sys_regs {
+	bytes 4;
+	register VM_SYS_CTRL @'h0000 {
+		bytes 4;
+		field ENABLE @0 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field DIRECT_MAP_EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @2 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_MAPPING_ERROR_ADDR @'h0004 {
+		bytes 4;
+		field ADDR @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_RD_FAULT_ADDR_HI @'h0008 {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_RD_FAULT_ADDR_LO @'h000c {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_WR_FAULT_ADDR_HI @'h0010 {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_WR_FAULT_ADDR_LO @'h0014 {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_DIRECT_MAP_ADDR @'h0018 {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_DIRECT_MAP_MASK @'h001c {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_DIRECT_MAP_BASE_LO @'h0020 {
+		bytes 4;
+		field BASE @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_DIRECT_MAP_BASE_HI @'h0024 {
+		bytes 4;
+		field BASE @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_SPECIAL_MAP_CTRL @'h0028 {
+		bytes 4;
+		field SPECIAL_MAP_MASTER_ID0 @0 {
+			bits   8;
+			access rw;
+			reset  'h0;
+		}
+		field SPECIAL_MAP_MASTER_ID1 @8 {
+			bits   8;
+			access rw;
+			reset  'h0;
+		}
+		field SPECIAL_MAP_MASTER_ID2 @16 {
+			bits   8;
+			access rw;
+			reset  'h0;
+		}
+		field SPECIAL_MAP_MASTER_ID3 @24 {
+			bits   8;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_SPECIAL_MAP_ADDR @'h002c {
+		bytes 4;
+		field ADDR @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_SPECIAL_MAP_MASK @'h0030 {
+		bytes 4;
+		field MASK @0 {
+			bits   30;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_SPECIAL_MAP_BASE_LO @'h0034 {
+		bytes 4;
+		field BASE @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_SPECIAL_MAP_BASE_HI @'h0038 {
+		bytes 4;
+		field BASE @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_CTRL0 @'h003c {
+		bytes 4;
+		field INVALIDATE_TLB @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field SYS @2 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @3 {
+			bits   29;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_CTRL1 @'h0040 {
+		bytes 4;
+		field INVALIDATE_TLB @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field SYS @2 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @3 {
+			bits   29;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_CTRL2 @'h0044 {
+		bytes 4;
+		field INVALIDATE_TLB @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field SYS @2 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @3 {
+			bits   29;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_CTRL3 @'h0048 {
+		bytes 4;
+		field INVALIDATE_TLB @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field SYS @2 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @3 {
+			bits   29;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_CTRL4 @'h004c {
+		bytes 4;
+		field INVALIDATE_TLB @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field EN @1 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field SYS @2 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @3 {
+			bits   29;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_ADDR0 @'h0050 {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_ADDR1 @'h0054 {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_ADDR2 @'h0058 {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_ADDR3 @'h005c {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_ADDR4 @'h0060 {
+		bytes 4;
+		field ADDR @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_MASK0 @'h0064 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_MASK1 @'h0068 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_MASK2 @'h006c {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_MASK3 @'h0070 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_WIN_MASK4 @'h0074 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PAGE_MASK0 @'h0078 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PAGE_MASK1 @'h007c {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PAGE_MASK2 @'h0080 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PAGE_MASK3 @'h0084 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PAGE_MASK4 @'h0088 {
+		bytes 4;
+		field MASK @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   6;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_LO0 @'h008c {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_LO1 @'h0090 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_LO2 @'h0094 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_LO3 @'h0098 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_LO4 @'h009c {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_HI0 @'h00a0 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_HI1 @'h00a4 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_HI2 @'h00a8 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_HI3 @'h00ac {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_PTE_BASE_ADDR_HI4 @'h00b0 {
+		bytes 4;
+		field BASE_ADDR @0 {
+			bits   32;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_INVALID_PAGE0 @'h00b4 {
+		bytes 4;
+		field INVALID_PAGE @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field BUS_ERR @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_INVALID_PAGE1 @'h00b8 {
+		bytes 4;
+		field INVALID_PAGE @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field BUS_ERR @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_INVALID_PAGE2 @'h00bc {
+		bytes 4;
+		field INVALID_PAGE @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field BUS_ERR @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_INVALID_PAGE3 @'h00c0 {
+		bytes 4;
+		field INVALID_PAGE @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field BUS_ERR @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+	register VM_SYS_PTE_SET_INVALID_PAGE4 @'h00c4 {
+		bytes 4;
+		field INVALID_PAGE @0 {
+			bits   26;
+			access rw;
+			reset  'h0;
+		}
+		field RESERVED @26 {
+			bits   4;
+			access rw;
+			reset  'h0;
+		}
+		field BUS_ERR @30 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+		field V @31 {
+			bits   1;
+			access rw;
+			reset  'h0;
+		}
+	}
+}
+
+system vmsys_regblock {
+    bytes 4;
+    block vm_sys_regs(vm_sys) @'h0000;
+}
+

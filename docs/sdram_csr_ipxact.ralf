@@ -20,48 +20,6 @@ system CPU0 {
                 }
             }
         }
-        register CFG_MB_AUTOPCH_COL_BIT_POS_LOW @0xc {
-            bytes 4;
-            field reserved @'h3 {
-                bits 29;
-            }
-            field cfg_mb_autopch_col_bit_pos_low @'h0 {
-                bits 3;
-                access rw;
-                hard_reset 'h4;
-                doc {
-                    This field together with the cfg_mb_autopch_col_bit_pos_high field set a contiguous column address region that allows customization of when auto precharge occurs within multiburst accesses. cfg_mb_autopch_col_bit_pos_low sets the low bit position of l_addr and cfg_mb_autopch_col_bit_pos_high sets the high bit position of l_addr bits that are used to define the last column address in an open bank. When the multiburst internal l_addr bits in the l_addr range defined by these two configuration fields are all one, an auto_precharge will be issued by the multiburst module internally for the sub-access. This field is unused if cfg_manual_address_map is set to 0. Setting this field to 0 disables this auto-precharge functionality.  When it is used, the only valid values are a function of the memory technology being used as follows:
-
-DDR3 -   3 or 4. (3 is normal default)
-
-DDR4 -   3 or 4. (4 is normal default)
-
-HBM  -   2,3,or 4 (4 is normal default)
-
-                }
-            }
-        }
-        register CFG_MB_AUTOPCH_COL_BIT_POS_HIGH @0x10 {
-            bytes 4;
-            field reserved @'h4 {
-                bits 28;
-            }
-            field cfg_mb_autopch_col_bit_pos_high @'h0 {
-                bits 4;
-                access rw;
-                hard_reset 'ha;
-                doc {
-                    This field together with the cfg_mb_autopch_col_bit_pos_low field set a contiguous column address region that allows customization of when auto precharge occurs within multiburst accesses. cfg_mb_autopch_col_bit_pos_low sets the low bit position of l_addr and cfg_mb_autopch_col_bit_pos_high sets the high bit position of l_addr bits that are used to define the last column address in an open bank. When the multiburst internal l_addr bits in the l_addr range defined by these two configuration fields are all one, an auto_precharge will be issued by the multiburst module internally for the sub-access. This field is unused if if cfg_manual_address_map is set to 0. When it is used, the only valid values are a function of the memory technology being used as follows:
-
-DDR3 -   cfg_mem_colbits-1 to 4. (cfg_mem_colbits-1 is the normal default)
-
-DDR4 -   10 to 4. (10 is the normal default)
-
-HBM  -   8 to 4. (8 is the normal default)
-
-                }
-            }
-        }
         register CFG_BANKADDR_MAP_0 @0x14 {
             bytes 4;
             field cfg_bankaddr_map_0 @'h0 {
@@ -333,7 +291,7 @@ HBM  -   8 to 4. (8 is the normal default)
                 access rw;
                 hard_reset 'h0;
                 doc {
-                    This configuration bit is only supported by the NWL V2 controller and supports the JEDEC HBM2E non-power of 2 rows addressing capability. When this bit is set, the controller supports 2^14 + 2^13 number of rows. Note that cfg_rowbits must also be set to a value of 14 for the this configuration bit to take effect.
+                    This configuration bit is only supported by the NWL V2 controller and supports the JEDEC HBM2E non-power of 2 rows addressing capability. When this bit is set, the controller supports 2^14 + 2^13 number of rows. Note that cfg_rowbits must also be set to a value of 15 for the this configuration bit to take effect.
 
                 }
             }
@@ -346,7 +304,7 @@ HBM  -   8 to 4. (8 is the normal default)
             field cfg_interleave_faw @'h0 {
                 bits 4;
                 access rw;
-                hard_reset 'h0;
+                hard_reset 'h8;
                 doc {
                     Interleaved four bank activate (counts activates/sbrefs from both pseudo channels), specified in  memory clocks. Only used for HBM_Gen2 option E deliveries and then only for one vendor and then only with the V2 version of the NWL controller. This field will be ignored if cfg_ps_one_faw is set to 0. Finally note that the vendor that requires this timing enforced also uses the name tFAWS for this timing parameter.
 
@@ -355,21 +313,136 @@ HBM  -   8 to 4. (8 is the normal default)
         }
         register CFG_AP_NOBANK_QLVL @0x48 {
             bytes 4;
-            field reserved @'h2 {
-                bits 30;
+            field reserved @'h3 {
+                bits 29;
             }
             field cfg_ap_nobank_qlvl @'h0 {
-                bits 2;
+                bits 3;
                 access rw;
                 hard_reset 'h2;
                 doc {
-                    This 2-bit field selects the number of valid entries that must be in the queue before enabling a "nobank-match" autoprecharge promotion. The queue levels needed to enable the no-bank autoprecharge promotion as function of the controller core's QUEUE_DEPTH are as follows:
- 0x0 Disable no-bank autoprecharge promotion
- 0x1 QUEUE_DEPTH/4
- 0x2 QUEUE_DEPTH/2
- 0x3 3/4*QUEUE_DEPTH (default)
+                    This 3-bit field selects the number of valid entries that must be in the queue before enabling a "nobank-match" autoprecharge promotion. The queue levels needed to enable the no-bank autoprecharge promotion as function of the controller core's QUEUE_DEPTH are as follows:
+
+ 0x0      Always perform nobank-match autoprecharge promotion
+
+ 0x1      QUEUE_DEPTH/4
+
+ 0x2      QUEUE_DEPTH/2
+
+ 0x3      3/4*QUEUE_DEPTH (default)
+ 
+ 0x4-0x7  Disable no-bank autoprecharge
 
 Note that this configuration field is only supported by the V2 controller.
+
+                }
+            }
+        }
+        register STAT_INTERRUPT_0 @0x14c {
+            bytes 4;
+            field reserved @'h13 {
+                bits 13;
+            }
+            field stat_interrupt_0 @'h0 {
+                bits 19;
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    The bits of this multi-bit status register are defined in the respective Controller Core User Guide for the memory technology being targeted.  Writing a 1 to any of these bits will cause the respective interrupt bit to be cleared.
+
+                }
+            }
+        }
+        register INIT_INTERRUPT_MASK_0 @0x150 {
+            bytes 4;
+            field reserved @'h13 {
+                bits 13;
+            }
+            field init_interrupt_mask_0 @'h0 {
+                bits 19;
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Each bit is this register, when written to 1, 'masks' an interrupt bit that exists in the stat_interrupt register.
+
+                }
+            }
+        }
+        register STAT_ECC_1BIT_ERROR_ADDR @0x158 {
+            bytes 4;
+            field reserved @'h1a {
+                bits 6;
+            }
+            field stat_ecc_1bit_error_addr @'h0 {
+                bits 26;
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    When a 1bit ECC error is detected within returning read data and the ECC_1BIT_ERROR bit position of the interrupt register is clear, this register stores the memory 'WORD' address that caused a 1-bit ECC error during the read. Note that this register holds its value until ECC_1BIT_ERROR bit position of the interrupt register is cleared by software (see interrupt register description) and will subsequently load/save a new value as soon as it encounters a new 1-bit ECC error.  
+
+                }
+            }
+        }
+        register STAT_ECC_1BIT_POS @0x15c {
+            bytes 4;
+            field reserved @'ha {
+                bits 22;
+            }
+            field stat_ecc_1bit_pos @'h0 {
+                bits 10;
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    When a 1bit error is detected within returning read data and the ECC_1BIT_ERROR bit position of the interrupt register is clear, this register stores the position in the returning data word that was corrected. Bits [MSB-1:0]  store the data position within the returning data word that returns if the MSB bit of this register is 0. If the MSB bit is set in this register, this register indicates the position of the corrected check-bit error instead of a corrected user data bit.  Because the returning data word is typically > 64 bits wide and ECC checking is done with 64-bit SEC-DED checkers, the bits[MSB-1:6] in this register for a check-bit error indicate the 'checker module' (checker module 0 checks returning data bits 63:0, etc.) that signaled the 1bit error and bits [2:0] of this register indicate the check-bit position and bits [5:3] can be ignored.  If more than 1 checker-module signals a 1bit error on the same cycle, then this field uses the just bit position information from the lowest order checker module that signaled a 1bit error. Note that this register holds its value until ECC_1BIT_ERROR bit position of the interrupt register is cleared by software (see interrupt register description) and will subsequently load/save a new value as soon as it encounters a new 1-bit ECC error.  
+
+                }
+            }
+        }
+        register STAT_ECC_1BIT_RMW @0x160 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field stat_ecc_1bit_rmw @'h0 {
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    When a 1bit ECC error is detected within returning read data and the ECC_1BIT_ERROR bit position of the interrupt register is clear, this register stores whether it occurred during a user read (will be 0 in this case) or occurred during a read-modify-write (will be 1 in this case).  If this bit is set, the controller typically will have corrected the 1-bit error memory via the write portion of the read-modify-write. Note that this register holds its value until ECC_1BIT_ERROR bit position of the interrupt register is cleared by software (see interrupt register description) and will subsequently load/save a new value as soon as it encounters a new 1-bit ECC error.  
+
+                }
+            }
+        }
+        register STAT_ECC_2BIT_ERROR_ADDR @0x164 {
+            bytes 4;
+            field reserved @'h1a {
+                bits 6;
+            }
+            field stat_ecc_2bit_error_addr @'h0 {
+                bits 26;
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    When a 2-bit ECC error is detected within returning read data and the ECC_2BIT_ERROR bit position of the interrupt register is clear, this register stores the memory 'WORD' address that caused a 2-bit ECC error. Note that this register holds its value until ECC_2BIT_ERROR bit position of the interrupt register is cleared by software (see interrupt register description) and will subsequently load/save a new value as soon as it encounters a new 2-bit ECC error.  
+
+                }
+            }
+        }
+        register STAT_ECC_2BIT_RMW @0x168 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field stat_ecc_2bit_rmw @'h0 {
+                access ro;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    When a 2bit ECC error is detected within returning read data and the ECC_2BIT_ERROR bit position of the interrupt register is clear, this register stores whether it occurred during a user read (will be 0 in this case) or occurred during a read-modify-write (will be 1 in this case).  If this bit is 1, the ending write of the read-modify-write insures that a 2-bit error is maintained in the same location in memory. Note that this register holds its value until the ECC_2BIT_ERROR bit position of the interrupt register is cleared by software (see interrupt register description) and will subsequently load/save a new value as soon as it encounters a new 2-bit ECC error.
 
                 }
             }
@@ -848,48 +921,30 @@ JEDEC defines that tFAW applies to each pseudo-channel independently. However on
         }
         register CFG_RFCSB @0x280 {
             bytes 4;
-            field reserved @'h8 {
-                bits 24;
+            field reserved @'h9 {
+                bits 23;
             }
             field cfg_rfcsb @'h0 {
-                bits 8;
+                bits 9;
                 access rw;
                 hard_reset 'h78;
                 doc {
-                    Minimum number of memory clocks between a single bank refresh command to a bank and a subsequent activate command to the same bank. Also used as the minimum number of memory clocks between the last single bank refresh command of a complete bank set to the subsequent single bank refresh command for the next bank set.
-
-                }
-            }
-        }
-        register CFG_LOOKAHEAD_SBREF @0x294 {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field cfg_lookahead_sbref @'h0 {
-                access rw;
-                hard_reset 'h1;
-                doc {
-                    Look-ahead single-bank refresh enable. When enabled, the controller will look ahead into the command queue and analyze the queued requests and perform single-bank refresh operations as soon as possible in order to maximize bandwidth efficiency. It is recommended that this feature be disabled by hard connection of the port to '0' if the targeting the controller to FPGA running high internal timing frequencies.
- 
- 0 - disable
- 
- 1 - enable
+                    Minimum number of memory clocks between a single bank refresh command to a bank and a subsequent activate command to the same bank. Also used as the minimum number of memory clocks between the last single bank refresh command of a complete bank set to the subsequent single bank refresh command for the next bank set. Note that only the V2 controller supports the most significant bit of this configuration register.
 
                 }
             }
         }
         register CFG_ADVANCE_ACTIVATE_READY @0x298 {
             bytes 4;
-            field reserved @'h4 {
-                bits 28;
+            field reserved @'h5 {
+                bits 27;
             }
             field cfg_advance_activate_ready @'h0 {
-                bits 4;
+                bits 5;
                 access rw;
                 hard_reset 'ha;
                 doc {
-                    Number of DFI clocks to advance the assertion of the l_activate_ready. A value of 0 will cause the assertion of the l_activate_ready to occur on the clock cycle that the controller determines that a bank can be activated. Increasing values of cfg_advance_activate_ready will cause l_activate_ready signals to assert earlier. Deassertion of l_activate_ready will always occur 1 clocks after a request is placed into the queue for that bank, regardless of the cfg_advance_activate_ready setting.
+                    Number of DFI clocks to advance the assertion of the l_activate_ready. A value of 1 will cause the assertion of the l_activate_ready to occur one clock cycle earlier than the controller determines that a bank can be activated. Increasing values of cfg_advance_activate_ready will cause l_activate_ready signals to assert earlier. Deassertion of l_activate_ready will always occur 1 clocks after a request is placed into the queue for that bank, regardless of the cfg_advance_activate_ready setting. It is recommended to use at least a value of 1 or greater to cover pipeline delays inherent in using/scheduling accesses back to the controller. 
 
                 }
             }
@@ -1816,20 +1871,6 @@ For HBM memory type, only setting of 0x1 is allowed when operating in the half-r
                 }
             }
         }
-        register CFG_DRAM_CLK_DISABLE_IN_SELF_REFRESH @0x30c {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field cfg_dram_clk_disable_in_self_refresh @'h0 {
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    When set, all clock outputs to DRAM are disabled after all ranks are put into self-refresh. Clocks are automatically restarted before ranks exit self-refresh. Clocks are controlled using the dfi_dram_clk_disable port going to the PHY.  It is expected that the DB in an LRDIMM application will need to be retrained after the clocks have been stopped.  Therefore this feature is not used in an LRDIMM configuration.  The init_dfi_dram_clk_disable port may be used to stop the DRAM clocks for an LRDIMM.
-
-                }
-            }
-        }
         register CFG_CKSRE @0x310 {
             bytes 4;
             field reserved @'h5 {
@@ -2305,8 +2346,15 @@ For HBM memory type, only setting of 0x1 is allowed when operating in the half-r
  0x2 : Arbitrary Pattern Generator
  
  0x3 : Reserved
- 
- The LFSR address pattern is used only when the LFSR address pattern is selected and (mt_addr_bits - cfg_bl - 1) is greater than 2. Otherwise, counting address pattern is used, regardless of which address pattern is selected.
+
+ The LFSR address pattern has a minimum setting requirement for mt_addr_bits. For GDDR6, the minimum setting is 3. For all other memory technologies the minimum setting is based on burst length (cfg_bl or cfg_bl_mode):
+
+ Memory burst length = 2 -> minimum mt_addr_bits setting is 3
+
+ Memory burst length = 4 -> minimum mt_addr_bits setting is 4
+
+ Memory burst length = 8 -> minimum mt_addr_bits setting is 5
+
 
                 }
             }
@@ -2337,13 +2385,14 @@ For HBM memory type, only setting of 0x1 is allowed when operating in the half-r
                 doc {
                     Address range to test. Test will start at 'mt_start_addr' and continue to addresses 'mt_start_addr' + 2 ^ mt_addr_bits.
  
- Note: The minimum valid value is a function of memory burst length:
+ For GDDR6, the minimum value is 1. For all other technologies the minimum is based on the burst length setting (cfg_bl or cfg_bl_mode):
  
- 1 - (memory burst length = 2)
+ Memory burst length = 2 -> minimum mt_addr_bits setting is 1
+
+ Memory burst length = 4 -> minimum mt_addr_bits setting is 2
  
- 2 - (memory burst length = 4)
+ Memory burst length = 8 -> minimum mt_addr_bits setting is 3
  
- 3 - (memory burst length = 8)
 
                 }
             }
@@ -3602,7 +3651,10 @@ For HBM memory type, only setting of 0x1 is allowed when operating in the half-r
                 access rw;
                 hard_reset 'h0;
                 doc {
-                    Address to start memory test at. This port is not used when 'mt_addr_pattern' is set to 0x1 (pseudo-random).
+                    Starting memory test address.  
+
+When used with 'mt_addr_pattern' = 0x1 (pseudo-random) the starting address is computed based on the mt_addr_bits setting as follows:
+
 
                 }
             }
@@ -4203,7 +4255,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 access rw;
                 hard_reset 'h0;
                 doc {
-                    When set to 1, the controller will not compute ECC check data or perform ECC correction on received data.  When in ECC bypass mode, axiN_wdata_parity input pins are repurposed to be the data that gets written to ECC memory.  Likewise, axiN_rdata_parity outputs are repurposed to be the data that gets read out of ECC memory.
+                    When set to 1, the controller will not compute ECC check data or perform ECC correction on received data.  When in ECC bypass mode, axiN_wdata_parity input pins are re-purposed to be the data that gets written to ECC memory.  Likewise, axiN_rdata_parity outputs are re-purposed to be the data that gets read out of ECC memory.
 
                 }
             }
@@ -4248,7 +4300,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 access rw;
                 hard_reset 'h0;
                 doc {
-                    This 8-bit value defines the number of ECC 1-bit error corrections that must be exceeded before the stat_int_ecc_1bit_thresh status bit (and interrupt output pin) are set and the error summing register is cleared to start summing new ECC 1bit error correction counts. Setting this value to 0 means that each new correctable ecc error will signal an interrupt/set the status bit.  Setting this value to the maximum value of 0xff will disable generating the interrupt and interrupt status. Note that if the parity error retry module is included, 1bit error corrections signaled into that unit are not counted and only the 1bit corrected errors that are passed on to the user logic interface from this unit are counted. Also if the RMW unit is included and a read prefetch is performed to allow data to be merged with a user write and the read prefetch results in a 1bit ecc correction, this 1bit correction will be counted by the ecc_1bit_int_threshold detection logic. Finally, if the ECC Scrub logic is included, any ECC corrections deteted by this unit will also be counted. 
+                    This 8-bit value defines the number of ECC 1-bit error corrections that must be exceeded before the stat_int_ecc_1bit_thresh status bit (and interrupt output pin) are set and the error summing register is cleared to start summing new ECC 1bit error correction counts. Setting this value to 0 means that each new correctable ecc error will signal an interrupt/set the status bit.  Setting this value to the maximum value of 0xff will disable generating the interrupt and interrupt status. Note that if the parity error retry module is included, 1bit error corrections signaled into that unit are not counted and only the 1bit corrected errors that are passed on to the user logic interface from this unit are counted. Also if the RMW unit is included and a read prefetch is performed to allow data to be merged with a user write and the read prefetch results in a 1bit ecc correction, this 1bit correction will be counted by the ecc_1bit_int_threshold detection logic. Finally, if the ECC Scrub logic is included, any ECC corrections detected by this unit will also be counted. 
 
                 }
             }
@@ -4264,250 +4316,6 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 hard_reset 'h0;
                 doc {
                     This bit is set when the number of 1bit ECC error corrections is greater-than the cfg_ecc_1bit_thresh.  This status bit should be read to clear the status and associated interrupt pin output as soon as possible, to avoid missing the setting of this status/interrupt due to new 1bit ECC error corrections. 
-
-                }
-            }
-        }
-    }
-    block ADV_MEM_TEST @0x6000 {
-        bytes 4;
-        register AMT_USEQ_IRAM_WADDR @0x0 {
-            bytes 4;
-            field reserved @'h6 {
-                bits 26;
-            }
-            field amt_useq_iram_waddr @'h0 {
-                bits 6;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Set the address for reading from or writing to the AMT micro sequencer instruction RAM.  Once set, the read or write address is incremented on each read or write access.
-
-                }
-            }
-        }
-        register AMT_USEQ_IRAM_WDATA_0 @0xc {
-            bytes 4;
-            field amt_useq_iram_wdata_0 @'h0 {
-                bits 32;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Data to be written to the AMT micro sequencer instruction RAM.  The initial write location is set using the amt_useq_iram_waddr CSR register and is incremented by the logic with each write.
-
-                }
-            }
-        }
-        register AMT_USEQ_IRAM_WDATA_1 @0x10 {
-            bytes 4;
-            field reserved @'h10 {
-                bits 16;
-            }
-            field amt_useq_iram_wdata_1 @'h0 {
-                bits 16;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Data to be written to the AMT micro sequencer instruction RAM.  The initial write location is set using the amt_useq_iram_waddr CSR register and is incremented by the logic with each write.
-
-                }
-            }
-        }
-        register AMT_USEQ_IRAM_RDATA_0 @0x24 {
-            bytes 4;
-            field amt_useq_iram_rdata_0 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Data read from the AMT micro sequencer instruction RAM.  The initial read location is set using the amt_useq_iram_waddr CSR register and is incremented by the logic with each read.
-
-                }
-            }
-        }
-        register AMT_USEQ_IRAM_RDATA_1 @0x28 {
-            bytes 4;
-            field reserved @'h10 {
-                bits 16;
-            }
-            field amt_useq_iram_rdata_1 @'h0 {
-                bits 16;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Data read from the AMT micro sequencer instruction RAM.  The initial read location is set using the amt_useq_iram_waddr CSR register and is incremented by the logic with each read.
-
-                }
-            }
-        }
-        register AMT_USEQ_IRAM_ACK @0x3c {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field amt_useq_iram_ack @'h0 {
-                access rc;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Indicates read or write of AMT micro sequencer instruction RAM has been accepted.
-
-                }
-            }
-        }
-        register AMT_USEQ_RF_WADDR @0x48 {
-            bytes 4;
-            field reserved @'h5 {
-                bits 27;
-            }
-            field amt_useq_rf_waddr @'h0 {
-                bits 5;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Set the address for reading from or writing to the AMT micro sequencer register file.  Once set, the read or write address is incremented on each read or write access.
-
-                }
-            }
-        }
-        register AMT_USEQ_RF_WDATA_0 @0x54 {
-            bytes 4;
-            field amt_useq_rf_wdata_0 @'h0 {
-                bits 32;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Data to be written to the AMT micro sequencer register file.  The initial write location is set using the amt_useq_rf_waddr CSR register and is incremented by the logic with each write.
-
-                }
-            }
-        }
-        register AMT_USEQ_RF_RDATA_0 @0x60 {
-            bytes 4;
-            field amt_useq_rf_rdata_0 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Data read from the AMT micro sequencer register file.  The initial read location is set using the amt_useq_rf_waddr CSR register and is incremented by the logic with each read.
-
-                }
-            }
-        }
-        register AMT_USEQ_RF_ACK @0x6c {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field amt_useq_rf_ack @'h0 {
-                access rc;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Indicates read or write of AMT micro sequencer register file has been accepted.
-
-                }
-            }
-        }
-        register AMT_USEQ_EXCEPTIONS @0x78 {
-            bytes 4;
-            field amt_useq_exceptions @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    AMT micro sequencer exceptions register.  If exceptions are encountered while the micro program is executing, they will be recorded in this register.  The register is cleared by the logic each time a micro program is enabled.
-
-                }
-            }
-        }
-        register AMT_USEQ_PC @0x84 {
-            bytes 4;
-            field reserved @'h6 {
-                bits 26;
-            }
-            field amt_useq_pc @'h0 {
-                bits 6;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    AMT micro sequencer program counter.  This is the current value of the instruction RAM read pointer in the micro sequencer.
-
-                }
-            }
-        }
-        register AMT_USEQ_INST_COUNTER_0 @0x90 {
-            bytes 4;
-            field amt_useq_inst_counter_0 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    AMT micro sequencer instruction counter.  After a micro program completes, this register contains the number of instructions executed by the micro sequencer.  This counter value accounts for loops and jumps in the micro program that would not be represented in the program counter register.
-
-                }
-            }
-        }
-        register AMT_USEQ_INST_COUNTER_1 @0x94 {
-            bytes 4;
-            field reserved @'h12 {
-                bits 14;
-            }
-            field amt_useq_inst_counter_1 @'h0 {
-                bits 18;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    AMT micro sequencer instruction counter.  After a micro program completes, this register contains the number of instructions executed by the micro sequencer.  This counter value accounts for loops and jumps in the micro program that would not be represented in the program counter register.
-
-                }
-            }
-        }
-        register AMT_USEQ_MTA_STORAGE_SEL @0xac {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field amt_useq_mta_storage_sel @'h0 {
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    When using the memory test analyzer (MTA) with the micro sequencer in the advanced memory test module, the user has a choice of storing either the contents of the r0 and r1 registers or the instruction counter in the MTA.  By setting this register to 1'b0, the contents of the r0 and r1 registers are recorded when the MTA storage is triggered.  Setting this register to a 1'b1 causes the instruction counter value at the time of the read request to be recorded.
-
-                }
-            }
-        }
-        register AMT_SYNCHRONIZE_ENABLE @0xb8 {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field amt_synchronize_enable @'h0 {
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    This register is used to synchronize the AMT enables for multiple AMTs in the device.  When set to 1'b1, will cause the mt_en or mt_en_single to the AMT to be masked until the mt_en or mt_en_single to all AMT instances with this bit set have been enabled.
-
-                }
-            }
-        }
-        register AMT_SEQUENCER_ENABLE @0xc4 {
-            bytes 4;
-            field reserved @'h1 {
-                bits 31;
-            }
-            field amt_sequencer_enable @'h0 {
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    This register is used to enable the micro sequencer in the AMT.  When set the other pattern generators in the memory test core (algorithmic and arbitrary) are disabled.  With this enabled the micro program is started by asserting either mt_en or mt_en_single.
 
                 }
             }
@@ -4657,7 +4465,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 volatile 1
                 hard_reset 'h0;
                 doc {
-                    Number of vectors stored with last armed acquisition. Note: This value is not synchonized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle. 
+                    Number of vectors stored with last armed acquisition. Note: This value is not synchronized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle. 
 
                 }
             }
@@ -4688,7 +4496,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 volatile 1
                 hard_reset 'h0;
                 doc {
-                    Memory address corresponding to trigger vector. Note: This value is not synchonized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle.
+                    Memory address corresponding to trigger vector. Note: This value is not synchronized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle.
 
                 }
             }
@@ -4704,7 +4512,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 volatile 1
                 hard_reset 'h0;
                 doc {
-                    Memory address of last stored vector. Note: This value is not synchonized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle.
+                    Memory address of last stored vector. Note: This value is not synchronized for CSR readout with coherency of the bits. It is assumed that this register is only read when the memory test is idle.
 
                 }
             }
@@ -4981,8 +4789,11 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
         }
         register MTC_ACQ_WR_DATA_2 @0x84 {
             bytes 4;
+            field reserved @'h8 {
+                bits 24;
+            }
             field mtc_acq_wr_data_2 @'h0 {
-                bits 32;
+                bits 8;
                 access rw;
                 hard_reset 'h0;
                 doc {
@@ -4991,58 +4802,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_WR_DATA_3 @0x88 {
-            bytes 4;
-            field mtc_acq_wr_data_3 @'h0 {
-                bits 32;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Write Data for Capture Memory Debug
-
-                }
-            }
-        }
-        register MTC_ACQ_WR_DATA_4 @0x8c {
-            bytes 4;
-            field mtc_acq_wr_data_4 @'h0 {
-                bits 32;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Write Data for Capture Memory Debug
-
-                }
-            }
-        }
-        register MTC_ACQ_WR_DATA_5 @0x90 {
-            bytes 4;
-            field mtc_acq_wr_data_5 @'h0 {
-                bits 32;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Write Data for Capture Memory Debug
-
-                }
-            }
-        }
-        register MTC_ACQ_WR_DATA_6 @0x94 {
-            bytes 4;
-            field reserved @'hc {
-                bits 20;
-            }
-            field mtc_acq_wr_data_6 @'h0 {
-                bits 12;
-                access rw;
-                hard_reset 'h0;
-                doc {
-                    Write Data for Capture Memory Debug
-
-                }
-            }
-        }
-        register MTC_ACQ_RD_DATA_0 @0x98 {
+        register MTC_ACQ_RD_DATA_0 @0x88 {
             bytes 4;
             field mtc_acq_rd_data_0 @'h0 {
                 bits 32;
@@ -5055,7 +4815,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_RD_DATA_1 @0x9c {
+        register MTC_ACQ_RD_DATA_1 @0x8c {
             bytes 4;
             field mtc_acq_rd_data_1 @'h0 {
                 bits 32;
@@ -5068,10 +4828,13 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_RD_DATA_2 @0xa0 {
+        register MTC_ACQ_RD_DATA_2 @0x90 {
             bytes 4;
+            field reserved @'h8 {
+                bits 24;
+            }
             field mtc_acq_rd_data_2 @'h0 {
-                bits 32;
+                bits 8;
                 access ro;
                 volatile 1
                 hard_reset 'h0;
@@ -5081,62 +4844,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_RD_DATA_3 @0xa4 {
-            bytes 4;
-            field mtc_acq_rd_data_3 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Read Data for Capture Memory Read back
-
-                }
-            }
-        }
-        register MTC_ACQ_RD_DATA_4 @0xa8 {
-            bytes 4;
-            field mtc_acq_rd_data_4 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Read Data for Capture Memory Read back
-
-                }
-            }
-        }
-        register MTC_ACQ_RD_DATA_5 @0xac {
-            bytes 4;
-            field mtc_acq_rd_data_5 @'h0 {
-                bits 32;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Read Data for Capture Memory Read back
-
-                }
-            }
-        }
-        register MTC_ACQ_RD_DATA_6 @0xb0 {
-            bytes 4;
-            field reserved @'hc {
-                bits 20;
-            }
-            field mtc_acq_rd_data_6 @'h0 {
-                bits 12;
-                access ro;
-                volatile 1
-                hard_reset 'h0;
-                doc {
-                    Read Data for Capture Memory Read back
-
-                }
-            }
-        }
-        register CFG_PRE_TRIG_CYCS @0x21c {
+        register CFG_PRE_TRIG_CYCS @0x1bc {
             bytes 4;
             field reserved @'h10 {
                 bits 16;
@@ -5151,7 +4859,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_ERROR_CNT @0x228 {
+        register MTC_ACQ_ERROR_CNT @0x1c8 {
             bytes 4;
             field reserved @'ha {
                 bits 22;
@@ -5167,7 +4875,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_ERROR_CNT_OVFL @0x234 {
+        register MTC_ACQ_ERROR_CNT_OVFL @0x1d4 {
             bytes 4;
             field reserved @'h1 {
                 bits 31;
@@ -5182,7 +4890,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register CFG_DATA_SEL_FIRST_ERROR @0x240 {
+        register CFG_DATA_SEL_FIRST_ERROR @0x1e0 {
             bytes 4;
             field reserved @'h1 {
                 bits 31;
@@ -5196,7 +4904,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 }
             }
         }
-        register MTC_ACQ_DATA_SEL @0x24c {
+        register MTC_ACQ_DATA_SEL @0x1ec {
             bytes 4;
             field reserved @'h5 {
                 bits 27;
@@ -5346,7 +5054,7 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 bits 31;
             }
             field stat_dfi_lp_ack @'h0 {
-                access rc;
+                access ro;
                 volatile 1
                 hard_reset 'h0;
                 doc {
@@ -5582,8 +5290,131 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
             }
         }
     }
+    block DATA_INT @0x12800 {
+        bytes 4;
+        register CFG_DI_READ_DATA_PARITY_ODD_EVEN_N @0x0 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field cfg_di_read_data_parity_odd_even_n @'h0 {
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Indicates whether odd (1) or even (0) parity is used for memory controller read data path parity.
+
+                }
+            }
+        }
+        register CFG_DI_WRITE_DATA_PARITY_ODD_EVEN_N @0x4 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field cfg_di_write_data_parity_odd_even_n @'h0 {
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Indicates whether odd (1) or even (0) parity is provided with write data on l_datain_parity (native interface) or wdata_parity (AXI).
+
+                }
+            }
+        }
+        register CFG_DI_WRITE_DATA_PARITY_ENABLE @0x8 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field cfg_di_write_data_parity_enable @'h0 {
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Enables assertion of stat_di_write_data_parity_error and forcing of 2-bit error on write data when memory controller write data path parity error is detected.
+
+                }
+            }
+        }
+        register CFG_DI_READ_FORCE_PARITY_ON_2B_ECC @0xc {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field cfg_di_read_force_parity_on_2b_ecc @'h0 {
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    When set, any 2-bit ECC error detected on reads will cause inversion of all parity bits on l_dataout_parity on cycle corresponding to the error.
+
+                }
+            }
+        }
+        register STAT_DI_WRITE_DATA_PARITY_ERROR @0x10 {
+            bytes 4;
+            field reserved @'h1 {
+                bits 31;
+            }
+            field stat_di_write_data_parity_error @'h0 {
+                access rc;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    Controller write direction data path parity error indication. Set when write direction data path parity protection is enabled (cfg_di_write_data_parity_enable is set) and a parity error is detected at the point where write data is output to the DDR PHY. This indication only applies to data path parity protection where the user is providing parity along with the write data.
+
+                }
+            }
+        }
+        register INIT_DI_READ_DATA_PARITY_ERROR_GEN_0 @0x14 {
+            bytes 4;
+            field init_di_read_data_parity_error_gen_0 @'h0 {
+                bits 32;
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Error generation on controller internal read parity datapath. Provides emulation/testability of soft errors occuring on controller internal datapath by flipping individual controller internal read data parity bits.   When set, corresponding parity bit will be inverted on the next cycle of read data, and appear as l_dataout_parity (or AXI parity) error.   Error generation will be armed when written and will persist for only one next cycle of read data.  For HBM memory controllers with a dual-pseudochannel configuration, writing this register will arm both pseudochannels.  This testability error generator is applied after any incoming DQ parity checking (if present), and does not result result in the data cycle being flagged as bad internal to the controller (eg no parity retry or AXI interface slave error is signalled) - flipped parity bits are simply presented to the localbus l_datain_parity or AXI read parity for system-level parity tree verification.
+
+                }
+            }
+        }
+        register INIT_DI_READ_DATA_PARITY_ERROR_GEN_1 @0x18 {
+            bytes 4;
+            field init_di_read_data_parity_error_gen_1 @'h0 {
+                bits 32;
+                access rw;
+                hard_reset 'h0;
+                doc {
+                    Error generation on controller internal read parity datapath. Provides emulation/testability of soft errors occuring on controller internal datapath by flipping individual controller internal read data parity bits.   When set, corresponding parity bit will be inverted on the next cycle of read data, and appear as l_dataout_parity (or AXI parity) error.   Error generation will be armed when written and will persist for only one next cycle of read data.  For HBM memory controllers with a dual-pseudochannel configuration, writing this register will arm both pseudochannels.  This testability error generator is applied after any incoming DQ parity checking (if present), and does not result result in the data cycle being flagged as bad internal to the controller (eg no parity retry or AXI interface slave error is signalled) - flipped parity bits are simply presented to the localbus l_datain_parity or AXI read parity for system-level parity tree verification.
+
+                }
+            }
+        }
+    }
     block AXI_IF @0x12c00 {
         bytes 4;
+        register CFG_AXI_WRITE_DATA_PARITY_ENABLE @0x0 {
+            bytes 4;
+            field cfg_axi_write_data_parity_enable @'h0 {
+                bits 32;
+                access rw;
+                hard_reset 'h2;
+                doc {
+                    Per AXI port setting to enable assertion of stat_axi_write_data_parity_error and forcing of SLVERR response when parity error is detected on any byte lane of the WDATA and WDATA_PARITY inputs.
+
+                }
+            }
+        }
+        register STAT_AXI_WRITE_DATA_PARITY_ERROR @0x4 {
+            bytes 4;
+            field stat_axi_write_data_parity_error @'h0 {
+                bits 32;
+                access rc;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    Per AXI port assertion to indicate when write data parity error is detected on any byte lane, as data is received on WDATA. All bits are cleared when this register is read; thus, this status register is ready to record the next "per port" assertion of a write data parity error.
+
+                }
+            }
+        }
         register CFG_AXI_START_ADDRESS_AXI1_0 @0x18 {
             bytes 4;
             field cfg_axi_start_address_axi1_0 @'h0 {
@@ -5684,6 +5515,19 @@ When cfg_reorder_rw_only is clear and reordering is enabled, then the normal fil
                 hard_reset 'h0;
                 doc {
                     This is AXI interface register that can be configured to be 8, 16, or 32 bits wide depending upon the number of AXI ports supported. Bit 0 of this register is always associated with axi port 0, bit 1 with axi port 1, etc.  If port Y uses a local bus interface, then cfg_axi_auto_pch[Y] is not used and is considered a don't care.  If it is an axi port input, cfg_axi_auto_pch serves solely as the auto_pch control for that AXI port. When cfg_axi_auto_pch is set and a long (multibeat) AXI read or write is issued by user logic, then the NWL axi interface logic will insure that only the last sdram controller request being issued (on behalf of a single long AXI request) asserts auto_precharge.   If a reorder core is included and is enabled (cfg_reorder_queue_en = 1), then cfg_ro_closed_page_policy, when set,  overrides the cfg_axi_auto_pch input and forces auto_pch asserted on all outgoing requests from the reoder core. 
+
+                }
+            }
+        }
+        register STAT_AXI_DECERR @0xaac {
+            bytes 4;
+            field stat_axi_decerr @'h0 {
+                bits 32;
+                access rc;
+                volatile 1
+                hard_reset 'h0;
+                doc {
+                    Per AXI port assertion to indicate when an AXI read or write decode error (out of range AXI address or unimplemented burst type) is detected. All bits are cleared when this register is read; thus, this status register is ready to record the next "per port" assertion of an AXI decode error.
 
                 }
             }

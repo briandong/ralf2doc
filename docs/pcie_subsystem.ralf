@@ -1,0 +1,26 @@
+source "pcie4_controller_dbi/DWC_pcie_dbi_cpcie_usp.ralf"
+source "pcie4_controller_unroll_wire/DWC_pcie_unroll_wire_cpcie_usp.ralf"
+source "pcie4_controller_wire/DWC_pcie_wire_cpcie_usp.ralf"
+#source "serdes_phy0/dwc_e25mp_phy0_x4_ns.ralf"
+#source "serdes_phy1/dwc_e25mp_phy1_x4_ns.ralf"
+#source "serdes_phy2/dwc_e25mp_phy2_x4_ns.ralf"
+#source "serdes_phy3/dwc_e25mp_phy3_x4_ns.ralf"
+source "app_logic/app_logic.ralf"
+source "system_ih.ralf"
+source "vmsys.ralf"
+
+system pcie_subsystem {
+    bytes 4;
+    endian little;
+
+    system dbi_pcie_controller_block                (pcie_subsystem_pcie_controller_hdl_path_dbi)               @'h0;
+    system unroll_wire_pcie_controller_block        (pcie_subsystem_pcie_controller_hdl_path_unroll_wire)       @'h0;
+    system wire_pcie_controller_block               (pcie_subsystem_pcie_controller_hdl_path_wire)              @'h0;
+    system app_logic_block                          (pcie_subsystem_app_logic_hdl_path)                         @8000
+    system system_ih_regmodel                       (pcie_subsystem_system_ih_hdl_path)                         @'h10000;
+    system vmsys_regblock                           (pcie_subsystem_system_vm_hdl_path)                         @'h18000;
+#    system serdes_phy0_block                        (pcie_subsystem_serdes_phy0_hdl_path)                       @'h40000; #serdes phy0
+#    system serdes_phy1_block                        (pcie_subsystem_serdes_phy1_hdl_path)                       @'h50000; #serdes phy1
+#    system serdes_phy2_block                        (pcie_subsystem_serdes_phy2_hdl_path)                       @'h60000; #serdes phy2
+#    system serdes_phy3_block                        (pcie_subsystem_serdes_phy3_hdl_path)                       @'h70000; #serdes phy3
+}

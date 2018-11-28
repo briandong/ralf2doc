@@ -1,0 +1,2198 @@
+block app_logic {
+    bytes 4;
+    register PCIE_OREG_AXIMST_AW_0 @'d0 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_1 @'d4 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_2 @'d8 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_3 @'d12 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_4 @'d16 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_5 @'d20 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_6 @'d24 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_7 @'d28 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_8 @'d32 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_9 @'d36 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_10 @'d40 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_11 @'d44 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_12 @'d48 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_13 @'d52 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_14 @'d56 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_15 @'d60 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_16 @'d64 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_17 @'d68 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_18 @'d72 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_19 @'d76 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_20 @'d80 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_21 @'d84 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_22 @'d88 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_23 @'d92 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_24 @'d96 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_25 @'d100 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_26 @'d104 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_27 @'d108 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_28 @'d112 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_29 @'d116 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_30 @'d120 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_31 @'d124 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_32 @'d128 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_33 @'d132 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_34 @'d136 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_35 @'d140 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_36 @'d144 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_37 @'d148 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_38 @'d152 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_39 @'d156 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_40 @'d160 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_41 @'d164 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_42 @'d168 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_43 @'d172 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_44 @'d176 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_45 @'d180 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_46 @'d184 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_47 @'d188 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_48 @'d192 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_49 @'d196 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_50 @'d200 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_51 @'d204 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_52 @'d208 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_53 @'d212 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_54 @'d216 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_55 @'d220 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_56 @'d224 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_57 @'d228 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_58 @'d232 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_59 @'d236 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_60 @'d240 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_61 @'d244 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_62 @'d248 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AW_63 @'d252 {
+        bytes 4;
+        field AXIMST_AW @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_0 @'d256 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_1 @'d260 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_2 @'d264 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_3 @'d268 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_4 @'d272 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_5 @'d276 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_6 @'d280 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_7 @'d284 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_8 @'d288 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_9 @'d292 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_10 @'d296 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_11 @'d300 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_12 @'d304 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_13 @'d308 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_14 @'d312 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_15 @'d316 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_16 @'d320 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_17 @'d324 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_18 @'d328 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_19 @'d332 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_20 @'d336 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_21 @'d340 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_22 @'d344 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_23 @'d348 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_24 @'d352 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_25 @'d356 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_26 @'d360 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_27 @'d364 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_28 @'d368 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_29 @'d372 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_30 @'d376 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_AR_31 @'d380 {
+        bytes 4;
+        field AXIMST_AR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXIMST_BRASERR @'d384 {
+        bytes 4;
+        field AXIMST_BRASER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXISLV_BMISC @'d388 {
+        bytes 4;
+        field AXISLV_BMISC @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXISLV_RMISC @'d392 {
+        bytes 4;
+        field AXISLV_RMISC @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_AXISLV_RASERR @'d396 {
+        bytes 4;
+        field AXISLV_RASER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_SII_SCS_0 @'d400 {
+        bytes 4;
+        field SII_SCS @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_SII_SCS_1 @'d404 {
+        bytes 4;
+        field SII_SCS @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_TRGT @'d408 {
+        bytes 4;
+        field TRGT @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_FLR @'d412 {
+        bytes 4;
+        field FLR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_0 @'d416 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_1 @'d420 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_2 @'d424 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_3 @'d428 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_4 @'d432 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_5 @'d436 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_6 @'d440 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_7 @'d444 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_8 @'d448 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_9 @'d452 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_10 @'d456 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_11 @'d460 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_12 @'d464 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_13 @'d468 {
+        bytes 4;
+        field CFG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_SII_DBG @'d472 {
+        bytes 4;
+        field SII_DBG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_VMSG_0 @'d476 {
+        bytes 4;
+        field VMSG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_VMSG_1 @'d480 {
+        bytes 4;
+        field VMSG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_VMSG_2 @'d484 {
+        bytes 4;
+        field VMSG @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_SII_PM0 @'d488 {
+        bytes 4;
+        field SII_PM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_TC_LUT_0 @'d492 {
+        bytes 4;
+        field TC_LUT @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_TC_LUT_1 @'d496 {
+        bytes 4;
+        field TC_LUT @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_HOTRST @'d500 {
+        bytes 4;
+        field HOTRST @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_FRS @'d504 {
+        bytes 4;
+        field FRS @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_ERR_0 @'d508 {
+        bytes 4;
+        field CFG_ERR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_ERR_1 @'d512 {
+        bytes 4;
+        field CFG_ERR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_ERR_2 @'d516 {
+        bytes 4;
+        field CFG_ERR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_CFG_ERR_3 @'d520 {
+        bytes 4;
+        field CFG_ERR @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_SII_INT @'d524 {
+        bytes 4;
+        field SII_INT @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_0 @'d640 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_1 @'d644 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_2 @'d648 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_3 @'d652 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_4 @'d656 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_5 @'d660 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_6 @'d664 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_7 @'d668 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_8 @'d672 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_9 @'d676 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_10 @'d680 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_11 @'d684 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_12 @'d688 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_13 @'d692 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_14 @'d696 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_15 @'d700 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_16 @'d704 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_17 @'d708 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_18 @'d712 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_19 @'d716 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_20 @'d720 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_21 @'d724 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_22 @'d728 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_23 @'d732 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_24 @'d736 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_25 @'d740 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_26 @'d744 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_27 @'d748 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_28 @'d752 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_29 @'d756 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_30 @'d760 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_31 @'d764 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_32 @'d768 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_33 @'d772 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_34 @'d776 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_35 @'d780 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_36 @'d784 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_DLLAYER_37 @'d788 {
+        bytes 4;
+        field DSB_DLLAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_0 @'d792 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_1 @'d796 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_2 @'d800 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_3 @'d804 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_4 @'d808 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_5 @'d812 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_6 @'d816 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_7 @'d820 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_8 @'d824 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_9 @'d828 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_10 @'d832 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_11 @'d836 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_12 @'d840 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_13 @'d844 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_14 @'d848 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_15 @'d852 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_16 @'d856 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_17 @'d860 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_18 @'d864 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_MACLAYER_19 @'d868 {
+        bytes 4;
+        field DSB_MACAYER @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_PM @'d872 {
+        bytes 4;
+        field DSB_PM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_0 @'d876 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_1 @'d880 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_2 @'d884 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_3 @'d888 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_4 @'d892 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_5 @'d896 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_6 @'d900 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_7 @'d904 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_8 @'d908 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_9 @'d912 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_10 @'d916 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_11 @'d920 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_12 @'d924 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_13 @'d928 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_14 @'d932 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_15 @'d936 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_16 @'d940 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_17 @'d944 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_18 @'d948 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_19 @'d952 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_OREG_DSB_RADM_20 @'d956 {
+        bytes 4;
+        field DSB_RADM @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_STATUS_0 @'d1024 {
+            bytes 4;
+            field SMLH_LINK_UP   @0 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_BUS_MASTER_EN  @1 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_MEM_SPACE_EN   @2 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field PCIE4_APP_FLR_ACTIVE @3 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field PM_XTLH_BLOCK_TLP  @4 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field TRGT_CPL_TIMEOUT   @5 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field MSTR_RASDP_ERR_MOD @6 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field SLV_RASDP_ERR_MODE @7 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field MSTR_ARMISC_INFO_ZEROREAD @8 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field PCIE4_APP_B_TIMEOUT  @9 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field PCIE4_APP_R_TIMEOUT  @10 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field RADM_VENDOR_MSG    @11 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field ASSERT_INTA_GRT    @12 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field ASSERT_INTB_GRT    @13 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field ASSERT_INTC_GRT    @14 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field ASSERT_INTD_GRT    @15 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DEASSERT_INTA_GRT  @16 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DEASSERT_INTB_GRT  @17 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DEASSERT_INTC_GRT  @18 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DEASSERT_INTD_GRT  @19 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_LINK_EQ_REQ_IN @20 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SEND_COR_ERR   @21 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SEND_NF_ERR    @22 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SEND_F_ERR     @23 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field PCIE4_APP_HOTRST_ACTIVE @27 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+    }
+    register PCIE_INTREG_STATUS_1 @'d1028 {
+            bytes 4;
+            field ECRC_ERR_ASSERTED @0 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field LCRC_ERR_ASSERTED @1 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field UNEXPECTED_CPL_ERR @2 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CPL_CA_ERR @3 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CPL_UR_ERR @4 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field FLT_Q_CPL_ABORT @5 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CPL_MLF_ERR @6 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field FORM_FILT_ECRC_ERR_REG @7 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field FORM_FILT_MALFORM_TLP_ERR_REG @8 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field FORM_FILT_DLLP_ERR_REG @9 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field RADM_QOVERFLOW @10 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_RCVD_CPL_UR @11 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_RCVD_CPL_CA @12 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_RCVD_REQ_CA @13 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_RCVD_REQ_UR @14 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_ECRC_ERR @15 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field DIAG_RADM_MLF_TLP_ERR @16 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SYS_ERR_RC_COR @17 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SYS_ERR_RC_NF @18 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+            field CFG_SYS_ERR_RC_F @19 {
+                    bits 1;
+                    access rw;
+                    reset 'd0;
+            }
+    }
+    register PCIE_INTREG_STATUS_2 @'d1032 {
+        bytes 4;
+        field INTREG_STATUS @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_STATUS_3 @'d1036 {
+        bytes 4;
+        field INTREG_STATUS @0 {
+            bits    32;
+            access  ro;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_MASK_0 @'d1040 {
+        bytes 4;
+        field INTREG_ @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_MASK_1 @'d1044 {
+        bytes 4;
+        field INTREG_ @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_MASK_2 @'d1048 {
+        bytes 4;
+        field INTREG_ @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_MASK_3 @'d1052 {
+        bytes 4;
+        field INTREG_ @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_MSI @'d1056 {
+        bytes 4;
+        field INTREG_MSI @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXIMST_BMISC @'d1060 {
+        bytes 4;
+        field AXIMST_BMISC @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXIMST_RMISC @'d1064 {
+        bytes 4;
+        field AXIMST_RMISC @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXISLV_AW_0 @'d1068 {
+        bytes 4;
+        field AXISLV_AW @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXISLV_AW_1 @'d1072 {
+        bytes 4;
+        field AXISLV_AW @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXISLV_AW_2 @'d1076 {
+        bytes 4;
+        field AXISLV_AW @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXISLV_W @'d1080 {
+        bytes 4;
+        field AXISLV_W @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_AXISLV_ARMISC @'d1084 {
+        bytes 4;
+        field AXISLV_ARMISC @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_SII_GCC @'d1088 {
+        bytes 4;
+        field SII_GCC @0 {
+            bits    32;
+            access  rw;
+            reset   32'd18;
+        }
+    }
+    register PCIE_IREG_APP_APM @'d1092 {
+        bytes 4;
+        field APP_APM @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_SII_PM0 @'d1096 {
+        bytes 4;
+        field SII_PM @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_SII_PM1 @'d1100 {
+        bytes 4;
+        field SII_PM @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_HOTRST @'d1104 {
+        bytes 4;
+        field APP_HOTRST @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_FRS @'d1108 {
+        bytes 4;
+        field APP_FRS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_RASSDI @'d1112 {
+        bytes 4;
+        field APP_RASSDI @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_DIAG_CTRLBUS @'d1116 {
+        bytes 4;
+        field DIAG_CTRLBUS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_SYS_INT @'d1120 {
+        bytes 4;
+        field SYS_INT @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_FLR @'d1124 {
+        bytes 4;
+        field APP_FLR @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_SIITCS0 @'d1128 {
+        bytes 4;
+        field APP_SIITCS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_SIITCS1 @'d1132 {
+        bytes 4;
+        field APP_SIITCS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_SIITCS2 @'d1136 {
+        bytes 4;
+        field APP_SIITCS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_SIITCS3 @'d1140 {
+        bytes 4;
+        field APP_SIITCS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_SIITCS4 @'d1144 {
+        bytes 4;
+        field APP_SIITCS @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_SRAM_MISC @'d1148 {
+        bytes 4;
+        field SRAM_MISC @0 {
+            bits    32;
+            access  rw;
+            reset   32'd80114522;
+        }
+    }
+    register PCIE_INTREG_DATA @'d1152 {
+        bytes 4;
+        field DATA @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_INTREG_ADDR @'d1156 {
+        bytes 4;
+        field ADDR @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+    register PCIE_IREG_APP_LTSSMEN @'d1276 {
+        bytes 4;
+        field LTSSMEN @0 {
+            bits    32;
+            access  rw;
+            reset   0;
+        }
+    }
+}
+system app_logic_block {
+    bytes 4;
+    block app_logic @'d0000;
+}

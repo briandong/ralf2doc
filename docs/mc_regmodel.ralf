@@ -1,0 +1,10 @@
+source "sdram_csr_ipxact.ralf"
+source "mc_misc.ralf"
+
+system mc_regmodel {
+  bytes 4;
+  endian little;
+  system CPU0  (mc)  @'h0;
+  block MC_MISC  (mc_misc) @'h40000;
+}
+

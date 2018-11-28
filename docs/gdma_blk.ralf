@@ -1,0 +1,1050 @@
+block gdma_cmd_pkt_regs {
+        bytes 4;
+        register DMA_WAIT_CONTROL @'h0000 {
+                 bytes 4;
+                 field WAIT_DISABLE @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field WAIT_MAILBOX_ID @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_SIGNAL_USER_DATA0 @'h0004 {
+                 bytes 4;
+                 field SIGNAL_USER_DATA0 @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h1;
+                 } 
+        }
+
+        register DMA_SIGNAL_USER_DATA1 @'h0008 {
+                 bytes 4;
+                 field SIGNAL_USER_DATA1 @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h1;
+                 } 
+        }
+
+        register DMA_SIGNAL_CONTROL0 @'h000C {
+                 bytes 4;
+                 field SIGNAL_DST0_ADDR @0 {
+                       bits 31;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field SIGNAL_DISABLE0 @31 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_SIGNAL_CONTROL1 @'h0010 {
+                 bytes 4;
+                 field SIGNAL_DST1_ADDR @0 {
+                       bits 31;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field SIGNAL_DISABLE1 @31 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_CMD_CONTROL @'h0018 {
+                 bytes 4;
+                 field DMA_OP_TYPE @0 {
+                       bits 8;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_SRC_BPE @8 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_DIRECTION @12 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_CMP_BPI @16 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }     
+
+                 field DMA_CMP_BPR @20 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_START_TRIGGER @31 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_SRC_ADDR_HI @'h001C {
+                 bytes 4;
+                 field DMA_SRC_ADDR_HI @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_SRC_ADDR_LOW @'h0020 {
+                 bytes 4;
+                 field DMA_SRC_ADDR_LOW @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_DST_ADDR_HI @'h0024 {
+                 bytes 4;
+                 field DMA_DST_ADDR_HI @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_DST_ADDR_LOW @'h0028 {
+                 bytes 4;
+                 field DMA_DST_ADDR_LOW @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_SRC_TOTAL_SIZE @'h002C {
+                 bytes 4;
+                 field DMA_SRC_TOTAL_SIZE @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_SRC_TILE_DIM01_SIZE @'h0030 {
+                 bytes 4;
+                 field DMA_SRC_TILE_DIM0_SIZE @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_SRC_TILE_DIM1_SIZE @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_SRC_TILE_DIM23_SIZE @'h0034 {
+                 bytes 4;
+                 field DMA_SRC_TILE_DIM2_SIZE @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_SRC_TILE_DIM3_SIZE @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_TILE_PADDING_VALUE @'h0038 {
+                 bytes 4;
+                 field DMA_TILE_PADDING_VALUE @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_PADDING_CTRL_DIM0 @'h003C {
+                 bytes 4;
+                 field DMA_TILE_PADDING_DIM0_LOW @0 {
+                       bits 11;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_PADDING_DIM0_HIGH @11 {
+                       bits 11;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_PADDING_CTRL_DIM1 @'h0040 {
+                 bytes 4;
+                 field DMA_TILE_PADDING_DIM1_LOW @0 {
+                       bits 11;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_PADDING_DIM1_HIGH @11 {
+                       bits 11;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_PADDING_DIM1_INTERIOR @22 {
+                       bits 10;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_AXI_CFG @'h0044 {
+                 bytes 4;
+                 field DMA_AXI_AWID @0 {
+                       bits 6;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_ARID @8 {
+                       bits 6;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_AWPORT @16 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_ARPORT @24 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_CONCATENATE_CTRL @'h004C {
+                 bytes 4;
+                 field DMA_TILE_CONCATENATE_DIMENSION @0 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_CONCATENATE_OPERAND_ADDR_HI @2 {
+                       bits 6;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_CONCATENATE_DIMENSION_SIZE @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_CONCATENATE_OPERAND_ADDR_LOW @'h0050 {
+                 bytes 4;
+                 field DMA_TILE_CONCATENATE_OPERAND_ADDR_LOW @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_RESHAPE_CTRL @'h0054 {
+                 bytes 1;
+                 field DMA_TILE_RESHAPE_DIM0_MAP @0 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_RESHAPE_DIM1_MAP @2 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_RESHAPE_DIM2_MAP @4 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_RESHAPE_DIM3_MAP @6 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_BROADCASTING_CTRL @'h0058 {
+                 bytes 4;
+                 field DMA_BRDCST_DIM @0 {
+                       bits 2;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_BRDCST_DST_DIM_SIZE @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_SLICE_START @'h005C {
+                 bytes 4;
+                 field DMA_TILE_SLICE_COLUMN_START @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_SLICE_ROW_START @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_SLICE_END @'h0060 {
+                 bytes 4;
+                 field DMA_TILE_SLICE_COLUMN_END @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_TILE_SLICE_ROW_END @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_TILE_SUB_SAMPLING_CTRL @'h0064 {
+                 bytes 2;
+                 field DMA_TILE_SUB_SAMPLING_ROW_STRIDE @0 {
+                       bits 11;
+                       access wo;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_CONSTANT_DATA @'h0068 {
+                 bytes 4;
+                 field DMA_CONSTANT_DATA @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_REG_COPY_START_ADDR @'h006C {
+                 bytes 4;
+                 field DMA_REG_COPY_START_ADDR @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_REG_COPY_SIZE @'h0070 {
+                 bytes 4;
+                 field DMA_REG_COPY_SIZE @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_QOS_CTRL @'h0074 {
+                 bytes 4;
+                 field DMA_QOS_INITAL @0 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_QOS_INC_ENABLE @7 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_QOS_INC_INTERVAL @8 {
+                       bits 24;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_DST_BRDCST_CTRL @'h0078 {
+                 bytes 2;
+                 field DMA_DST_BRDCST_EN @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_DST_BRDCST_SEL @8 {
+                       bits 8;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+}
+
+block gdma_compress_regs {
+        bytes 4;
+        register DMA_COMPRESS_THRESHOLD @'h0000 {
+                 bytes 4;
+                 field DMA_COMPRESS_THRESHOLD @0 {
+                       bits 32;
+                       access wo;
+                       reset 'hffff;
+                 }
+        }
+
+        register DMA_CMP_COL_DST_ADDR_LOW @'h0004 {
+                 bytes 4;
+                 field DMA_CMP_COL_DST_ADDR_LOW @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_CMP_COL_DST_ADDR_HI @'h0008 {
+                 bytes 4;
+                 field DMA_CMP_COL_DST_ADDR_HI @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_CMP_ROW_DST_ADDR_LOW @'h000C {
+                 bytes 4;
+                 field DMA_CMP_ROW_DST_ADDR_LOW @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_CMP_ROW_DST_ADDR_HI @'h0010 {
+                 bytes 4;
+                 field DMA_CMP_ROW_DST_ADDR_HI @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_ONEHOT_ON_VALUE @'h0014 {
+                 bytes 4;
+                 field DMA_ONEHOT_ON_VALUE @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }
+
+        register DMA_ONEHOT_OFF_VALUE @'h0018 {
+                 bytes 4;
+                 field DMA_ONEHOT_OFF_VALUE @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 } 
+        }        
+}
+
+block gdma_common_regs {
+        bytes 4;
+        register DMA_ENGINE_CTRL @'h0000 {
+                 bytes 4;
+                 field DMA_ENGINE_ENABLE @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_DYNAMIC_CLK_GATE_EN @1 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CLK_GATE_EN @2 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CF_MST_PAR_ERR_INJ_EN @3 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_HML_RD_PAR_CHK_EN @4 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_LML_RD_PAR_CHK_EN @5 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_HML_WR_PAR_ERR_INJ_EN @6 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_LML_WR_PAR_ERR_INJ_EN @7 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_SOC_QOS_INC_INTERVAL @8 {
+                       bits 24;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_ENGINE_STATUS @'h0004 {
+                 bytes 4;
+                 field DMA_ENGINE_STATUS @0 {
+                       bits 1;
+                       access ro;
+                       reset 'h0;
+                 }
+                 field DMA_POSITION @6 {
+                       bits 26;
+                       access ro;
+                       reset 'h0;
+                 }
+        }
+        register DMA_BURST_LEN_CTRL @'h0008 {
+                 bytes 2;
+                 field DMA_HML_WR_MAX_BURST @0 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_HML_RD_MAX_BURST @4 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_LML_WR_MAX_BURST @8 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_LML_RD_MAX_BURST @12 {
+                       bits 3;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_MAILBOX @'h0010 {
+                 bytes 2;
+                 field DMA_MBX_WR_ID @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_MBX_CFG @'h0014 {
+                 bytes 4;
+                 field DMA_MBX_CFG_ID @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_MBX_CFG_REF @16 {
+                       bits 16;
+                       access wo;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_MBX_STATUS_SEL @'h0018 {
+                 bytes 2;
+                 field DMA_MBX_STATUS_ID @0 {
+                       bits 16;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_MBX_STATUS @'h001C {
+                 bytes 4;
+
+                 field DMA_MBX_STATUS_COUNTER @0 {
+                       bits 16;
+                       access ro;
+                       reset 'h0;
+                 }
+
+                 field DMA_MBX_STATUS_REF @16 {
+                       bits 16;
+                       access ro;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_COMMAND_PACKET_CTRL @'h0020 {
+                 bytes 2;
+                 field DMA_COMMAND_PACKET_RESET @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+
+                 field DMA_CMD_SET_SEL @8 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_INTERRUPT_STATUS @'h0024 {
+                 bytes 4;
+                 field DMA_TIMEOUT_INT @0 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_SRAM_ERR_PAR_INT @1 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_DF_ERR_RESP_INT @2 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_CF_ERR_RESP_INT @3 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_AXI_DF_ERR_PAR_INT @4 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_ILL_PROG_INT @5 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_COMP_ABORT_INT @6 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_FINISH_INT @7 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_TIMEOUT_INT_EN @8 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_SRAM_ERR_PAR_INT_EN @9 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_AXI_DF_ERR_RESP_INT_EN @10 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_AXI_CF_ERR_RESP_INT_EN @11 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_AXI_DF_ERR_PAR_INT_EN @12 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_ILL_PROG_INT_EN @13 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_COMP_ABORT_INT_EN @14 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+                 field DMA_FINISH_INT_EN @15 {
+                       bits 1;
+                       access wo;
+                       reset 'h1;
+                 }
+        }
+
+        register DMA_TIMEOUT_CTRL @'h0028 {
+                 bytes 4;
+                 field DMA_TIMEOUT_THRESHOLD @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_SRAMMISC_CTRL @'h002c {
+                 bytes 4;
+                 field DMA_SRAMMISC @0 {
+                       bits 32;
+                       access wo;
+                       reset 'h80114522;
+                 }
+        }
+
+        register DMA_CF_SLV_ERR_CTRL @'h0030 {
+                 bytes 4;
+                 field DMA_CF_SLV_PAR_CHK_EN @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CF_SLV_PAR_ERR_INJ_EN @1 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CF_SLV_PAR_ERR_STATUS @2 {
+                       bits 1;
+                       access w1c;
+                       reset 'h0;
+                 }
+                 field DMA_CF_SLV_PAR_ERR_AWID @4 {
+                       bits 6;
+                       access ro;
+                       reset 'h0;
+                 }
+                 field DMA_CF_SLV_PAR_ERR_AWUSER @16 {
+                       bits 16;
+                       access ro;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_CF_SLV_ERR_WADDR @'h0034 {
+                 bytes 4;
+                 field DMA_CF_SLV_PAR_ERR_WADDR @0 {
+                       bits 30;
+                       access ro;
+                       reset 'h0;
+                 }
+        }
+        register INDEX_CMD @'h0044 {
+                bytes 4;
+                field OP @31 {
+                        bits 1;
+                        access rw;
+                        reset 'h0;
+                }
+                field CMDRW @30 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field INDEXMODE @29 {
+                        bits 1;
+                        access wo;
+                        reset 'h0;
+                }
+                field GROUP @16 {
+                        bits 4;
+                        access wo;
+                        reset 'h0;
+                }
+                field INDEX @0 {
+                        bits 16;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+        register INDEX_WDATA @'h048 {
+                bytes 4;
+                field WDATA @0 {
+                        bits 32;
+                        access wo;
+                        reset 'h0;
+                }
+        }
+       register INDEX_RDATA @'h04C {
+                bytes 4;
+                field RDATA @0 {
+                        bits 32;
+                        access ro;
+                        reset 'h0;
+                }
+        }
+
+
+
+}
+
+
+
+block gdma_vm_client_regs {
+	bytes 4;
+	register VM_CLIENT_CTRL @'h0000 {
+		bytes 4;
+		field ENABLE @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field PEER_WIN_EN @1 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED_0 @2 {
+			bits   6;
+			access wo;
+			reset  'h0;
+		}
+		field PEER_APERTURE_EN @8 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED_1 @12 {
+			bits   20;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_WIN_ADDR @'h0004 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_WIN_MASK @'h0008 {
+		bytes 4;
+		field MASK @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_A @'h000c {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_B @'h0010 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_C @'h0014 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_ADDR_D @'h0018 {
+		bytes 4;
+		field ADDR @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_MASK @'h001c {
+		bytes 4;
+		field MASK @0 {
+			bits   31;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @31 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_A @'h0020 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_B @'h0024 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_C @'h0028 {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_PEER_APERTURE_BASE_D @'h002c {
+		bytes 4;
+		field base @0 {
+			bits   30;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @30 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_FAULT_ADDR_LO @'h0030 {
+		bytes 4;
+		field ADDR @0 {
+			bits   32;
+			access wo;
+			reset  'h0;
+		}
+	}
+	register VM_CLIENT_FAULT_ADDR_HI @'h0034 {
+		bytes 4;
+		field ADDR @0 {
+			bits   6;
+			access wo;
+			reset  'h0;
+		}
+		field RESERVED @6 {
+			bits   26;
+			access wo;
+			reset  'h0;
+		}
+	}
+}
+
+block gdma_crc_regs {
+        bytes 4;
+        register DMA_CRC_CTRL @'h0000 {
+                 bytes 4;
+                 field DMA_CRC_EN @0 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CRC_CHN_EN @1 {
+                       bits 1;
+                       access wo;
+                       reset 'h0;
+                 }
+                 field DMA_CRC_RESULT_VALID @2 {
+                       bits 1;
+                       access ro;
+                       reset 'h0;
+                 }
+                 field DMA_CRC_CHN_NUM @4 {
+                       bits 4;
+                       access wo;
+                       reset 'h0;
+                 }
+        }
+
+        register DMA_CRC_RESULT @'h0004 {
+                 bytes 4;
+                 field DMA_CRC_VALUE @0 {
+                       bits 32;
+                       access ro;
+                       reset 'h0;
+                 } 
+        }
+
+}
+

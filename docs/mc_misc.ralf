@@ -1,0 +1,147 @@
+block MC_MISC {
+    bytes 4;
+    register PIF_CTRL @0x0 {
+        bytes 4;
+        field RESERVED @'h7 {
+            bits 25;
+            access ro;
+            doc {
+                Reserved field
+            }
+        }
+        field ERROR @'h6 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Indicate there is an error for current request
+            }
+        }
+        field RDONE @'h5 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                CSR read operation of PHY is completed
+            }
+        }
+        field WDONE @'h4 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                CSR write operation of PHY is completed
+            }
+        }
+        field REQ_TYPE @'h2 {
+            bits 2;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Issued CSR request type of PHY
+            }
+        }
+        field REQ_START @'h1 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Start CSR request of PHY
+            }
+        }
+        field RESETN @'h0 {
+            bits 1;
+            access rw;
+            hard_reset 'h1;
+            doc {
+                Reset CSR block of PHY, corresponding to REGRESETN
+            }
+        }
+    }
+    register PIF_ADDR @0x4 {
+        bytes 4;
+        field RESERVED @'h14 {
+            bits 12;
+            access ro;
+            doc {
+                Reserved field
+            }
+        }
+        field ADDR @'h0 {
+            bits 20;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                CSR accessing address, corresponding to REGADDR
+            }
+        }
+    }
+    register PIF_DATA @0x8 {
+        bytes 4;
+        field RDATA @'h10 {
+            bits 16;
+            access ro;
+            doc {
+                Store the read data of CSR, corresponding to REGRDATA
+            }
+        }
+        field WDATA @'h0 {
+            bits 16;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Store the write data of CSR, corresponding to REGWDATA
+            }
+        }
+    }
+    register SEQ_CTRL @0xc {
+        bytes 4;
+        field WDATA @'h10 {
+            bits 16;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Store the write data of SEQ, corresponding to SEQWDATA
+            }
+        }
+        field RESERVED @'h8 {
+            bits 8;
+            access ro;
+            doc {
+                Reserved field
+            }
+        }
+        field SEQ_FREE @'h3 {
+            bits 5;
+            access ro;
+            hard_reset 'h0;
+            doc {
+                Indicate the number of free locations available in sequencer FIFO
+            }
+        }
+        field SEQ_STOP @'h2 {
+            bits 1;
+            access ro;
+            hard_reset 'h0;
+            doc {
+                SEQ programming of PHY is completed
+            }
+        }
+        field SEQ_DONE @'h1 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                SEQ write operation of PHY is completed
+            }
+        }
+        field SEQ_START @'h0 {
+            bits 1;
+            access rw;
+            hard_reset 'h0;
+            doc {
+                Start SEQ write request of PHY
+            }
+        }
+    }
+}

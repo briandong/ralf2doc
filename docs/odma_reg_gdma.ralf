@@ -1,0 +1,42 @@
+
+
+system odma_regs {
+
+
+
+  bytes 4;
+  block gdma_common_regs @'h0000;
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt0_regs @'h0100;
+
+  block gdma_compress_regs=gdma_compress0_regs @'h0180;
+
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt1_regs @'h0200;
+
+  block gdma_compress_regs=gdma_compress1_regs @'h0280;
+
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt2_regs @'h0300;
+
+  block gdma_compress_regs=gdma_compress2_regs @'h0380;
+
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt3_regs @'h0400;
+
+  block gdma_compress_regs=gdma_compress3_regs @'h0480;
+
+
+  block gdma_cmd_pkt_regs=gdma_cmd_pkt4_regs @'h0500;
+
+  block gdma_compress_regs=gdma_compress4_regs @'h0580;
+
+
+
+  block gdma_vm_client_regs @'h0a00;
+
+
+  block gdma_crc_regs  @'h0a60;
+
+
+}

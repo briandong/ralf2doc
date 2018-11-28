@@ -1,0 +1,4263 @@
+block  ssm_regs  {
+        bytes 4;
+	register SSM_RST_CONTROL @'h0  {
+		field SSM_MCU_SW_RST_N @0  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+ 		field REG_WARM_RST_N @2  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}    
+ 		field FW_LOAD_DONE @3  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}   
+ 		field BOOT_FUSE_SENSE_DONE @4  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}   
+                field FW_CHECK_PASS @5  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}
+		field DFD_SW_RST_N @6  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MEM_REPAIR_SW_RST_N @7  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+ 		field PCIE4_SW_COLD_RST_N @8  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}     
+ 		field CCIX0_SW_COLD_RST_N @9  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}    
+ 		field CCIX1_SW_COLD_RST_N @10  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}    
+ 		field CCIX2_SW_COLD_RST_N @11  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}    
+ 		field CCIX3_SW_COLD_RST_N @12  {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}    
+		field PWROK_OCCURRED @16  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}
+		field BRST_N_OCCURRED @17  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}
+		field PCIE_PERST_N_OCCURRED @18  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}
+		field PCIE_HOT_RST_OCCURRED @19  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}
+ 		field JTAG_WARM_RST_N_OCCURRED @20  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}   
+ 		field JTAG_COOL_RST_N_OCCURRED @21  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}    	
+                field REG_WARM_RST_N_OCCURRED @22  {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}       
+                field RST_N_OCCURRED_CLEAR @23  {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}  
+                field PWROK_DEGLITCH_BYPASS @24  {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}   
+                 field BRST_N_DEGLITCH_BYPASS @25  {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}                  
+                 field PCIE_PERST_N_DEGLITCH_BYPASS @26  {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}                  
+        }
+	register PLL0_CONFIG0 @'h4  {
+		field PD @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DACPD @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+ 		field DSMPD @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+ 		field DISABLE_SSCG @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+		field DOWNSPREAD @4 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+ 		field FRAC @5 {
+			bits   24;
+			access wo;
+			reset  'h0;
+		}	       
+ 		field POSTDIV @29 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}       
+        }
+	register PLL0_CONFIG1 @'h8  {
+		field PREDIV @0 {
+			bits   6;
+			access wo;
+			reset  'h1;
+		}
+		field FBDIV @6 {
+			bits   12;
+			access wo;
+			reset  'h36;
+		}
+ 		field PHASE_SEL_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL @19 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field GVCO_BIAS @21 {
+			bits   2;
+			access wo;
+			reset  'h1;
+		}       
+ 		field CPP_BIAS @23 {
+			bits   3;
+			access wo;
+			reset  'h2;
+		}       
+ 		field CPI_BIAS @26 {
+			bits   3;
+			access wo;
+			reset  'h3;
+		}       
+ 		field LOCK @29 {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}  
+        }
+	register PLL0_CONFIG2 @'h0C  {
+		field DIVVAL @0 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+		field EXT_MAXADDR @4 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field EXTWAVEVAL @12 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field SEL_EXTWAVE @20 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field  SPREAD @21 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}
+		field TBLADDR @24 {
+			bits   8;
+			access ro;
+			reset  'h0;
+		}
+        }
+	register PLL0_CONFIG3 @'h10  {
+		field TESTEN @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field TESTSEL @1 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+            	field PHASE_SEL_EN_2 @3 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL_2 @4 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}  
+ 		field POSTDIV_2 @6 {
+			bits   3;
+			access wo;
+			reset  'h1;
+		} 
+        }
+
+
+
+
+	register PLL1_CONFIG0 @'h14  {
+		field PD @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DACPD @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+ 		field DSMPD @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+ 		field DISABLE_SSCG @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+		field DOWNSPREAD @4 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+ 		field FRAC @5 {
+			bits   24;
+			access wo;
+			reset  'h0;
+		}	       
+ 		field POSTDIV @29 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}       
+        }
+	register PLL1_CONFIG1 @'h18  {
+		field PREDIV @0 {
+			bits   6;
+			access wo;
+			reset  'h1;
+		}
+		field FBDIV @6 {
+			bits   12;
+			access wo;
+			reset  'h30;
+		}
+ 		field PHASE_SEL_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL @19 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field GVCO_BIAS @21 {
+			bits   2;
+			access wo;
+			reset  'h1;
+		}       
+ 		field CPP_BIAS @23 {
+			bits   3;
+			access wo;
+			reset  'h2;
+		}       
+ 		field CPI_BIAS @26 {
+			bits   3;
+			access wo;
+			reset  'h3;
+		}       
+ 		field LOCK @29 {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}  
+        }
+	register PLL1_CONFIG2 @'h1C  {
+		field DIVVAL @0 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+		field EXT_MAXADDR @4 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field EXTWAVEVAL @12 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field SEL_EXTWAVE @20 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field  SPREAD @21 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}
+		field TBLADDR @24 {
+			bits   8;
+			access ro;
+			reset  'h0;
+		}
+        }
+	register PLL1_CONFIG3 @'h20  {
+		field TESTEN @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field TESTSEL @1 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+             	field PHASE_SEL_EN_2 @3 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL_2 @4 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}  
+ 		field POSTDIV_2 @6 {
+			bits   3;
+			access wo;
+			reset  'h1;
+		}    
+        }
+
+
+
+
+
+
+	register PLL2_CONFIG0 @'h24  {
+		field PD @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DACPD @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+ 		field DSMPD @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+ 		field DISABLE_SSCG @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+		field DOWNSPREAD @4 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+ 		field FRAC @5 {
+			bits   24;
+			access wo;
+			reset  'h0;
+		}	       
+ 		field POSTDIV @29 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}       
+        }
+	register PLL2_CONFIG1 @'h28  {
+		field PREDIV @0 {
+			bits   6;
+			access wo;
+			reset  'h1;
+		}
+		field FBDIV @6 {
+			bits   12;
+			access wo;
+			reset  'h14;
+		}
+ 		field PHASE_SEL_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL @19 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field GVCO_BIAS @21 {
+			bits   2;
+			access wo;
+			reset  'h1;
+		}       
+ 		field CPP_BIAS @23 {
+			bits   3;
+			access wo;
+			reset  'h2;
+		}       
+ 		field CPI_BIAS @26 {
+			bits   3;
+			access wo;
+			reset  'h3;
+		}       
+ 		field LOCK @29 {
+			bits   1;
+			access ro;
+			reset  'h0;
+		}  
+        }
+	register PLL2_CONFIG2 @'h2C  {
+		field DIVVAL @0 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+		field EXT_MAXADDR @4 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field EXTWAVEVAL @12 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+		field SEL_EXTWAVE @20 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field  SPREAD @21 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		}
+		field TBLADDR @24 {
+			bits   8;
+			access ro;
+			reset  'h0;
+		}
+        }
+	register PLL2_CONFIG3 @'h30  {
+		field TESTEN @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field TESTSEL @1 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+             	field PHASE_SEL_EN_2 @3 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}       
+ 		field PHASE_SEL_2 @4 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}  
+ 		field POSTDIV_2 @6 {
+			bits   3;
+			access wo;
+			reset  'h3;
+		}                
+        }
+	register CLK_MUX_CTRL @'h34  {
+		field DTU_CLK_SEL @0 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+		field EDF_CLK_SEL @2 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}
+ 		field ECF_CLK_SEL @4 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field SSM_CLK_SEL @6 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field MC_CLK_SEL @8 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+ 		field MC_REG_CLK_SEL @10 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}       
+  		field MC_REF_CLK_SEL @12 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}     
+  		field AUX_CLK_SEL @14 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}    
+   		field CCIX_AXI_CLK_SEL @16 {
+			bits   2;
+			access wo;
+			reset  'h0;
+		}   
+     		field BK_PLL0_DIV2_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}       
+        }
+	register IP_CLOCK_GATING_CTRL0 @'h38  {
+		field CLUSTER0_DTU_CLK_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CLUSTER1_DTU_CLK_EN @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CLUSTER2_DTU_CLK_EN @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CLUSTER3_DTU_CLK_EN @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field NOC_EDF_CLK_EN @4 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field ODMA0_EDF_CLK_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field ODMA1_EDF_CLK_EN @6 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU0_EDF_CLK_EN @7 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU1_EDF_CLK_EN @8 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU2_EDF_CLK_EN @9 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU3_EDF_CLK_EN @10 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field NOC_ECF_CLK_EN @11 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU0_ECF_CLK_EN @12 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU1_ECF_CLK_EN @13 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU2_ECF_CLK_EN @14 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CMD_MCU3_ECF_CLK_EN @15 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field PCIE_AXI_CLK_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field GLOBAL_CLOCK_GATING_DIS @19 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+                field SSM_REG_CLK_GATE_DIS @20 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+
+        }
+	register IP_CLOCK_GATING_CTRL1 @'h3c  {
+		field MC0_MC_CLK_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC1_MC_CLK_EN @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC2_MC_CLK_EN @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC3_MC_CLK_EN @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC4_MC_CLK_EN @4 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC5_MC_CLK_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC6_MC_CLK_EN @6 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC7_MC_CLK_EN @7 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC0_MC_PCLK_EN @8 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC1_MC_PCLK_EN @9 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC0_MC_REFCLK_EN @10 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC1_MC_REFCLK_EN @11 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+        }
+	register IP_CLOCK_GATING_CTRL2 @'h40  {
+ 		field MC0_MC_REGCLK_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field MC1_MC_REGCLK_EN @1 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DFDIO_ECF_CLK_EN @2 {
+			bits   1;
+			access wo;
+			reset  'h1;
+                }
+		field DFT_ECF_CLK_EN @3 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}  
+		field EDF_NOC_SERVICE_CLK_EN @4 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}  
+		field ECF_EDF_NET_CLK_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}  
+		field CCIX0_AXI_CLK_EN @8 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CCIX1_AXI_CLK_EN @11 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CCIX2_AXI_CLK_EN @14 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CCIX3_AXI_CLK_EN @17 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+  		field CCIX0_AUX_CLK_EN @18 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}   
+		field CCIX1_AUX_CLK_EN @19 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CCIX2_AUX_CLK_EN @20 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field CCIX3_AUX_CLK_EN @21 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field PCIE_AUX_CLK_EN @22 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DFT_MEM_REPAIR_CLK_EN @23 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+		field DFD_REF_CLK_EN @24 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+        }
+	register CLK_DIVIDER_CTRL @'h44  {
+		field MC_DIV @0 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}
+		field ECF_DIV @4 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}
+ 		field EDF_DIV @8 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}       
+ 		field SSM_DIV @12 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}       
+ 		field CLUSTER_DIV @16 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}       
+  		field MC_REG_DIV @20 {
+			bits   4;
+			access wo;
+			reset  'h1;
+		}       
+        }
+	register IP_RST_CTRL @'h48  {
+		field CLUSTER0_SW_RST_N @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CLUSTER1_SW_RST_N @1 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CLUSTER2_SW_RST_N @2 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CLUSTER3_SW_RST_N @3 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field NOC_EDF_SW_RST_N @4 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field NOC_ECF_SW_RST_N @5 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CMD_MCU0_SW_RST_N @6 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CMD_MCU1_SW_RST_N @7 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CMD_MCU2_SW_RST_N @8 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CMD_MCU3_SW_RST_N @9 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field ODMA0_SW_RST_N @10 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field ODMA1_SW_RST_N @11 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CCIX0_SW_RST_N @12 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CCIX1_SW_RST_N @13 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CCIX2_SW_RST_N @14 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CCIX3_SW_RST_N @15 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field PCIE_SW_RST_N @16 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+
+ 		field MC0_SW_RST_N @17 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC1_SW_RST_N @18 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC2_SW_RST_N @19 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC3_SW_RST_N @20 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}  
+ 		field MC4_SW_RST_N @21 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC5_SW_RST_N @22 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC6_SW_RST_N @23 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC7_SW_RST_N @24 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		} 
+                field MC_GROUP0_SW_RST_N @25 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field MC_GROUP1_SW_RST_N @26 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+
+		field PCIE_HOT_RST_DONE @27 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		} 
+		field MC_PHY0_IODRVOFF @28 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		} 
+		field MC_PHY1_IODRVOFF @29 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		} 
+        }
+	register CLK_MUX_SEL @'h4c  {
+		field CLK_MUX_SEL0_0 @0 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+		field CLK_MUX_SEL0_1 @4 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}
+ 		field CLK_MUX_SEL0_2 @8 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}       
+ 		field CLK_MUX_SEL0_3 @12 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}       
+ 		field CLK_MUX_SEL0_4 @16 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		}       
+  		field CLK_MUX_SEL0_5 @20 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		} 		
+                field CLK_MUX_SEL1 @24 {
+			bits   3;
+			access wo;
+			reset  'h0;
+		} 
+ 		field CLK_MUX_DIV @27 {
+			bits   4;
+			access wo;
+			reset  'h0;
+		} 
+        }
+	register CLK_OBSERVED_CTRL @'h50  {
+		field OBSERVE_CNT_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field XTAL_REFCLK_TERM_CNT @1 {
+			bits   20;
+			access wo;
+			reset  'h0;
+		}
+        }
+	register CLK_OBSERVED_STATUS @'h54  {
+		field CLK_OBSERVATION_STATUS @0 {
+			bits   26;
+			access ro;
+			reset  'h0;
+		}
+        }
+	register OCT @'h58  {
+		field OCT_REQ_VALUE @0 {
+			bits   5;
+			access wo;
+			reset  'h0;
+		}
+		field OCT_REQ_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+        }
+	register FW_THROTTLE @'h5C  {
+		field FW_THROTTLE_REQ_VALUE @0 {
+			bits   5;
+			access wo;
+			reset  'h0;
+		}
+		field FW_THROTTLE_REQ_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+        }
+	register OTT @'h60  {
+		field OTT_REQ_VALUE @0 {
+			bits   5;
+			access wo;
+			reset  'h0;
+		}
+		field OTT_REQ_EN @5 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+        }
+	register CLUSTER_STEP @'h64  {
+		field CLUSTER_STEP_DELAY_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h0;
+		}
+		field CLUSTER_STEP_DELAY @1 {
+			bits   8;
+			access wo;
+			reset  'h0;
+		}
+        }
+	register CSC_ENABLE @'h68  {
+		field CLUSTER_CLK_CSC_EN @0 {
+			bits   1;
+			access wo;
+			reset  'h1;
+		}
+        }
+	register CSC_STATUS @'h6C  {
+		field DPM_STATUS @0 {
+			bits   5;
+			access ro;
+			reset  'h10;
+		}
+        }
+
+
+    register FUSE_MACRO_STATUS @'h70 {
+        field FUSE_SENSE_START @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_PROG_START @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_SENSE_FSM_STATUS @8 {
+            bits    2;
+            access  ro;
+        }
+        field FUSE_PROG_FSM_STATUS @12 {
+            bits    2;
+            access  ro;
+        }
+        field FUSE_SENSE_DONE @16 {
+            bits    1;
+            access  ro;
+        }
+        field FUSE_SENSE_BUSY @17 {
+            bits    1;
+            access  ro;
+        }
+        field FUSE_PROG_DONE @24 {
+            bits    1;
+            access  ro;
+        }
+        field FUSE_PROG_BUSY @25 {
+            bits    1;
+            access  ro;
+        }
+        field FUSE_PROG_FAIL @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_MACRO_MR_OVERRIDE @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_MACRO_MR0 @28 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_MACRO_MR1 @29 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_RAM_RM_OVERRIDE @30 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_RAM_LOW_POWER_ENABLE @31 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register FUSE_RAM_WR_RD_ADDR @'h74 {
+        field FUSE_RAM_ADDR @0 {
+            bits    10;
+            access  rw;
+            reset   'h0;
+        }
+    }
+
+    register FUSE_RAM_WR_RD_CTRL @'h78 {
+        field FUSE_RAM_WR_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_RAM_RD_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_RAM_ADDR_MODE @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register FUSE_RAM_WR_DATA @'h7c {
+        field FUSE_RAM_WR_DATA @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register FUSE_RAM_RD_DATA @'h80 {
+        field FUSE_RAM_RD_DATA @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_CTRL @'h84 {
+        field SPI_MODE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SCK_HALF_PERIOD @1 {
+            bits    5;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_CS_SETUP_TIME @6 {
+            bits    6;
+            access  wo;
+            reset   'h2;
+        }
+        field SPI_CS_HOLD_TIME @12 {
+            bits    6;
+            access  wo;
+            reset   'h2;
+        }
+    }
+    register SPI_FLASH_FW_LOAD_CMD @'h88 {
+        field SPI_FLASH_FW_LOAD_CMD @0 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_FLASH_FW_LOAD_DUMMY @8 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_FLASH_FW_LOAD_START @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_FLASH_FW_LOAD_DONE @31 {
+            bits    1;
+            access  ro;
+        }
+    }
+    register SPI_FLASH_FW_LOAD_ADDR @'h8c {
+        field SPI_FLASH_FW_LOAD_ADDR @0 {
+            bits    24;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_FW_LOAD_LEN @'h90 {
+        field FW_LOAD_LEN @0 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+        field FW_LOAD_RAM_ADDR @16 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_PROG_ADDR @'h94 {
+        field SPI_FLASH_PROG_ADDR @0 {
+            bits    24;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_PROG_CMD @'h98 {
+        field SPI_FLASH_PROG_CMD @0 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_FLASH_PROG_START @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_FLASH_PROG_DONE @31 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_PROG_IRAM_ADDR @'h9c {
+        field PROG_IRAM_ADDR @0 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+        field PROG_LEN @16 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_PROG_TIME @'ha0 {
+        field PROG_TIME @0 {
+            bits    24;
+            access  wo;
+            reset   'h0;
+        }
+        field PAGE_SIZE @24 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_GENERIC_COMMAND @'ha4 {
+        field GENERIC_COMMAND_TYPE @0 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field GENERIC_COMMAND_LEN @2 {
+            bits    4;
+            access  wo;
+            reset   'h0;
+        }
+        field GENERIC_COMMAND_RTN_LEN @8 {
+            bits    4;
+            access  wo;
+            reset   'h0;
+        }
+        field GENERIC_COMMAND_DUMMY @16 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+        field GENERIC_COMMAND_REQ @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GENERIC_COMMAND_DONE @31 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_GENERIC_COMMAND_DATA0 @'ha8 {
+        field GENERIC_COMMAND_DATA0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_GENERIC_COMMAND_DATA1 @'hac {
+        field GENERIC_COMMAND_DATA1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_GENERIC_COMMAND_RTN_DATA0 @'hb0 {
+        field GENERIC_COMMAND_RTN_DATA0 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register SPI_FLASH_GENERIC_COMMAND_RTN_DATA1 @'hb4 {
+        field GENERIC_COMMAND_RTN_DATA1 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register IRAM_WR_RD_ADDR @'hb8 {
+        field IRAM_ADDR @0 {
+            bits    16;
+            access  rw;
+            reset   'h0;
+        }
+    }
+
+    register IRAM_WR_RD_CTRL @'hbc {
+        field IRAM_WR_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field IRAM_RD_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field IRAM_ADDR_MODE @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register IRAM_WR_DATA @'hc0 {
+        field IRAM_WR_DATA @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register IRAM_RD_DATA @'hc4 {
+        field IRAM_RD_DATA @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER0_CTRL @'hc8 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER0_COMP0 @'hcc {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER0_COMP1 @'hd0 {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER0_VALUE @'hd4 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER1_CTRL @'hd8 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_SEL @9 {
+            bits    5;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER1_COMP0 @'hdc {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER1_COMP1 @'he0 {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER1_VALUE @'he4 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER2_CTRL @'he8 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_SEL @9 {
+            bits    5;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER2_COMP0 @'hec {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER2_COMP1 @'hf0 {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER2_VALUE @'hf4 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER3_CTRL @'hf8 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER3_COMP0 @'hfc {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER3_COMP1 @'h100 {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER3_VALUE @'h104 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER4_CTRL @'h108 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER4_COMP0 @'h10c {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER4_COMP1 @'h110 {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER4_VALUE @'h114 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register DRAM_WR_RD_ADDR @'h134 {
+        field DRAM_ADDR @0 {
+            bits    16;
+            access  rw;
+            reset   'h0;
+        }
+    }
+
+    register DRAM_WR_RD_CTRL @'h138 {
+        field DRAM_WR_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field DRAM_RD_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field DRAM_ADDR_MODE @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register DRAM_WR_DATA @'h13c {
+        field DRAM_WR_DATA @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register DRAM_RD_DATA @'h140 {
+        field DRAM_RD_DATA @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER5_CTRL @'h144 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER5_COMP0 @'h148 {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER5_COMP1 @'h14c {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER5_VALUE @'h150 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register TIMER6_CTRL @'h154 {
+        field TIMER_ENABLE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_MODE @1 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INPUT_SIG_TYPE @3 {
+            bits    2;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_EXT_CLR_EN @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_CLR @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field TIMER_STATUS @16 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+    }
+    register TIMER6_COMP0 @'h158 {
+        field TIMER_COMP0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER6_COMP1 @'h15c {
+        field TIMER_COMP1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register TIMER6_VALUE @'h160 {
+        field TIMER_VALUE @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+    register FAN_TACH @'h164 {
+        field FAN_TACH @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register GLOBAL_TIMER_0 @'h16c {
+        field GLOBAL_TIMER_LSB @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register GLOBAL_TIMER_1 @'h170 {
+        field GLOBAL_TIMER_MSB @0 {
+            bits    24;
+            access  ro;
+            reset   'h0;
+        }
+        field GLOBAL_TIMER_DIS @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GLOBAL_TIMER_CLR @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register SSM_ERROR_REPORT @'h174 {
+        field SSM_MCU_WATCH_DOG_ERROR @0 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field SSM_MCU_WATCH_DOG_ERROR_MASK @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SSM_MCU_FATAL_ERROR @2 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field SSM_MCU_FATAL_ERROR_MASK @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SSM_MCU_DOUBLE_EXCEPT_ERROR @4 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field SSM_MCU_DOUBLE_EXCEPT_ERROR_MASK @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SSM_MCU_FATAL_ERROR_INFO_VALID @6 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field SSM_MCU_FATAL_ERROR_INFO_VALID_MASK @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SSM_BOOT_ERROR_STATUS @8 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field SSM_BOOT_ERROR_MASK @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register SSM_MCU_FATAL_ERROR_INFO @'h178 {
+        field MCU_FATAL_ERROR_INFO @0 {
+            bits    32;
+            access  ro;
+        }
+    }
+    register SSM_BOOT_CONTROL @'h17c {
+        field SSM_BOOT_STATUS @0 {
+            bits    12;
+            access  rw;
+            reset   'h0;
+        }
+        field SSM_BOOT_ERROR @15 {
+            bits    1;
+            access  rw;
+            reset   'h0;
+        }
+        field SSM_BOOT_CONTROL_STEP @16 {
+            bits    8;
+            access  rw;
+            reset   'h0;
+        }
+        field SSM_BOOT_CONTROL_EN @31 {
+            bits    1;
+            access  rw;
+            reset   'h0;
+        }
+    }
+
+    register FUSE_READ_TIMING_CTRL @'h180 {
+        field FUSE_READ_SETUP @0 {
+            bits    8;
+            access  wo;
+            reset   'h1;
+        }
+        field FUSE_READ_STROBE @8 {
+            bits    8;
+            access  wo;
+            reset   'h1;
+        }
+        field FUSE_READ_HOLD @16 {
+            bits    8;
+            access  wo;
+            reset   'h1;
+        }
+    }
+
+    register FUSE_PROG_TIMING_CTRL @'h184 {
+        field FUSE_PROG_SETUP @0 {
+            bits    8;
+            access  wo;
+            reset   'h2;
+        }
+        field FUSE_PROG_HOLD @8 {
+            bits    8;
+            access  wo;
+            reset   'h2;
+        }
+        field FUSE_PROG_STROBE @16 {
+            bits    16;
+            access  wo;
+            reset   'd250;
+        }
+    }
+
+    register FUSE_READ_PROG_ROWS @'h188 {
+        field FUSE_START_ROW @0 {
+            bits    8;
+            access  rw;
+            reset   'h0;
+        }
+        field FUSE_END_ROW @8 {
+            bits    8;
+            access  wo;
+            reset   'd191;
+        }
+        field FUSE_SENSE_DEST @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_SENSE_ROW_MODE @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_PROG_SRC @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FUSE_PROG_ROW_MODE @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register REG_FUSE_SENSE_DATA @'h18c {
+        field FUSE_SENSE_DATA @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register REG_FUSE_PROG_DATA @'h190 {
+        field FUSE_PROG_DATA @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+
+    register SOC_FUSE_CONTROL @'h194 {
+        field PCIE4_HOT_RST_SEL @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PCIE4_FLR_RST_SEL @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PCIE4_PHY_SRAM_OVERRIDE_EN @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CCIX_PHY_SRAM_OVERRIDE_EN @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field HBM_DENSITY @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER0_HARVESTED_SIP_ID @5 {
+            bits    3;
+            access  wo;
+            reset   'h7;
+        }
+        field CLUSTER1_HARVESTED_SIP_ID @8 {
+            bits    3;
+            access  wo;
+            reset   'h7;
+        }
+        field CLUSTER2_HARVESTED_SIP_ID @11 {
+            bits    3;
+            access  wo;
+            reset   'h7;
+        }
+        field CLUSTER3_HARVESTED_SIP_ID @14 {
+            bits    3;
+            access  wo;
+            reset   'h7;
+        }
+        field CLUSTER0_SIP_HARVESTING_EN @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER1_SIP_HARVESTING_EN @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER2_SIP_HARVESTING_EN @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER3_SIP_HARVESTING_EN @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field DTU_CLK_FREQ @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field BK_PLL0_EN @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field BK_PLL1_EN @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER0_HARVESTING_EN @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER1_HARVESTING_EN @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER2_HARVESTING_EN @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CLUSTER3_HARVESTING_EN @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field JTAG_SECURITY_EN @28 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPARE @29 {
+            bits    3;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register SMBUS_UDID_0 @'h198 {
+        field SMBUS_UDID_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+    }
+
+    register SMBUS_UDID_1 @'h19c {
+        field SMBUS_UDID_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+    }
+
+    register SMBUS_UDID_2 @'h1a0 {
+        field SMBUS_UDID_95_64 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+    }
+
+    register SMBUS_UDID_3 @'h1a4 {
+        field SMBUS_UDID_127_96 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+    }
+
+    register DIE_ID @'h1a8 {
+        field DIE_ID @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register CHIP_ID @'h1ac {
+        field DEVICE_ID @0 {
+            bits    16;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+        field REV_ID @16 {
+            bits    4;
+            access  wo;
+            reset   'h0;    #FIXME, add correct ID
+        }
+        field SPARE @20 {
+            bits    12;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register SSM_SRAMMISC @'h1b0 {
+        field SRAMMISC @0 {
+            bits    32;
+            access  wo;
+            reset   'h80114522;
+        }
+    }
+
+    register MEM_REPAIR @'h1b4 {
+        field MEM_GRP0_REPAIR_SKIP @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP1_REPAIR_SKIP @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP2_REPAIR_SKIP @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP3_REPAIR_SKIP @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP4_REPAIR_SKIP @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP5_REPAIR_SKIP @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP6_REPAIR_SKIP @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MEM_GRP7_REPAIR_SKIP @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPARE @8 {
+            bits    24;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register SOC_MEM_REPAIR_INTF @'h1b8 {
+        field SOC_MEM_REPAIR_INFO_REQ @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_REPAIR_INFO_ACK @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_REPAIR_DONE_SET @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_REPAIR_DONE_CLR @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_REPAIR_DONE_STICKY @4 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP0_REPAIR_EN @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP1_REPAIR_EN @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP2_REPAIR_EN @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP3_REPAIR_EN @11 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP4_REPAIR_EN @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP5_REPAIR_EN @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP6_REPAIR_EN @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP7_REPAIR_EN @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP0_REPAIR_DONE @20 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP1_REPAIR_DONE @21 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP2_REPAIR_DONE @22 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP3_REPAIR_DONE @23 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP4_REPAIR_DONE @24 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP5_REPAIR_DONE @25 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP6_REPAIR_DONE @26 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field SOC_MEM_GRP7_REPAIR_DONE @27 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register EDF_ADDR_MSB @'h1bc {
+        field EDF_WR_ADDR_37_30 @0 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+        field EDF_RD_ADDR_37_30 @8 {
+            bits    8;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_OUTPUT_ENABLE_0 @'h1c0 {
+        field GPIO_OE_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_DEGLITCH_BYPASS_0 @'h1c4 {
+        field DEGLITCH_BYPASS_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_INPUT_DATA_0 @'h1c8 {
+        field GPIO_IN_0 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_OUTPUT_DATA_0 @'h1cc {
+        field GPIO_OUT_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_OUTPUT_ENABLE_1 @'h1d8 {
+        field GPIO_OE_1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_DEGLITCH_BYPASS_1 @'h1dc {
+        field DEGLITCH_BYPASS_1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_INPUT_DATA_1 @'h1e0 {
+        field GPIO_IN_1 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register GPIO_OUTPUT_DATA_1 @'h1e4 {
+        field GPIO_OUT_1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register PIN_STRAP_VALUE_0 @'h1f0 {
+        field PIN_STRAP_VAL_0 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register PIN_STRAP_VALUE_1 @'h1f4 {
+        field PIN_STRAP_VAL_1 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register BK_PLL0_CONFIG @'h1f8  {
+    	field RESET @0 {
+    		bits   1;
+    		access wo;
+    		reset  'h1;
+    	}
+    	field FSE @1 {
+    		bits   1;
+    		access wo;
+    		reset  'h1;
+    	}
+    	field BYPASS @2 {
+    		bits   1;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field DIVR @3 {
+    		bits   6;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field DIVF @9 {
+    		bits   9;
+    		access wo;
+    		reset  'h0;
+    	}
+    	field DIVQ @18 {
+    		bits   3;
+    		access wo;
+    		reset  'h1;
+    	}	       
+    	field RANGE @21 {
+    		bits   3;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field LOCK @24 {
+    		bits   1;
+    		access ro;
+    		reset  'h0;
+    	}       
+    }
+
+    register BK_PLL1_CONFIG @'h1fc  {
+    	field RESET @0 {
+    		bits   1;
+    		access wo;
+    		reset  'h1;
+    	}
+    	field FSE @1 {
+    		bits   1;
+    		access wo;
+    		reset  'h1;
+    	}
+    	field BYPASS @2 {
+    		bits   1;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field DIVR @3 {
+    		bits   6;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field DIVF @9 {
+    		bits   9;
+    		access wo;
+    		reset  'h0;
+    	}
+    	field DIVQ @18 {
+    		bits   3;
+    		access wo;
+    		reset  'h1;
+    	}	       
+    	field RANGE @21 {
+    		bits   3;
+    		access wo;
+    		reset  'h0;
+    	}       
+    	field LOCK @24 {
+    		bits   1;
+    		access ro;
+    		reset  'h0;
+    	}       
+    }
+
+    register SSM_NOC_AXI_USER @'h200 {
+        field NOC_AWUSER @0 {
+            bits    16;
+            access  wo;
+            reset   'h120;
+        }
+        field NOC_ARUSER @16 {
+            bits    16;
+            access  wo;
+            reset   'h120;
+        }
+    }
+
+    register SSM_NOC_AXI_QOS @'h204 {
+        field NOC_AWQOS @0 {
+            bits    4;
+            access  wo;
+            reset   'h0;
+        }
+        field NOC_ARQOS @4 {
+            bits    4;
+            access  wo;
+            reset   'h0;
+        }
+        field NOC_AWQOS_OVERRIDE @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field NOC_ARQOS_OVERRIDE @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register EXT_INTF_STATUS @'h20c {
+        field EXT_THM_TCRIT @0 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field EXT_THM_ALERT @1 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR0_ALERT @2 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR0_HOT_CRIT @3 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR0_IOUT_ALERT @4 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR1_ALERT @5 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR1_HOT_CRIT @6 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field VR1_IOUT_ALERT @7 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field BMC_ALERT @8 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field I2C_SENSOR_ALERT @9 {
+            bits    1;
+            access  ro;
+            reset   'h1;
+        }
+        field CQM0_PWAIT_MODE @10 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field CQM1_PWAIT_MODE @11 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field CQM2_PWAIT_MODE @12 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field CQM3_PWAIT_MODE @13 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_FILTER_BYPASS @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_ALERT_FILTER_BYPASS @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_ALERT_FILTER_BYPASS @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_HOT_CRIT_FILTER_BYPASS @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_FILTER_BYPASS @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_ALERT_FILTER_BYPASS @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_HOT_CRIT_FILTER_BYPASS @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_FILTER_BYPASS @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field BMC_ALERT_FILTER_BYPASS @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C_SENSOR_ALERT_FILTER_BYPASS @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CQM0_PWAIT_MODE_OVERRIDE @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CQM1_PWAIT_MODE_OVERRIDE @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CQM2_PWAIT_MODE_OVERRIDE @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CQM3_PWAIT_MODE_OVERRIDE @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field OUTPUT_THM_ALERT @31 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_BINT_CTRL0 @'h210 {
+        field BINT_TYPE @0 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+        field BINT_LEVEL_POL @16 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_BINT_CTRL1 @'h214 {
+        field BINT_PULSE_MODE @0 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+        field BINT_ENABLE @16 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_BINT_STATUS @'h218 {
+        field BINT_STATUS @0 {
+            bits    16;
+            access  ro;
+            reset   'h0;
+        }
+        field BINT_CLR @16 {
+            bits    16;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_TYPE_0 @'h21c {
+        field GP0_INT_TYPE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_TYPE_1 @'h220 {
+        field GP0_INT_TYPE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_LEVEL_POL_0 @'h224 {
+        field GP0_INT_LEVEL_POL_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_LEVEL_POL_1 @'h228 {
+        field GP0_INT_LEVEL_POL_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_PULSE_MODE_0 @'h22c {
+        field GP0_INT_PULSE_MODE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_PULSE_MODE_1 @'h230 {
+        field GP0_INT_PULSE_MODE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_ENABLE_0 @'h234 {
+        field GP0_INT_ENABLE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_ENABLE_1 @'h238 {
+        field GP0_INT_ENABLE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_STATUS_0 @'h23c {
+        field GP0_INT_STATUS_31_0 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_STATUS_1 @'h240 {
+        field GP0_INT_STATUS_63_32 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_CLR_0 @'h244 {
+        field GP0_INT_CLR_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP0_INT_CLR_1 @'h248 {
+        field GP0_INT_CLR_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_TYPE_0 @'h24c {
+        field GP1_INT_TYPE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_TYPE_1 @'h250 {
+        field GP1_INT_TYPE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_LEVEL_POL_0 @'h254 {
+        field GP1_INT_LEVEL_POL_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_LEVEL_POL_1 @'h258 {
+        field GP1_INT_LEVEL_POL_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_PULSE_MODE_0 @'h25c {
+        field GP1_INT_PULSE_MODE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_PULSE_MODE_1 @'h260 {
+        field GP1_INT_PULSE_MODE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_ENABLE_0 @'h264 {
+        field GP1_INT_ENABLE_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_ENABLE_1 @'h268 {
+        field GP1_INT_ENABLE_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_STATUS_0 @'h26c {
+        field GP1_INT_STATUS_31_0 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_STATUS_1 @'h270 {
+        field GP1_INT_STATUS_63_32 @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_CLR_0 @'h274 {
+        field GP1_INT_CLR_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_CLR_1 @'h278 {
+        field GP1_INT_CLR_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_TRIG_0 @'h27c {
+        field GP1_INT_TRIG_31_0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_GP1_INT_TRIG_1 @'h280 {
+        field GP1_INT_TRIG_63_32 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+#    register PVT_SENSOR_CTRL @'h284 {
+#        field PVT_ENABLE @0 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_CLK_ENABLE @1 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_VSAMPLE @2 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_PSAMPLE @3 {
+#            bits    2;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_PSAMPLE_P @5 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_PSAMPLE_N @6 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_SAMPLE_MODE @7 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_SAMPLE_PATTERN @8 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_SAMPLE_START @15 {
+#            bits    1;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_SAMPLE_TIME @16 {
+#            bits    16;
+#            access  wo;
+#            reset   'h0;
+#        }
+#    }
+#
+#    register PVT_SENSOR_TIMING @'h288 {
+#        field PVT_CLK_HALF_PERIOD @0 {
+#            bits    16;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_SETUP_TIME @16 {
+#            bits    8;
+#            access  wo;
+#            reset   'h0;
+#        }
+#        field PVT_HOLD_TIME @24 {
+#            bits    8;
+#            access  wo;
+#            reset   'h0;
+#        }
+#    }
+#
+#    register PVT_SENSOR_SAMPLE_DATA @'h28c {
+#        field PVT_SAMPLE_DATA @0 {
+#            bits    10;
+#            access  ro;
+#            reset   'h0;
+#        }
+#        field PVT_SAMPLE_READY @15 {
+#            bits    1;
+#            access  w1c;
+#            reset   'h0;
+#        }
+#    }
+
+    register SPI_PAD_CTRL @'h290 {
+        field SPI_CS_PE @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_CS_PS @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_CS_SR @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_CS_DS0 @3 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_CS_DS1 @4 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SCLK_PE @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SCLK_PS @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SCLK_SR @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SCLK_DS0 @8 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SCLK_DS1 @9 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO0_PE @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO0_PS @11 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO0_SR @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO0_DS0 @13 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO0_DS1 @14 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO1_PE @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO1_PS @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO1_SR @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO1_DS0 @18 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO1_DS1 @19 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO2_PE @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO2_PS @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO2_SR @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO2_DS0 @23 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO2_DS1 @24 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO3_PE @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO3_PS @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO3_SR @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SPI_SIO3_DS0 @28 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SPI_SIO3_DS1 @29 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+    }
+
+    register I2C_PAD_CTRL @'h294 {
+        field PMBUS0_CLK_SLEWCTL @0 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS0_CLK_HF @1 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS0_DIO_SLEWCTL @2 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS0_DIO_HF @3 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS1_CLK_SLEWCTL @4 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS1_CLK_HF @5 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS1_DIO_SLEWCTL @6 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field PMBUS1_DIO_HF @7 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C0_CLK_SLEWCTL @8 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C0_CLK_HF @9 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C0_DIO_SLEWCTL @10 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C0_DIO_HF @11 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C1_CLK_SLEWCTL @12 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C1_CLK_HF @13 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C1_DIO_SLEWCTL @14 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field I2C1_DIO_HF @15 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SMBUS_CLK_SLEWCTL @16 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SMBUS_CLK_HF @17 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SMBUS_DIO_SLEWCTL @18 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field SMBUS_DIO_HF @19 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+    }
+
+    register PAD_CTRL_0 @'h298 {
+        field FAN_TACH_A @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_OE @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_SRC @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_SMTC @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_DRV0C @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_DRV1C @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_PUC @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_TACH_PDC @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_OE @8 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field FAN_OUT_SRC @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_SMTC @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_DRV0C @11 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_DRV1C @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_PUC @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field FAN_OUT_PDC @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_SRC @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_SMTC @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_DRV0C @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_DRV1C @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_PUC @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS0_ALERT_PDC @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_SRC @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_SMTC @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_DRV0C @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_DRV1C @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_PUC @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field PMBUS1_ALERT_PDC @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register PAD_CTRL_1 @'h29c {
+        field VR0_IOUT_ALERT_A @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_OE @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_SRC @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_SMTC @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_DRV0C @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_DRV1C @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_PUC @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_IOUT_ALERT_PDC @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_A @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_OE @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_SRC @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_SMTC @11 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_DRV0C @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_DRV1C @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_PUC @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR0_VRHOT_PDC @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_A @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_OE @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_SRC @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_SMTC @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_DRV0C @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_DRV1C @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_PUC @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_IOUT_ALERT_PDC @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_A @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_OE @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_SRC @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_SMTC @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_DRV0C @28 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_DRV1C @29 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_PUC @30 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field VR1_VRHOT_PDC @31 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register PAD_CTRL_2 @'h2a0 {
+        field I2C0_ALERT_SRC @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C0_ALERT_SMTC @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C0_ALERT_DRV0C @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C0_ALERT_DRV1C @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C0_ALERT_PUC @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C0_ALERT_PDC @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_SRC @6 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_SMTC @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_DRV0C @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_DRV1C @9 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_PUC @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field I2C1_ALERT_PDC @11 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+       field EXT_THM_TCRIT_A @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_OE @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_SRC @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_SMTC @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_DRV0C @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_DRV1C @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_PUC @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EXT_THM_TCRIT_PDC @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_A @20 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field CTF_OUT_POL @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_OE @22 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field CTF_OUT_SRC @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_SMTC @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_DRV0C @25 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_DRV1C @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_PUC @27 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field CTF_OUT_PDC @28 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register PAD_CTRL_3 @'h2a4 {
+        field SMBUS_ALERT_SRC @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SMBUS_ALERT_SMTC @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SMBUS_ALERT_DRV0C @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SMBUS_ALERT_DRV1C @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SMBUS_ALERT_PUC @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field SMBUS_ALERT_PDC @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field XTAL_SP @6 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field XTAL_SF0 @7 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field XTAL_SF1 @8 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field OSC_SP @9 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field OSC_SF0 @10 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field OSC_SF1 @11 {
+            bits    1;
+            access  wo;
+            reset   'h1;
+        }
+        field GPIO_GRP0_SR @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP0_DS0 @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP0_DS1 @14 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP1_SR @15 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP1_DS0 @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP1_DS1 @17 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP2_DS1 @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP2_SR @19 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP2_DS0 @20 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP3_DS1 @21 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP3_SR @22 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field GPIO_GRP3_DS0 @23 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register ECF_SLV_PARITY_0 @'h2a8 {
+        field ECF_SLV_WR_PARITY_CHK_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_SLV_RD_PARITY_ERROR_INJECT_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_SLV_WR_PARITY_ERROR_STATUS @2 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field ECF_SLV_WR_PARITY_ERROR_INT_EN @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_SLV_WR_PARITY_ERROR_AWID @4 {
+            bits    4;
+            access  ro;
+            reset   'h0;
+        }
+        field ECF_SLV_WR_PARITY_ERROR_AWUSER @8 {
+            bits    16;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register ECF_SLV_PARITY_1 @'h2ac {
+        field ECF_SLV_WR_PARITY_ERROR_WADDR @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register ECF_EDF_MST_PARITY @'h2b0 {
+        field ECF_MST_WR_PARITY_ERROR_INJECT_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_MST_WR_PARITY_ERROR_STATUS @1 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field ECF_MST_WR_PARITY_ERROR_INT_EN @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_MST_WR_PARITY_ERROR_BID @4 {
+            bits    4;
+            access  ro;
+            reset   'h0;
+        }
+        field ECF_MST_RD_PARITY_ERROR_CHK_EN @8 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_MST_RD_PARITY_ERROR_STATUS @9 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field ECF_MST_RD_PARITY_ERROR_INT_EN @10 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field ECF_MST_RD_PARITY_ERROR_RID @12 {
+            bits    4;
+            access  ro;
+            reset   'h0;
+        }
+        field EDF_MST_WR_PARITY_ERROR_INJECT_EN @16 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EDF_MST_WR_PARITY_ERROR_STATUS @17 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field EDF_MST_WR_PARITY_ERROR_INT_EN @18 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EDF_MST_WR_PARITY_ERROR_BID @20 {
+            bits    4;
+            access  ro;
+            reset   'h0;
+        }
+        field EDF_MST_RD_PARITY_ERROR_CHK_EN @24 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EDF_MST_RD_PARITY_ERROR_STATUS @25 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field EDF_MST_RD_PARITY_ERROR_INT_EN @26 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field EDF_MST_RD_PARITY_ERROR_RID @28 {
+            bits    4;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register SSM_SRAM_PARITY @'h2b4 {
+        field FUSE_RAM_PARITY_ERROR_STATUS @0 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field FUSE_RAM_PARITY_ERROR_INT_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MCU_IRAM_PARITY_ERROR_STATUS @2 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field MCU_IRAM_PARITY_ERROR_INT_EN @3 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MCU_DRAM_PARITY_ERROR_STATUS @4 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field MCU_DRAM_PARITY_ERROR_INT_EN @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field MCU_DCACHE_PARITY_ERROR_STATUS @6 {
+            bits    1;
+            access  w1c;
+            reset   'h0;
+        }
+        field MCU_DCACHE_PARITY_ERROR_INT_EN @7 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register DCACHE_WR_RD_ADDR @'h2b8 {
+        field DCACHE_ADDR @0 {
+            bits   16;
+            access  rw;
+            reset   'h0;
+        }
+    }
+
+    register DCACHE_WR_RD_CTRL @'h2bc {
+        field DCACHE_WR_EN @0 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field DCACHE_RD_EN @1 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field DCACHE_ADDR_MODE @2 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register DCACHE_WR_DATA @'h2c0 {
+        field DCACHE_WR_DATA @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register DCACHE_RD_DATA @'h2c4 {
+        field DCACHE_RD_DATA @0 {
+            bits    32;
+            access  ro;
+            reset   'h0;
+        }
+    }
+
+    register MC_HBM_TEMP @'h2c8 {
+        field HBM_PHY0_TEMP @0 {
+            bits    3;
+            access  ro;
+            reset   'h0;
+        }
+        field HBM_PHY0_CATTRIP @3 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field HBM_PHY0_CATTRIP_INT_EN @4 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field HBM_PHY0_CATTRIP_POL @5 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field HBM_PHY1_TEMP @8 {
+            bits    3;
+            access  ro;
+            reset   'h0;
+        }
+        field HBM_PHY1_CATTRIP @11 {
+            bits    1;
+            access  ro;
+            reset   'h0;
+        }
+        field HBM_PHY1_CATTRIP_INT_EN @12 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+        field HBM_PHY1_CATTRIP_POL @13 {
+            bits    1;
+            access  wo;
+            reset   'h0;
+        }
+    }
+
+    register MCU_SCRATCH0 @'h400 {
+        field MCU_SCRATCH0 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register MCU_SCRATCH1 @'h404 {
+        field MCU_SCRATCH1 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register MCU_SCRATCH2 @'h408 {
+        field MCU_SCRATCH2 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+    register MCU_SCRATCH3 @'h40c {
+        field MCU_SCRATCH3 @0 {
+            bits    32;
+            access  wo;
+            reset   'h0;
+        }
+    }
+}
+
+system ssm_regmodel  {
+    bytes 4;
+    block ssm_regs @'h0;
+}
